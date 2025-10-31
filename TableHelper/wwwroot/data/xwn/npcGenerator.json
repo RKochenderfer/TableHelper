@@ -1,0 +1,1976 @@
+{
+  "npcMakeupOptions": {
+    "initialManner": [
+      "Ingratiating and cloying",
+      "Grim suspicion of the PCs or their backers",
+      "Xenophilic interest in the novelty of the PCs",
+      "A slimy used-gravcar dealer's approach",
+      "Wide-eyed awe at the PCs",
+      "Cool and superior toward PC \"hirelings\"",
+      "Benevolently patronizing towards outsiders",
+      "Sweaty-palmed need or desperation",
+      "Xenophobic mistrust of the PCs",
+      "Idealistic enthusiasm for a potentially shared cause",
+      "Somewhat intoxicated by recent indulgence",
+      "Smoothly persuasive and reasonable",
+      "Visibly uncomfortable with the PCs ",
+      "Grossly overconfident in PC abilities",
+      "Somewhat frightened by the PCs",
+      "Deeply misunderstanding the PCs’ culture",
+      "Extremely well-informed about the PCs’ past",
+      "Distracted by their current situation "
+    ],
+    "defaultDealOutcome": [
+      "They’ll screw the PCs over even at their own cost",
+      "They firmly intend to actively betray the PCs",
+      "They won’t keep the deal unless driven to it",
+      "They plan to twist the deal to their own advantage",
+      "They won’t keep their word unless it’s profitable",
+      "They’ll flinch from paying up when the time comes",
+      "They mean to keep the deal, but are reluctant",
+      "They’ll keep most of the deal, but not all of it",
+      "They’ll keep the deal slowly and grudgingly",
+      "They’ll keep the deal but won’t go out of their way",
+      "They’ll be reasonably punctual about the deal",
+      "They’ll want a further small favor to pay up on it",
+      "They’ll keep the deal in a way that helps them",
+      "They’ll keep the deal if it’s still good for them",
+      "They’ll offer a bonus for an additional favor",
+      "Trustworthy as long as the deal won’t hurt them",
+      "Trustworthy, with the NPC following through",
+      "They’ll be very fair in keeping to their agreements",
+      "They’ll keep bargains even to their own cost",
+      "Complete and righteous integrity to the bitter end"
+    ],
+    "theirMotivation": [
+      "An ambition for greater social status",
+      "Greed for wealth and indulgent riches",
+      "Protect a loved one who is somehow imperiled",
+      "A sheer sadistic love of inflicting pain and suffering",
+      "Hedonistic enjoyment of pleasing company",
+      "Searching out hidden knowledge or science",
+      "Establishing or promoting a cultural institution",
+      "Avenging a grievous wrong to them or a loved one",
+      "Promoting their religion and living out their faith",
+      "Winning the love of a particular person",
+      "Winning glory and fame in their profession",
+      "Dodging an enemy who is pursuing them",
+      "Driving out or killing an enemy group",
+      "Deposing a rival to them in their line of work",
+      "Getting away from this world or society",
+      "Promote a friend or offspring's career or future",
+      "Taking control of a property or piece of land",
+      "Building a structure or a complex prototype tech",
+      "Perform or create their art to vast acclaim",
+      "Redeem themselves from a prior failure"
+    ],
+    "theirWant": [
+      "Bring them an exotic piece of tech",
+      "Convince someone to meet with the NPC",
+      "Kill a particular NPC",
+      "Kidnap or non-fatally eliminate a particular NPC",
+      "Take them a large amount of money",
+      "Pay a message to someone hard to reach",
+      "Acquire a tech component that's hard to get",
+      "Find proof of a particular NPC’s malevolence",
+      "Locate a missing NPC",
+      "Research an NPC from a distant via dangerous travel",
+      "Retrieve someone from an impending attack",
+      "Defend a lost or stolen object",
+      "Burn down or destroy a particular structure",
+      "Steal something from a rival NPC or group",
+      "Intimidate a rival into ending their course of action",
+      "Trick a rival into doing the NPC’s work",
+      "Escape from someone or a rival situation",
+      "Bring someone to a dire situation area"
+    ],
+    "theirPower": [
+      "They're just really sympathetic to PCs",
+      "They have considerable liquid funds",
+      "They control the use of large amounts of violence",
+      "They have a position of great social status",
+      "They're a good friend of an important local leader",
+      "They have blackmail info on the PCs",
+      "They have considerable legal influence here",
+      "They have tech the PCs might reasonably want",
+      "They can get the PCs into a place they want to go",
+      "They know where significant wealth can be found",
+      "They have information about the PCs' current goal",
+      "An NPC the PCs need has implicit trust in them",
+      "The NPC can threaten someone the PCs like",
+      "They control a business relevant to PC needs",
+      "They have considerable criminal contacts",
+      "They have pull with the local religion",
+      "They know a great many corrupt politicians",
+      "They can alert the PCs to an unexpected peril",
+      "They're able to push a goal the PCs currently have",
+      "They can get the PCs useful permits and rights"
+    ],
+    "theirHook": [
+      "A particular odd style of dress",
+      "An amputation or other maiming",
+      "Visible cyberware or prosthetics",
+      "Unusual hair, skin, or eye colors",
+      "Scarring, either intentional or from old injuries",
+      "Tic-like overuse of a particular word or phrase",
+      "Specific unusual fragrance or cologne",
+      "Constant fiddling with a particular item",
+      "Visible signs of drug use",
+      "Always seems to be in one particular mood",
+      "Wears badges or marks of allegiance to a cause",
+      "Extremely slow or fast pace of speech",
+      "Wheezes, shakes, or other signs of infirmity",
+      "Constantly with a drink in hand",
+      "Always complaining about a group or organization",
+      "Paranoid, possibly for justifiable reasons",
+      "Insists on a particular location for all meetings",
+      "Communicates strictly through a third party",
+      "Abnormally obese, emaciated, tall, or short",
+      "Always found with henchmen or friends"
+    ],
+    "theirBackground": [
+      "The local underclass or poorest natives",
+      "Common laborers or cube workers",
+      "Aspiring bourgeoisie or upper class",
+      "The elite of this society",
+      "Minority or foreigners; reroll on 1d4",
+      "Offworlders or exotics; reroll on 1d4"
+    ],
+    "theirRoleInSociety": [
+      "Criminal, thug, thief, swindler",
+      "Menial, cleaner, retail worker, servant",
+      "Unskilled heavy labor, porter, construction",
+      "Skilled trade, electrician, mechanic, pilot",
+      "Idea worker, programmer, writer",
+      "Merchant, business owner, trader, banker",
+      "Official, bureaucrat, courtier, clerk",
+      "Military, soldier, enforcer, law officer"
+    ],
+    "theirBiggestProblem": [
+      "They have significant debt or money woes",
+      "A loved one is in trouble; reroll for it",
+      "Romantic failure with a desired person",
+      "Drug or behavioral addiction",
+      "Their superior dislikes or resents them",
+      "They have a persistent sickness",
+      "They hate their job or life situation",
+      "Someone dangerous is targeting them",
+      "They're pursuing a disastrous purpose",
+      "They have no problems worth mentioning"
+    ],
+    "age": [
+      "Unusually young or old for their role",
+      "Young adult",
+      "Mature prime",
+      "Middle-aged or elderly"
+    ],
+    "theirGreatestDesire": [
+      "They want a particular romantic partner",
+      "They want money for them or a loved one",
+      "They want a promotion in their job",
+      "They want answers about a past trauma",
+      "They want revenge on an enemy",
+      "They want to help a beleaguered friend",
+      "They want an entirely different job",
+      "They want protection from an enemy",
+      "They want to leave their current life",
+      "They want fame and glory",
+      "They want power over those around them",
+      "They have everything they want from life"
+    ],
+    "mostObviousCharacterTrait": [
+      "Ambition",
+      "Avarice",
+      "Bitterness",
+      "Courage",
+      "Cowardice",
+      "Curiosity",
+      "Deceitfulness",
+      "Determination",
+      "Devotion to a cause",
+      "Filiality",
+      "Hatred",
+      "Honesty",
+      "Hopefulness",
+      "Love of a person",
+      "Nihilism",
+      "Paternalism",
+      "Pessimism",
+      "Protectiveness",
+      "Resentment",
+      "Shame"
+    ]
+  },
+  "nameOptions": {
+    "arabic": [
+      {
+        "rangeStart": 1,
+        "rangeEnd": 4,
+        "male": "Aamir",
+        "female": "Aisha",
+        "surname": "Abdel"
+      },
+      {
+        "rangeStart": 5,
+        "rangeEnd": 8,
+        "male": "Ayub",
+        "female": "Alimah",
+        "surname": "Awad"
+      },
+      {
+        "rangeStart": 9,
+        "rangeEnd": 12,
+        "male": "Binjamin",
+        "female": "Badia",
+        "surname": "Dahhak"
+      },
+      {
+        "rangeStart": 13,
+        "rangeEnd": 16,
+        "male": "Efraim",
+        "female": "Bisharah",
+        "surname": "Essa"
+      },
+      {
+        "rangeStart": 17,
+        "rangeEnd": 20,
+        "male": "Ibrahim",
+        "female": "Chanda",
+        "surname": "Hanna"
+      },
+      {
+        "rangeStart": 21,
+        "rangeEnd": 24,
+        "male": "Ilyas",
+        "female": "Daliya",
+        "surname": "Harbi"
+      },
+      {
+        "rangeStart": 25,
+        "rangeEnd": 28,
+        "male": "Ismail",
+        "female": "Fatimah",
+        "surname": "Hassan"
+      },
+      {
+        "rangeStart": 29,
+        "rangeEnd": 32,
+        "male": "Jibril",
+        "female": "Ghania",
+        "surname": "Isa"
+      },
+      {
+        "rangeStart": 33,
+        "rangeEnd": 36,
+        "male": "Jumanah",
+        "female": "Halah",
+        "surname": "Kasim"
+      },
+      {
+        "rangeStart": 37,
+        "rangeEnd": 40,
+        "male": "Kazi",
+        "female": "Kaylah",
+        "surname": "Katib"
+      },
+      {
+        "rangeStart": 41,
+        "rangeEnd": 44,
+        "male": "Lut",
+        "female": "Khayrah",
+        "surname": "Khalil"
+      },
+      {
+        "rangeStart": 45,
+        "rangeEnd": 48,
+        "male": "Matta",
+        "female": "Layla",
+        "surname": "Malik"
+      },
+      {
+        "rangeStart": 49,
+        "rangeEnd": 52,
+        "male": "Mohammad",
+        "female": "Mina",
+        "surname": "Mansoor"
+      },
+      {
+        "rangeStart": 53,
+        "rangeEnd": 56,
+        "male": "Mubarak",
+        "female": "Munisa",
+        "surname": "Mazin"
+      },
+      {
+        "rangeStart": 57,
+        "rangeEnd": 60,
+        "male": "Mustafa",
+        "female": "Mysha",
+        "surname": "Musa"
+      },
+      {
+        "rangeStart": 61,
+        "rangeEnd": 64,
+        "male": "Nazir",
+        "female": "Naimah",
+        "surname": "Najeeb"
+      },
+      {
+        "rangeStart": 65,
+        "rangeEnd": 68,
+        "male": "Rahim",
+        "female": "Nissa",
+        "surname": "Namari"
+      },
+      {
+        "rangeStart": 69,
+        "rangeEnd": 72,
+        "male": "Reza",
+        "female": "Nura",
+        "surname": "Naser"
+      },
+      {
+        "rangeStart": 73,
+        "rangeEnd": 76,
+        "male": "Sharif",
+        "female": "Parveen",
+        "surname": "Rahman"
+      },
+      {
+        "rangeStart": 77,
+        "rangeEnd": 80,
+        "male": "Taimur",
+        "female": "Rana",
+        "surname": "Rasheed"
+      },
+      {
+        "rangeStart": 81,
+        "rangeEnd": 84,
+        "male": "Usman",
+        "female": "Shalha",
+        "surname": "Saleh"
+      },
+      {
+        "rangeStart": 85,
+        "rangeEnd": 88,
+        "male": "Yakub",
+        "female": "Suhira",
+        "surname": "Salim"
+      },
+      {
+        "rangeStart": 89,
+        "rangeEnd": 92,
+        "male": "Yusuf",
+        "female": "Tahirah",
+        "surname": "Shadi"
+      },
+      {
+        "rangeStart": 93,
+        "rangeEnd": 96,
+        "male": "Zakariya",
+        "female": "Yasmin",
+        "surname": "Sulaiman"
+      },
+      {
+        "rangeStart": 97,
+        "rangeEnd": 100,
+        "male": "Zubairya",
+        "female": "Zulekha",
+        "surname": "Tabari"
+      }
+    ],
+    "chinese": [
+      {
+        "rangeStart": 1,
+        "rangeEnd": 4,
+        "male": "Aiguo",
+        "female": "Biyu",
+        "surname": "Bai"
+      },
+      {
+        "rangeStart": 5,
+        "rangeEnd": 8,
+        "male": "Bohai",
+        "female": "Changying",
+        "surname": "Cao"
+      },
+      {
+        "rangeStart": 9,
+        "rangeEnd": 12,
+        "male": "Chao",
+        "female": "Daiyu",
+        "surname": "Chen"
+      },
+      {
+        "rangeStart": 13,
+        "rangeEnd": 16,
+        "male": "Dai",
+        "female": "Huidai",
+        "surname": "Cui"
+      },
+      {
+        "rangeStart": 17,
+        "rangeEnd": 20,
+        "male": "Dawei",
+        "female": "Huiliang",
+        "surname": "Ding"
+      },
+      {
+        "rangeStart": 21,
+        "rangeEnd": 24,
+        "male": "Duyi",
+        "female": "Jia",
+        "surname": "Du"
+      },
+      {
+        "rangeStart": 25,
+        "rangeEnd": 28,
+        "male": "Fa",
+        "female": "Jingfei",
+        "surname": "Fang"
+      },
+      {
+        "rangeStart": 29,
+        "rangeEnd": 32,
+        "male": "Fu",
+        "female": "Lan",
+        "surname": "Fu"
+      },
+      {
+        "rangeStart": 33,
+        "rangeEnd": 36,
+        "male": "Gui",
+        "female": "Liling",
+        "surname": "Guo"
+      },
+      {
+        "rangeStart": 37,
+        "rangeEnd": 40,
+        "male": "Hong",
+        "female": "Liu",
+        "surname": "Han"
+      },
+      {
+        "rangeStart": 41,
+        "rangeEnd": 44,
+        "male": "Jianyu",
+        "female": "Meili",
+        "surname": "Hao"
+      },
+      {
+        "rangeStart": 45,
+        "rangeEnd": 48,
+        "male": "Kang",
+        "female": "Niu",
+        "surname": "Huang"
+      },
+      {
+        "rangeStart": 49,
+        "rangeEnd": 52,
+        "male": "Li",
+        "female": "Peizhi",
+        "surname": "Lei"
+      },
+      {
+        "rangeStart": 53,
+        "rangeEnd": 56,
+        "male": "Niu",
+        "female": "Qiao",
+        "surname": "Li"
+      },
+      {
+        "rangeStart": 57,
+        "rangeEnd": 60,
+        "male": "Peng",
+        "female": "Qing",
+        "surname": "Liang"
+      },
+      {
+        "rangeStart": 61,
+        "rangeEnd": 64,
+        "male": "Quan",
+        "female": "Ruolan",
+        "surname": "Liu"
+      },
+      {
+        "rangeStart": 65,
+        "rangeEnd": 68,
+        "male": "Ru",
+        "female": "Shu",
+        "surname": "Long"
+      },
+      {
+        "rangeStart": 69,
+        "rangeEnd": 72,
+        "male": "Shen",
+        "female": "Suyin",
+        "surname": "Song"
+      },
+      {
+        "rangeStart": 73,
+        "rangeEnd": 76,
+        "male": "Shi",
+        "female": "Ting",
+        "surname": "Tan"
+      },
+      {
+        "rangeStart": 77,
+        "rangeEnd": 80,
+        "male": "Song",
+        "female": "Xia",
+        "surname": "Tang"
+      },
+      {
+        "rangeStart": 81,
+        "rangeEnd": 84,
+        "male": "Tao",
+        "female": "Xiaowen",
+        "surname": "Wang"
+      },
+      {
+        "rangeStart": 85,
+        "rangeEnd": 88,
+        "male": "Xue",
+        "female": "Xiulan",
+        "surname": "Wu"
+      },
+      {
+        "rangeStart": 89,
+        "rangeEnd": 92,
+        "male": "Yi",
+        "female": "Ya",
+        "surname": "Xing"
+      },
+      {
+        "rangeStart": 93,
+        "rangeEnd": 96,
+        "male": "Yuan",
+        "female": "Ying",
+        "surname": "Yang"
+      },
+      {
+        "rangeStart": 97,
+        "rangeEnd": 100,
+        "male": "Zian",
+        "female": "Zhilan",
+        "surname": "Zhang"
+      }
+    ],
+    "english": [
+      {
+        "rangeStart": 1,
+        "rangeEnd": 4,
+        "male": "Adam",
+        "female": "Abigail",
+        "surname": "Barker"
+      },
+      {
+        "rangeStart": 5,
+        "rangeEnd": 8,
+        "male": "Albert",
+        "female": "Anne",
+        "surname": "Brown"
+      },
+      {
+        "rangeStart": 9,
+        "rangeEnd": 12,
+        "male": "Alfred",
+        "female": "Beatrice",
+        "surname": "Butler"
+      },
+      {
+        "rangeStart": 13,
+        "rangeEnd": 16,
+        "male": "Allan",
+        "female": "Blanche",
+        "surname": "Carter"
+      },
+      {
+        "rangeStart": 17,
+        "rangeEnd": 20,
+        "male": "Archibald",
+        "female": "Catherine",
+        "surname": "Chapman"
+      },
+      {
+        "rangeStart": 21,
+        "rangeEnd": 24,
+        "male": "Arthur",
+        "female": "Charlotte",
+        "surname": "Collins"
+      },
+      {
+        "rangeStart": 25,
+        "rangeEnd": 28,
+        "male": "Basil",
+        "female": "Claire",
+        "surname": "Cook"
+      },
+      {
+        "rangeStart": 29,
+        "rangeEnd": 32,
+        "male": "Charles",
+        "female": "Eleanor",
+        "surname": "Davies"
+      },
+      {
+        "rangeStart": 33,
+        "rangeEnd": 36,
+        "male": "Colin",
+        "female": "Elizabeth",
+        "surname": "Gray"
+      },
+      {
+        "rangeStart": 37,
+        "rangeEnd": 40,
+        "male": "Donald",
+        "female": "Emily",
+        "surname": "Green"
+      },
+      {
+        "rangeStart": 41,
+        "rangeEnd": 44,
+        "male": "Douglas",
+        "female": "Emma",
+        "surname": "Harris"
+      },
+      {
+        "rangeStart": 45,
+        "rangeEnd": 48,
+        "male": "Edgar",
+        "female": "Georgia",
+        "surname": "Jackson"
+      },
+      {
+        "rangeStart": 49,
+        "rangeEnd": 52,
+        "male": "Edmund",
+        "female": "Harriet",
+        "surname": "Jones"
+      },
+      {
+        "rangeStart": 53,
+        "rangeEnd": 56,
+        "male": "Edward",
+        "female": "Joan",
+        "surname": "Lloyd"
+      },
+      {
+        "rangeStart": 57,
+        "rangeEnd": 60,
+        "male": "George",
+        "female": "Judy",
+        "surname": "Miller"
+      },
+      {
+        "rangeStart": 61,
+        "rangeEnd": 64,
+        "male": "Harold",
+        "female": "Julia",
+        "surname": "Roberts"
+      },
+      {
+        "rangeStart": 65,
+        "rangeEnd": 68,
+        "male": "Henry",
+        "female": "Lucy",
+        "surname": "Smith"
+      },
+      {
+        "rangeStart": 69,
+        "rangeEnd": 72,
+        "male": "Ian",
+        "female": "Lydia",
+        "surname": "Taylor"
+      },
+      {
+        "rangeStart": 73,
+        "rangeEnd": 76,
+        "male": "James",
+        "female": "Margaret",
+        "surname": "Thomas"
+      },
+      {
+        "rangeStart": 77,
+        "rangeEnd": 80,
+        "male": "John",
+        "female": "Mary",
+        "surname": "Turner"
+      },
+      {
+        "rangeStart": 81,
+        "rangeEnd": 84,
+        "male": "Lewis",
+        "female": "Molly",
+        "surname": "Watson"
+      },
+      {
+        "rangeStart": 85,
+        "rangeEnd": 88,
+        "male": "Oliver",
+        "female": "Nora",
+        "surname": "White"
+      },
+      {
+        "rangeStart": 89,
+        "rangeEnd": 92,
+        "male": "Philip",
+        "female": "Rosie",
+        "surname": "Williams"
+      },
+      {
+        "rangeStart": 93,
+        "rangeEnd": 96,
+        "male": "Richard",
+        "female": "Sarah",
+        "surname": "Wood"
+      },
+      {
+        "rangeStart": 97,
+        "rangeEnd": 100,
+        "male": "William",
+        "female": "Victoria",
+        "surname": "Young"
+      }
+    ],
+    "greek": [
+      {
+        "rangeStart": 1,
+        "rangeEnd": 4,
+        "male": "Alexander",
+        "female": "Alexandra",
+        "surname": "Andreas"
+      },
+      {
+        "rangeStart": 5,
+        "rangeEnd": 8,
+        "male": "Alexius",
+        "female": "Amalia",
+        "surname": "Argyros"
+      },
+      {
+        "rangeStart": 9,
+        "rangeEnd": 12,
+        "male": "Anastasius",
+        "female": "Callisto",
+        "surname": "Dimitriou"
+      },
+      {
+        "rangeStart": 13,
+        "rangeEnd": 16,
+        "male": "Christodoulos",
+        "female": "Charis",
+        "surname": "Floros"
+      },
+      {
+        "rangeStart": 17,
+        "rangeEnd": 20,
+        "male": "Christos",
+        "female": "Chloe",
+        "surname": "Gavras"
+      },
+      {
+        "rangeStart": 21,
+        "rangeEnd": 24,
+        "male": "Damian",
+        "female": "Dorothea",
+        "surname": "Ioannidis"
+      },
+      {
+        "rangeStart": 25,
+        "rangeEnd": 28,
+        "male": "Dimitris",
+        "female": "Elena",
+        "surname": "Katsaros"
+      },
+      {
+        "rangeStart": 29,
+        "rangeEnd": 32,
+        "male": "Dysmas",
+        "female": "Eudoxia",
+        "surname": "Kyrkos"
+      },
+      {
+        "rangeStart": 33,
+        "rangeEnd": 36,
+        "male": "Elias",
+        "female": "Giada",
+        "surname": "Leventis"
+      },
+      {
+        "rangeStart": 37,
+        "rangeEnd": 40,
+        "male": "Giorgos",
+        "female": "Helena",
+        "surname": "Makris"
+      },
+      {
+        "rangeStart": 41,
+        "rangeEnd": 44,
+        "male": "Ioannis",
+        "female": "Ioanna",
+        "surname": "Metaxas"
+      },
+      {
+        "rangeStart": 45,
+        "rangeEnd": 48,
+        "male": "Konstantinos",
+        "female": "Lydia",
+        "surname": "Nikolaidis"
+      },
+      {
+        "rangeStart": 49,
+        "rangeEnd": 52,
+        "male": "Lambros",
+        "female": "Melania",
+        "surname": "Palllis"
+      },
+      {
+        "rangeStart": 53,
+        "rangeEnd": 56,
+        "male": "Leonidas",
+        "female": "Melissa",
+        "surname": "Pappas"
+      },
+      {
+        "rangeStart": 57,
+        "rangeEnd": 60,
+        "male": "Marcos",
+        "female": "Nika",
+        "surname": "Petrou"
+      },
+      {
+        "rangeStart": 61,
+        "rangeEnd": 64,
+        "male": "Miltiades",
+        "female": "Nikolina",
+        "surname": "Raptis"
+      },
+      {
+        "rangeStart": 65,
+        "rangeEnd": 68,
+        "male": "Nestor",
+        "female": "Olympia",
+        "surname": "Simonides"
+      },
+      {
+        "rangeStart": 69,
+        "rangeEnd": 72,
+        "male": "Nikos",
+        "female": "Philippa",
+        "surname": "Spiros"
+      },
+      {
+        "rangeStart": 73,
+        "rangeEnd": 76,
+        "male": "Orestes",
+        "female": "Phoebe",
+        "surname": "Stavros"
+      },
+      {
+        "rangeStart": 77,
+        "rangeEnd": 80,
+        "male": "Petros",
+        "female": "Sophia",
+        "surname": "Stephanidis"
+      },
+      {
+        "rangeStart": 81,
+        "rangeEnd": 84,
+        "male": "Simon",
+        "female": "Theodora",
+        "surname": "Stratigos"
+      },
+      {
+        "rangeStart": 85,
+        "rangeEnd": 88,
+        "male": "Stavros",
+        "female": "Valentina",
+        "surname": "Terzis"
+      },
+      {
+        "rangeStart": 89,
+        "rangeEnd": 92,
+        "male": "Theodore",
+        "female": "Valeria",
+        "surname": "Theodorou"
+      },
+      {
+        "rangeStart": 93,
+        "rangeEnd": 96,
+        "male": "Vassilios",
+        "female": "Yianna",
+        "surname": "Vasiliadis"
+      },
+      {
+        "rangeStart": 97,
+        "rangeEnd": 100,
+        "male": "Yannis",
+        "female": "Zoe",
+        "surname": "Yannakakis"
+      }
+    ],
+    "indian": [
+      {
+        "rangeStart": 1,
+        "rangeEnd": 4,
+        "male": "Amrit",
+        "female": "Amala",
+        "surname": "Achari"
+      },
+      {
+        "rangeStart": 5,
+        "rangeEnd": 8,
+        "male": "Ashok",
+        "female": "Asha",
+        "surname": "Banerjee"
+      },
+      {
+        "rangeStart": 9,
+        "rangeEnd": 12,
+        "male": "Chand",
+        "female": "Chandra",
+        "surname": "Bhatnagar"
+      },
+      {
+        "rangeStart": 13,
+        "rangeEnd": 16,
+        "male": "Dinesh",
+        "female": "Devika",
+        "surname": "Bose"
+      },
+      {
+        "rangeStart": 17,
+        "rangeEnd": 20,
+        "male": "Gobind",
+        "female": "Esha",
+        "surname": "Chauhan"
+      },
+      {
+        "rangeStart": 21,
+        "rangeEnd": 24,
+        "male": "Harinder",
+        "female": "Gita",
+        "surname": "Chopra"
+      },
+      {
+        "rangeStart": 25,
+        "rangeEnd": 28,
+        "male": "Jagdish",
+        "female": "Indira",
+        "surname": "Das"
+      },
+      {
+        "rangeStart": 29,
+        "rangeEnd": 32,
+        "male": "Johar",
+        "female": "Indrani",
+        "surname": "Dutta"
+      },
+      {
+        "rangeStart": 33,
+        "rangeEnd": 36,
+        "male": "Kurien",
+        "female": "Jaya",
+        "surname": "Gupta"
+      },
+      {
+        "rangeStart": 37,
+        "rangeEnd": 40,
+        "male": "Lakshman",
+        "female": "Jayanti",
+        "surname": "Johar"
+      },
+      {
+        "rangeStart": 41,
+        "rangeEnd": 44,
+        "male": "Madhav",
+        "female": "Kiri",
+        "surname": "Kapoor"
+      },
+      {
+        "rangeStart": 45,
+        "rangeEnd": 48,
+        "male": "Mahinder",
+        "female": "Lalita",
+        "surname": "Mahajan"
+      },
+      {
+        "rangeStart": 49,
+        "rangeEnd": 52,
+        "male": "Mohal",
+        "female": "Malati",
+        "surname": "Malhotra"
+      },
+      {
+        "rangeStart": 53,
+        "rangeEnd": 56,
+        "male": "Narinder",
+        "female": "Mira",
+        "surname": "Mehra"
+      },
+      {
+        "rangeStart": 57,
+        "rangeEnd": 60,
+        "male": "Nikhil",
+        "female": "Mohana",
+        "surname": "Nehru"
+      },
+      {
+        "rangeStart": 61,
+        "rangeEnd": 64,
+        "male": "Omrao",
+        "female": "Neela",
+        "surname": "Patil"
+      },
+      {
+        "rangeStart": 65,
+        "rangeEnd": 68,
+        "male": "Prasad",
+        "female": "Nita",
+        "surname": "Rao"
+      },
+      {
+        "rangeStart": 69,
+        "rangeEnd": 72,
+        "male": "Pratap",
+        "female": "Rajani",
+        "surname": "Saxena"
+      },
+      {
+        "rangeStart": 73,
+        "rangeEnd": 76,
+        "male": "Ranjit",
+        "female": "Sarala",
+        "surname": "Shah"
+      },
+      {
+        "rangeStart": 77,
+        "rangeEnd": 80,
+        "male": "Sanjay",
+        "female": "Sarika",
+        "surname": "Sharma"
+      },
+      {
+        "rangeStart": 81,
+        "rangeEnd": 84,
+        "male": "Shankar",
+        "female": "Sheela",
+        "surname": "Singh"
+      },
+      {
+        "rangeStart": 85,
+        "rangeEnd": 88,
+        "male": "Thakur",
+        "female": "Sunita",
+        "surname": "Trivedi"
+      },
+      {
+        "rangeStart": 89,
+        "rangeEnd": 92,
+        "male": "Vijay",
+        "female": "Trishna",
+        "surname": "Venkatesan"
+      },
+      {
+        "rangeStart": 93,
+        "rangeEnd": 96,
+        "male": "Vipul",
+        "female": "Usha",
+        "surname": "Verma"
+      },
+      {
+        "rangeStart": 97,
+        "rangeEnd": 100,
+        "male": "Yash",
+        "female": "Vasanta",
+        "surname": "Yadav"
+      }
+    ],
+    "japanese": [
+      {
+        "rangeStart": 1,
+        "rangeEnd": 4,
+        "male": "Akira",
+        "female": "Aemi",
+        "surname": "Abe"
+      },
+      {
+        "rangeStart": 5,
+        "rangeEnd": 8,
+        "male": "Daisuke",
+        "female": "Airi",
+        "surname": "Araki"
+      },
+      {
+        "rangeStart": 9,
+        "rangeEnd": 12,
+        "male": "Fukashi",
+        "female": "Ako",
+        "surname": "Endo"
+      },
+      {
+        "rangeStart": 13,
+        "rangeEnd": 16,
+        "male": "Goro",
+        "female": "Ayu",
+        "surname": "Fujiwara"
+      },
+      {
+        "rangeStart": 17,
+        "rangeEnd": 20,
+        "male": "Hiro",
+        "female": "Chikaze",
+        "surname": "Goto"
+      },
+      {
+        "rangeStart": 21,
+        "rangeEnd": 24,
+        "male": "Hiroya",
+        "female": "Eriko",
+        "surname": "Ito"
+      },
+      {
+        "rangeStart": 25,
+        "rangeEnd": 28,
+        "male": "Hotaka",
+        "female": "Hina",
+        "surname": "Kikuchi"
+      },
+      {
+        "rangeStart": 29,
+        "rangeEnd": 32,
+        "male": "Katsu",
+        "female": "Kaori",
+        "surname": "Kinjo"
+      },
+      {
+        "rangeStart": 33,
+        "rangeEnd": 36,
+        "male": "Katusto",
+        "female": "Keiko",
+        "surname": "Kobayashi"
+      },
+      {
+        "rangeStart": 37,
+        "rangeEnd": 40,
+        "male": "Keishuu",
+        "female": "Kyouka",
+        "surname": "Koga"
+      },
+      {
+        "rangeStart": 41,
+        "rangeEnd": 44,
+        "male": "Kyuto",
+        "female": "Mayumi",
+        "surname": "Komatsu"
+      },
+      {
+        "rangeStart": 45,
+        "rangeEnd": 48,
+        "male": "Mikiya",
+        "female": "Miho",
+        "surname": "Maeda"
+      },
+      {
+        "rangeStart": 49,
+        "rangeEnd": 52,
+        "male": "Mitsunobu",
+        "female": "Namiko",
+        "surname": "Nakamura"
+      },
+      {
+        "rangeStart": 53,
+        "rangeEnd": 56,
+        "male": "Mitsuru",
+        "female": "Natsu",
+        "surname": "Narita"
+      },
+      {
+        "rangeStart": 57,
+        "rangeEnd": 60,
+        "male": "Naruhiko",
+        "female": "Nobuko",
+        "surname": "Ochi"
+      },
+      {
+        "rangeStart": 61,
+        "rangeEnd": 64,
+        "male": "Nobu",
+        "female": "Rei",
+        "surname": "Oshiro"
+      },
+      {
+        "rangeStart": 65,
+        "rangeEnd": 68,
+        "male": "Shigeo",
+        "female": "Ririsa",
+        "surname": "Saito"
+      },
+      {
+        "rangeStart": 69,
+        "rangeEnd": 72,
+        "male": "Shigeto",
+        "female": "Sakimi",
+        "surname": "Sakamoto"
+      },
+      {
+        "rangeStart": 73,
+        "rangeEnd": 76,
+        "male": "Shou",
+        "female": "Shihoko",
+        "surname": "Sato"
+      },
+      {
+        "rangeStart": 77,
+        "rangeEnd": 80,
+        "male": "Shuji",
+        "female": "Shika",
+        "surname": "Suzuki"
+      },
+      {
+        "rangeStart": 81,
+        "rangeEnd": 84,
+        "male": "Takaharu",
+        "female": "Tsukiko",
+        "surname": "Takahashi"
+      },
+      {
+        "rangeStart": 85,
+        "rangeEnd": 88,
+        "male": "Teruaki",
+        "female": "Tsuzune",
+        "surname": "Tanaka"
+      },
+      {
+        "rangeStart": 89,
+        "rangeEnd": 92,
+        "male": "Tetsushi",
+        "female": "Yoriko",
+        "surname": "Watanabe"
+      },
+      {
+        "rangeStart": 93,
+        "rangeEnd": 96,
+        "male": "Tsukasa",
+        "female": "Yorimi",
+        "surname": "Yamamoto"
+      },
+      {
+        "rangeStart": 97,
+        "rangeEnd": 100,
+        "male": "Yasuharu",
+        "female": "Yoshiko",
+        "surname": "Yamasaki"
+      }
+    ],
+    "latin": [
+      {
+        "rangeStart": 1,
+        "rangeEnd": 4,
+        "male": "Agrippa",
+        "female": "Appia",
+        "surname": "Antius"
+      },
+      {
+        "rangeStart": 5,
+        "rangeEnd": 8,
+        "male": "Appius",
+        "female": "Aula",
+        "surname": "Aurius"
+      },
+      {
+        "rangeStart": 9,
+        "rangeEnd": 12,
+        "male": "Aulus",
+        "female": "Caesula",
+        "surname": "Barbatius"
+      },
+      {
+        "rangeStart": 13,
+        "rangeEnd": 16,
+        "male": "Caeso",
+        "female": "Decima",
+        "surname": "Calidius"
+      },
+      {
+        "rangeStart": 17,
+        "rangeEnd": 20,
+        "male": "Decimus",
+        "female": "Fausta",
+        "surname": "Cornelius"
+      },
+      {
+        "rangeStart": 21,
+        "rangeEnd": 24,
+        "male": "Faustus",
+        "female": "Gaia",
+        "surname": "Decius"
+      },
+      {
+        "rangeStart": 25,
+        "rangeEnd": 28,
+        "male": "Gaius",
+        "female": "Gnaea",
+        "surname": "Fabius"
+      },
+      {
+        "rangeStart": 29,
+        "rangeEnd": 32,
+        "male": "Gnaeus",
+        "female": "Hosta",
+        "surname": "Flavius"
+      },
+      {
+        "rangeStart": 33,
+        "rangeEnd": 36,
+        "male": "Hostus",
+        "female": "Lucia",
+        "surname": "Galerius"
+      },
+      {
+        "rangeStart": 37,
+        "rangeEnd": 40,
+        "male": "Lucius",
+        "female": "Maio",
+        "surname": "Horatius"
+      },
+      {
+        "rangeStart": 41,
+        "rangeEnd": 44,
+        "male": "Mamercus",
+        "female": "Marcia",
+        "surname": "Julius"
+      },
+      {
+        "rangeStart": 45,
+        "rangeEnd": 48,
+        "male": "Manlius",
+        "female": "Maxima",
+        "surname": "Juventus"
+      },
+      {
+        "rangeStart": 49,
+        "rangeEnd": 52,
+        "male": "Marcus",
+        "female": "Mettia",
+        "surname": "Licinius"
+      },
+      {
+        "rangeStart": 53,
+        "rangeEnd": 56,
+        "male": "Mettius",
+        "female": "Nona",
+        "surname": "Marius"
+      },
+      {
+        "rangeStart": 57,
+        "rangeEnd": 60,
+        "male": "Nonus",
+        "female": "Numeria",
+        "surname": "Minicius"
+      },
+      {
+        "rangeStart": 61,
+        "rangeEnd": 64,
+        "male": "Numerius",
+        "female": "Octavia",
+        "surname": "Nerious"
+      },
+      {
+        "rangeStart": 65,
+        "rangeEnd": 68,
+        "male": "Opiter",
+        "female": "Postuma",
+        "surname": "Octavius"
+      },
+      {
+        "rangeStart": 69,
+        "rangeEnd": 72,
+        "male": "Paulus",
+        "female": "Prima",
+        "surname": "Pompeius"
+      },
+      {
+        "rangeStart": 73,
+        "rangeEnd": 76,
+        "male": "Proculus",
+        "female": "Procula",
+        "surname": "Quintilius"
+      },
+      {
+        "rangeStart": 77,
+        "rangeEnd": 80,
+        "male": "Publius",
+        "female": "Septima",
+        "surname": "Rutilius"
+      },
+      {
+        "rangeStart": 81,
+        "rangeEnd": 84,
+        "male": "Quintus",
+        "female": "Servia",
+        "surname": "Sextius"
+      },
+      {
+        "rangeStart": 85,
+        "rangeEnd": 88,
+        "male": "Servius",
+        "female": "Tertia",
+        "surname": "Titius"
+      },
+      {
+        "rangeStart": 89,
+        "rangeEnd": 92,
+        "male": "Tiberius",
+        "female": "Tiberia",
+        "surname": "Ulpius"
+      },
+      {
+        "rangeStart": 93,
+        "rangeEnd": 96,
+        "male": "Titus",
+        "female": "Titia",
+        "surname": "Valerius"
+      },
+      {
+        "rangeStart": 97,
+        "rangeEnd": 100,
+        "male": "Volescus",
+        "female": "Vibia",
+        "surname": "Vitellius"
+      }
+    ],
+    "nigerian": [
+      {
+        "rangeStart": 1,
+        "rangeEnd": 4,
+        "male": "Adesegun",
+        "female": "Abike",
+        "surname": "Adegboye"
+      },
+      {
+        "rangeStart": 5,
+        "rangeEnd": 8,
+        "male": "Akintola",
+        "female": "Adesuwa",
+        "surname": "Adeniyi"
+      },
+      {
+        "rangeStart": 9,
+        "rangeEnd": 12,
+        "male": "Amabere",
+        "female": "Adunola",
+        "surname": "Adeyeku"
+      },
+      {
+        "rangeStart": 13,
+        "rangeEnd": 16,
+        "male": "Arikawe",
+        "female": "Anguli",
+        "surname": "Adunola"
+      },
+      {
+        "rangeStart": 17,
+        "rangeEnd": 20,
+        "male": "Asagwara",
+        "female": "Arewa",
+        "surname": "Agbaje"
+      },
+      {
+        "rangeStart": 21,
+        "rangeEnd": 24,
+        "male": "Chidubem",
+        "female": "Asari",
+        "surname": "Akpan"
+      },
+      {
+        "rangeStart": 25,
+        "rangeEnd": 28,
+        "male": "Chinedu",
+        "female": "Bisola",
+        "surname": "Akpehi"
+      },
+      {
+        "rangeStart": 29,
+        "rangeEnd": 32,
+        "male": "Chiweitei",
+        "female": "Chioma",
+        "surname": "Aliki"
+      },
+      {
+        "rangeStart": 33,
+        "rangeEnd": 36,
+        "male": "Damilola",
+        "female": "Eduwa",
+        "surname": "Asuni"
+      },
+      {
+        "rangeStart": 37,
+        "rangeEnd": 40,
+        "male": "Esangbedo",
+        "female": "Emilohi",
+        "surname": "Babangida"
+      },
+      {
+        "rangeStart": 41,
+        "rangeEnd": 44,
+        "male": "Ezenwoye",
+        "female": "Fehintola",
+        "surname": "Ekim"
+      },
+      {
+        "rangeStart": 45,
+        "rangeEnd": 48,
+        "male": "Folarin",
+        "female": "Folasaade",
+        "surname": "Ezeiruaku"
+      },
+      {
+        "rangeStart": 49,
+        "rangeEnd": 52,
+        "male": "Genechi",
+        "female": "Mahparah",
+        "surname": "Fabiola"
+      },
+      {
+        "rangeStart": 53,
+        "rangeEnd": 56,
+        "male": "Idowu",
+        "female": "Minika",
+        "surname": "Fasola"
+      },
+      {
+        "rangeStart": 57,
+        "rangeEnd": 60,
+        "male": "Kelechi",
+        "female": "Nkolika",
+        "surname": "Nwokolor"
+      },
+      {
+        "rangeStart": 61,
+        "rangeEnd": 64,
+        "male": "Ketanndu",
+        "female": "Nkoyo",
+        "surname": "Nzeocha"
+      },
+      {
+        "rangeStart": 65,
+        "rangeEnd": 68,
+        "male": "Melubari",
+        "female": "Nuanae",
+        "surname": "Ojo"
+      },
+      {
+        "rangeStart": 69,
+        "rangeEnd": 72,
+        "male": "Nkanata",
+        "female": "Obioma",
+        "surname": "Okonkwo"
+      },
+      {
+        "rangeStart": 73,
+        "rangeEnd": 76,
+        "male": "Obafemi",
+        "female": "Olafemi",
+        "surname": "Okoye"
+      },
+      {
+        "rangeStart": 77,
+        "rangeEnd": 80,
+        "male": "Olatunde",
+        "female": "Shanumi",
+        "surname": "Olaniyan"
+      },
+      {
+        "rangeStart": 81,
+        "rangeEnd": 84,
+        "male": "Olumide",
+        "female": "Sominabo",
+        "surname": "Olawale"
+      },
+      {
+        "rangeStart": 85,
+        "rangeEnd": 88,
+        "male": "Tombari",
+        "female": "Suliat",
+        "surname": "Olumese"
+      },
+      {
+        "rangeStart": 89,
+        "rangeEnd": 92,
+        "male": "Udofia",
+        "female": "Tariere",
+        "surname": "Onajobi"
+      },
+      {
+        "rangeStart": 93,
+        "rangeEnd": 96,
+        "male": "Uyoata",
+        "female": "Temedire",
+        "surname": "Soyinka"
+      },
+      {
+        "rangeStart": 97,
+        "rangeEnd": 100,
+        "male": "Uzochi",
+        "female": "Yemisi",
+        "surname": "Yamusa"
+      }
+    ],
+    "russian": [
+      {
+        "rangeStart": 1,
+        "rangeEnd": 4,
+        "male": "Aleksandr",
+        "female": "Aleksandra",
+        "surname": "Abelev"
+      },
+      {
+        "rangeStart": 5,
+        "rangeEnd": 8,
+        "male": "Andrei",
+        "female": "Anastasia",
+        "surname": "Bobrikov"
+      },
+      {
+        "rangeStart": 9,
+        "rangeEnd": 12,
+        "male": "Arkady",
+        "female": "Anja",
+        "surname": "Chemerkin"
+      },
+      {
+        "rangeStart": 13,
+        "rangeEnd": 16,
+        "male": "Boris",
+        "female": "Catarina",
+        "surname": "Gogunov"
+      },
+      {
+        "rangeStart": 17,
+        "rangeEnd": 20,
+        "male": "Dmitri",
+        "female": "Devora",
+        "surname": "Gurov"
+      },
+      {
+        "rangeStart": 21,
+        "rangeEnd": 24,
+        "male": "Dominik",
+        "female": "Dima",
+        "surname": "Iltchenko"
+      },
+      {
+        "rangeStart": 25,
+        "rangeEnd": 28,
+        "male": "Grigory",
+        "female": "Ekaterina",
+        "surname": "Kavelin"
+      },
+      {
+        "rangeStart": 29,
+        "rangeEnd": 32,
+        "male": "Igor",
+        "female": "Eva",
+        "surname": "Komarov"
+      },
+      {
+        "rangeStart": 33,
+        "rangeEnd": 36,
+        "male": "Illya",
+        "female": "Irina",
+        "surname": "Korovin"
+      },
+      {
+        "rangeStart": 37,
+        "rangeEnd": 40,
+        "male": "Ivan",
+        "female": "Karolina",
+        "surname": "Kurnikov"
+      },
+      {
+        "rangeStart": 41,
+        "rangeEnd": 44,
+        "male": "Kirill",
+        "female": "Katlina",
+        "surname": "Lebedev"
+      },
+      {
+        "rangeStart": 45,
+        "rangeEnd": 48,
+        "male": "Konstantin",
+        "female": "Kira",
+        "surname": "Litvak"
+      },
+      {
+        "rangeStart": 49,
+        "rangeEnd": 52,
+        "male": "Leonid",
+        "female": "Ludmilla",
+        "surname": "Mekhdiev"
+      },
+      {
+        "rangeStart": 53,
+        "rangeEnd": 56,
+        "male": "Nikolai",
+        "female": "Mara",
+        "surname": "Muraviov"
+      },
+      {
+        "rangeStart": 57,
+        "rangeEnd": 60,
+        "male": "Oleg",
+        "female": "Nadezhda",
+        "surname": "Nikitin"
+      },
+      {
+        "rangeStart": 61,
+        "rangeEnd": 64,
+        "male": "Pavel",
+        "female": "Nastassia",
+        "surname": "Ortov"
+      },
+      {
+        "rangeStart": 65,
+        "rangeEnd": 68,
+        "male": "Petr",
+        "female": "Natalya",
+        "surname": "Peshkov"
+      },
+      {
+        "rangeStart": 69,
+        "rangeEnd": 72,
+        "male": "Sergei",
+        "female": "Oksana",
+        "surname": "Romasko"
+      },
+      {
+        "rangeStart": 73,
+        "rangeEnd": 76,
+        "male": "Stepan",
+        "female": "Olena",
+        "surname": "Shvedov"
+      },
+      {
+        "rangeStart": 77,
+        "rangeEnd": 80,
+        "male": "Valentin",
+        "female": "Olga",
+        "surname": "Sikorski"
+      },
+      {
+        "rangeStart": 81,
+        "rangeEnd": 84,
+        "male": "Vasily",
+        "female": "Sofia",
+        "surname": "Stolypin"
+      },
+      {
+        "rangeStart": 85,
+        "rangeEnd": 88,
+        "male": "Viktor",
+        "female": "Svetlana",
+        "surname": "Turov"
+      },
+      {
+        "rangeStart": 89,
+        "rangeEnd": 92,
+        "male": "Yakov",
+        "female": "Tatiana",
+        "surname": "Volokh"
+      },
+      {
+        "rangeStart": 93,
+        "rangeEnd": 96,
+        "male": "Yegor",
+        "female": "Vilma",
+        "surname": "Zaitsev"
+      },
+      {
+        "rangeStart": 97,
+        "rangeEnd": 100,
+        "male": "Yuri",
+        "female": "Yelena",
+        "surname": "Zhukov"
+      }
+    ],
+    "spanish": [
+      {
+        "rangeStart": 1,
+        "rangeEnd": 4,
+        "male": "Alejandro",
+        "female": "Adalina",
+        "surname": "Arrellano"
+      },
+      {
+        "rangeStart": 5,
+        "rangeEnd": 8,
+        "male": "Alonso",
+        "female": "Aleta",
+        "surname": "Arispana"
+      },
+      {
+        "rangeStart": 9,
+        "rangeEnd": 12,
+        "male": "Amelio",
+        "female": "Ana",
+        "surname": "Borrego"
+      },
+      {
+        "rangeStart": 13,
+        "rangeEnd": 16,
+        "male": "Armando",
+        "female": "Ascencion",
+        "surname": "Carderas"
+      },
+      {
+        "rangeStart": 17,
+        "rangeEnd": 20,
+        "male": "Bernardo",
+        "female": "Beatriz",
+        "surname": "Carranzo"
+      },
+      {
+        "rangeStart": 21,
+        "rangeEnd": 24,
+        "male": "Carlos",
+        "female": "Carmela",
+        "surname": "Cordova"
+      },
+      {
+        "rangeStart": 25,
+        "rangeEnd": 28,
+        "male": "Cesar",
+        "female": "Celia",
+        "surname": "Enciso"
+      },
+      {
+        "rangeStart": 29,
+        "rangeEnd": 32,
+        "male": "Diego",
+        "female": "Dolores",
+        "surname": "Espejo"
+      },
+      {
+        "rangeStart": 33,
+        "rangeEnd": 36,
+        "male": "Emilio",
+        "female": "Elena",
+        "surname": "Gavilan"
+      },
+      {
+        "rangeStart": 37,
+        "rangeEnd": 40,
+        "male": "Estevan",
+        "female": "Emelina",
+        "surname": "Guerra"
+      },
+      {
+        "rangeStart": 41,
+        "rangeEnd": 44,
+        "male": "Felipe",
+        "female": "Felipa",
+        "surname": "Guillen"
+      },
+      {
+        "rangeStart": 45,
+        "rangeEnd": 48,
+        "male": "Francisco",
+        "female": "Inez",
+        "surname": "Huertas"
+      },
+      {
+        "rangeStart": 49,
+        "rangeEnd": 52,
+        "male": "Guillermo",
+        "female": "Isabel",
+        "surname": "Illan"
+      },
+      {
+        "rangeStart": 53,
+        "rangeEnd": 56,
+        "male": "Javier",
+        "female": "Jacinta",
+        "surname": "Jurado"
+      },
+      {
+        "rangeStart": 57,
+        "rangeEnd": 60,
+        "male": "Jose",
+        "female": "Lucia",
+        "surname": "Moretta"
+      },
+      {
+        "rangeStart": 61,
+        "rangeEnd": 64,
+        "male": "Juan",
+        "female": "Lupe",
+        "surname": "Motolinia"
+      },
+      {
+        "rangeStart": 65,
+        "rangeEnd": 68,
+        "male": "Julio",
+        "female": "Maria",
+        "surname": "Pancorbo"
+      },
+      {
+        "rangeStart": 69,
+        "rangeEnd": 72,
+        "male": "Luis",
+        "female": "Marta",
+        "surname": "Paredes"
+      },
+      {
+        "rangeStart": 73,
+        "rangeEnd": 76,
+        "male": "Pedro",
+        "female": "Nina",
+        "surname": "Quesada"
+      },
+      {
+        "rangeStart": 77,
+        "rangeEnd": 80,
+        "male": "Raul",
+        "female": "Paloma",
+        "surname": "Roma"
+      },
+      {
+        "rangeStart": 81,
+        "rangeEnd": 84,
+        "male": "Ricardo",
+        "female": "Rafaela",
+        "surname": "Rubiera"
+      },
+      {
+        "rangeStart": 85,
+        "rangeEnd": 88,
+        "male": "Salvador",
+        "female": "Soledad",
+        "surname": "Santoro"
+      },
+      {
+        "rangeStart": 89,
+        "rangeEnd": 92,
+        "male": "Santiago",
+        "female": "Teresa",
+        "surname": "Torrillas"
+      },
+      {
+        "rangeStart": 93,
+        "rangeEnd": 96,
+        "male": "Valeriano",
+        "female": "Valencia",
+        "surname": "Vera"
+      },
+      {
+        "rangeStart": 97,
+        "rangeEnd": 100,
+        "male": "Vicente",
+        "female": "Zenaida",
+        "surname": "Vivero"
+      }
+    ]
+  }
+}

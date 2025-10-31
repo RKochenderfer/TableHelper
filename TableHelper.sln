@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TableHelper", "TableHelper\TableHelper.csproj", "{C46F43F0-D3B1-4044-981D-DC3815CD84B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TableHelper.Models", "TableHelper.Models\TableHelper.Models.csproj", "{29FC3453-143F-4714-ACFC-0883CF200F19}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C46F43F0-D3B1-4044-981D-DC3815CD84B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C46F43F0-D3B1-4044-981D-DC3815CD84B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C46F43F0-D3B1-4044-981D-DC3815CD84B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C46F43F0-D3B1-4044-981D-DC3815CD84B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29FC3453-143F-4714-ACFC-0883CF200F19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29FC3453-143F-4714-ACFC-0883CF200F19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29FC3453-143F-4714-ACFC-0883CF200F19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29FC3453-143F-4714-ACFC-0883CF200F19}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
