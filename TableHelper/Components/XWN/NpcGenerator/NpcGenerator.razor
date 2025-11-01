@@ -1,3 +1,4 @@
+@using TableHelper.Models.Generators.Npc
 @using TableHelper.Models.Npc
 @inject HttpClient Http
 
@@ -48,9 +49,7 @@
             <div class="col-auto"></div>
         </div>
     </div>
-  
-    
-    <NpcGeneratorDisplay Npcs="@_npcs"></NpcGeneratorDisplay>
+<NpcGeneratorDisplay Npcs="@_npcs"></NpcGeneratorDisplay>
 
 @code {
     private int _numberOfNpcs;

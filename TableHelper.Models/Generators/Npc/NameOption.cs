@@ -1,4 +1,4 @@
-namespace TableHelper.Models.Npc;
+namespace TableHelper.Models.Generators.Npc;
 
 public class NameOption
 {

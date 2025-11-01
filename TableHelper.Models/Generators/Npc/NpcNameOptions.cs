@@ -1,6 +1,4 @@
-using TableHelper.Models.Npc;
-
-namespace TableHelper.Models;
+namespace TableHelper.Models.Generators.Npc;
 
 public class NpcNameOptions
 {
