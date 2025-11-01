@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TableHelper", "TableHelper\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TableHelper.Models", "TableHelper.Models\TableHelper.Models.csproj", "{29FC3453-143F-4714-ACFC-0883CF200F19}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TableHelper.Api", "TableHelper.Api\TableHelper.Api.csproj", "{76F30E2D-2381-44D9-BF13-D5E30371E318}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{29FC3453-143F-4714-ACFC-0883CF200F19}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29FC3453-143F-4714-ACFC-0883CF200F19}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29FC3453-143F-4714-ACFC-0883CF200F19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76F30E2D-2381-44D9-BF13-D5E30371E318}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76F30E2D-2381-44D9-BF13-D5E30371E318}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76F30E2D-2381-44D9-BF13-D5E30371E318}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76F30E2D-2381-44D9-BF13-D5E30371E318}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
