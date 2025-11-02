@@ -1,19 +1,11 @@
-﻿services:
-  webapplication1:
-    image: webapplication1
-    build:
-      context: .
-      dockerfile: WebApplication1/Dockerfile
-
-  webapplication1-1:
-    image: webapplication1-1
-    build:
-      context: .
-      dockerfile: WebApplication1/Dockerfile
-
+﻿networks:
+  net:
+services:
   tablehelper.api:
     image: tablehelper.api
     build:
       context: .
-      dockerfile: TableHelper.Api/Dockerfile
+      dockerfile: ./Dockerfile
+    ports:
+      - '8080:8080'
 
