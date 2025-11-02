@@ -1,0 +1,11 @@
+﻿networks:
+  tablehelper_net:
+services:
+  tablehelper.api:
+    image: tablehelper.api
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - '8080:8080'
+

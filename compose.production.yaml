@@ -1,8 +1,8 @@
 ﻿networks:
-  net:
+  tablehelper_net:
 services:
   tablehelper.api:
-    image: tablehelper.api
+    image: ghcr.io/rkochenderfer/tablehelper:latest
     build:
       context: .
       dockerfile: ./Dockerfile
