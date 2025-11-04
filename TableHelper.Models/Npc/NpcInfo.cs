@@ -1,6 +1,6 @@
 namespace TableHelper.Models.Npc;
 
-public record Npc(
+public record NpcInfo(
     string FirstName,
     string? Surname,
     string Gender,

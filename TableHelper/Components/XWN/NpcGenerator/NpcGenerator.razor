@@ -1,5 +1,7 @@
 @using TableHelper.Models.Generators.Npc
 @using TableHelper.Models.Npc
+@using TableHelper.Models.Requests
+@using TableHelper.Models.Responses
 @inject HttpClient Http
 
 <h3>NpcGenerator</h3>
@@ -52,41 +54,58 @@
 <NpcGeneratorDisplay Npcs="@_npcs"></NpcGeneratorDisplay>
 
 @code {
+    private const string generateUrl = "/api/XwnGenerators";
     private int _numberOfNpcs;
     private string _preferredNameGender = "0";
     private string _preferredNameStyle = "2";
-    private PreferredNameStyle PreferredNameStyle => (PreferredNameStyle)int.Parse(_preferredNameStyle);
-    private Gender PreferredNameGender => (Gender)int.Parse(_preferredNameGender);
+    private PreferredNameOrigin PreferredNameOrigin => (PreferredNameOrigin)int.Parse(_preferredNameStyle);
+    private NameGender PreferredNameNameGender => (NameGender)int.Parse(_preferredNameGender);
     private Random _rnd = new();
     private NpcGeneratorData? _npcGeneratorData;
-    private List<Npc> _npcs = [];
+    private List<NpcInfo> _npcs = [];
 
-    protected override async Task OnInitializedAsync()
+    // protected override async Task OnInitializedAsync()
+    // {
+    //     try
+    //     {
+    //         
+    //     }
+    //     catch (Exception ex)
+    //     {
+    //         Console.WriteLine(ex.Message);
+    //     }
+    // }
+    
+    private async Task GenerateNpcs()
     {
+        _npcs = [];
         try
         {
-            _npcGeneratorData = await Http.GetFromJsonAsync<NpcGeneratorData>("data/xwn/npcGenerator.json");
+            var npcGenerationRequest = NpcGenerationRequest.From(
+                npcsToGenerate: _numberOfNpcs,
+                preferredNameGender: PreferredNameNameGender,
+                preferredNameOrigin: PreferredNameOrigin);
+            var request = XwnGenerationRequest.From(npcGenerationRequest);
+
+            var response = await Http.PostAsJsonAsync(generateUrl, request);
+            var content = await response.Content.ReadFromJsonAsync<NpcGenerateResponse>();
+            if (content == null)
+            {
+                // show error that nothing was returned
+                Console.WriteLine("No content returned");
+            }
+
+            var npcs = content?.NpcInfo;
+
+            _npcs = npcs.ToList();
         }
-        catch (Exception ex)
+        catch (Exception e)
         {
-            Console.WriteLine(ex.Message);
+            Console.WriteLine(e);
         }
     }
-    
-    private void GenerateNpcs()
-    {
-        var npcs = new List<Npc>();
-        for (var i = 0; i < _numberOfNpcs; i++)
-        {
-            var nameOptions = GetPreferredNameStyle();
-            var npc = GenerateNpc(nameOptions);
-            npcs.Add(npc);
-        }
 
-        _npcs = npcs;
-    }
-
-    private Npc GenerateNpc(NameOption[] nameOptions)
+    private NpcInfo GenerateNpc(NameOption[] nameOptions)
     {
         var preferredNameGender = GetPreferredGender();
         var firstName = GenerateFirstName(nameOptions, preferredNameGender);
@@ -104,10 +123,10 @@
         var theirGreatestDesire = GenerateTheirGreatestDesire();
         var mostObviousCharacterTrait = GenerateMostObviousCharacterTrait();
 
-        return new Npc(
+        return new NpcInfo(
             FirstName: firstName,
             Surname: surname,
-            Gender: preferredNameGender == Gender.Female ? "Female" : "Male",
+            Gender: preferredNameGender == NameGender.Female ? "Female" : "Male",
             InitialManner: initialManner,
             DefaultDealOutcome: defaultDealOutcome,
             TheirMotivation: theirMotivation,
@@ -200,24 +219,24 @@
         return FindNameOptionsEntry(nameOption, roll).Surname;
     }
 
-    private string GenerateFirstName(NameOption[] nameOption, Gender preferredNameGender)
+    private string GenerateFirstName(NameOption[] nameOption, NameGender preferredNameNameGender)
     {
         var roll = _rnd.Next(1, 101); // roll from 1 to 100
         var option = FindNameOptionsEntry(nameOption, roll);
 
-        return preferredNameGender switch
+        return preferredNameNameGender switch
         {
-            Gender.Male => option.Male,
-            Gender.Female => option.Female,
+            NameGender.Male => option.Male,
+            NameGender.Female => option.Female,
             _ => throw new ArgumentOutOfRangeException()
         };
     }
 
-    private Gender GetPreferredGender()
+    private NameGender GetPreferredGender()
     {
-        if (PreferredNameGender != Gender.Unknown) return PreferredNameGender;
+        if (PreferredNameNameGender != NameGender.Unknown) return PreferredNameNameGender;
         var flip = _rnd.Next(0, 100);
-        return flip % 2 == 0 ? Gender.Male : Gender.Female;
+        return flip % 2 == 0 ? NameGender.Male : NameGender.Female;
     }
 
     private NameOption FindNameOptionsEntry(NameOption[] nameOptions, int roll)
@@ -261,18 +280,18 @@
         }
 
         var nameOptions = _npcGeneratorData.NameOptions;
-        return PreferredNameStyle switch
+        return PreferredNameOrigin switch
         {
-            PreferredNameStyle.Arabic => nameOptions.Arabic,
-            PreferredNameStyle.Chinese => nameOptions.Chinese,
-            PreferredNameStyle.English => nameOptions.English,
-            PreferredNameStyle.Greek => nameOptions.Greek,
-            PreferredNameStyle.Indian => nameOptions.Indian,
-            PreferredNameStyle.Japanese => nameOptions.Japanese,
-            PreferredNameStyle.Latin => nameOptions.Latin,
-            PreferredNameStyle.Nigerian => nameOptions.Nigerian,
-            PreferredNameStyle.Russian => nameOptions.Russian,
-            PreferredNameStyle.Spanish => nameOptions.Spanish,
+            PreferredNameOrigin.Arabic => nameOptions.Arabic,
+            PreferredNameOrigin.Chinese => nameOptions.Chinese,
+            PreferredNameOrigin.English => nameOptions.English,
+            PreferredNameOrigin.Greek => nameOptions.Greek,
+            PreferredNameOrigin.Indian => nameOptions.Indian,
+            PreferredNameOrigin.Japanese => nameOptions.Japanese,
+            PreferredNameOrigin.Latin => nameOptions.Latin,
+            PreferredNameOrigin.Nigerian => nameOptions.Nigerian,
+            PreferredNameOrigin.Russian => nameOptions.Russian,
+            PreferredNameOrigin.Spanish => nameOptions.Spanish,
             _ => nameOptions.Arabic
                 .Concat(nameOptions.Chinese)
                 .Concat(nameOptions.English)

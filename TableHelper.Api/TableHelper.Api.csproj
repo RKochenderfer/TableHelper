@@ -10,11 +10,20 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="9.0.10" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.10"/>
+        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="9.0.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="9.0.6" />
+        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="9.0.6" />
+        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="9.0.6" />
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\TableHelper.Infrastructure\TableHelper.Infrastructure.csproj" />
       <ProjectReference Include="..\TableHelper.Models\TableHelper.Models.csproj" />
       <ProjectReference Include="..\TableHelper\TableHelper.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="data\npcGenerator.json" />
     </ItemGroup>
 
 </Project>

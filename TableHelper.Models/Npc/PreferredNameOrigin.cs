@@ -1,6 +1,6 @@
 namespace TableHelper.Models.Npc;
 
-public enum PreferredNameStyle
+public enum PreferredNameOrigin
 {
     Arabic = 0,
     Chinese = 1,
