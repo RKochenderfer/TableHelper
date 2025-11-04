@@ -54,27 +54,13 @@
 <NpcGeneratorDisplay Npcs="@_npcs"></NpcGeneratorDisplay>
 
 @code {
-    private const string generateUrl = "/api/XwnGenerators";
+    private const string GenerateUrl = "/api/XwnGenerators";
     private int _numberOfNpcs;
     private string _preferredNameGender = "0";
     private string _preferredNameStyle = "2";
     private PreferredNameOrigin PreferredNameOrigin => (PreferredNameOrigin)int.Parse(_preferredNameStyle);
     private NameGender PreferredNameNameGender => (NameGender)int.Parse(_preferredNameGender);
-    private Random _rnd = new();
-    private NpcGeneratorData? _npcGeneratorData;
     private List<NpcInfo> _npcs = [];
-
-    // protected override async Task OnInitializedAsync()
-    // {
-    //     try
-    //     {
-    //         
-    //     }
-    //     catch (Exception ex)
-    //     {
-    //         Console.WriteLine(ex.Message);
-    //     }
-    // }
     
     private async Task GenerateNpcs()
     {
@@ -87,7 +73,7 @@
                 preferredNameOrigin: PreferredNameOrigin);
             var request = XwnGenerationRequest.From(npcGenerationRequest);
 
-            var response = await Http.PostAsJsonAsync(generateUrl, request);
+            var response = await Http.PostAsJsonAsync(GenerateUrl, request);
             var content = await response.Content.ReadFromJsonAsync<NpcGenerateResponse>();
             if (content == null)
             {
@@ -103,206 +89,5 @@
         {
             Console.WriteLine(e);
         }
-    }
-
-    private NpcInfo GenerateNpc(NameOption[] nameOptions)
-    {
-        var preferredNameGender = GetPreferredGender();
-        var firstName = GenerateFirstName(nameOptions, preferredNameGender);
-        var surname = GenerateSurname(nameOptions);
-        var initialManner = GenerateInitialManner();
-        var defaultDealOutcome = GenerateDefaultDealOutcome();
-        var theirMotivation = GenerateTheirMotivation();
-        var theirWant = GenerateTheirWant();
-        var theirPower = GenerateTheirPower();
-        var theirHook = GenerateTheirHook();
-        var theirBackground = GenerateTheirBackground();
-        var theirRoleInSociety = GenerateTheirRoleInSociety();
-        var theirBiggestProblem = GenerateTheirBiggestProblem();
-        var ageDescription = GenerateAgeDescription();
-        var theirGreatestDesire = GenerateTheirGreatestDesire();
-        var mostObviousCharacterTrait = GenerateMostObviousCharacterTrait();
-
-        return new NpcInfo(
-            FirstName: firstName,
-            Surname: surname,
-            Gender: preferredNameGender == NameGender.Female ? "Female" : "Male",
-            InitialManner: initialManner,
-            DefaultDealOutcome: defaultDealOutcome,
-            TheirMotivation: theirMotivation,
-            TheirWant: theirWant,
-            TheirPower: theirPower,
-            TheirHook: theirHook,
-            TheirBackground: theirBackground,
-            TheirRoleInSociety: theirRoleInSociety,
-            TheirBiggestProblem: theirBiggestProblem,
-            AgeDescription: ageDescription,
-            TheirGreatestDesire: theirGreatestDesire,
-            MostObviousCharacterTrait: mostObviousCharacterTrait);
-    }
-
-    private string GenerateMostObviousCharacterTrait()
-    {
-        var roll = _rnd.Next(0, _npcGeneratorData!.NpcMakeupOptions.MostObviousCharacterTrait.Length);
-        return _npcGeneratorData.NpcMakeupOptions.MostObviousCharacterTrait[roll];
-    }
-
-    private string GenerateTheirGreatestDesire()
-    {
-        var roll = _rnd.Next(0, _npcGeneratorData!.NpcMakeupOptions.TheirGreatestDesire.Length);
-        return _npcGeneratorData.NpcMakeupOptions.TheirGreatestDesire[roll];
-    }
-
-    private string GenerateAgeDescription()
-    {
-        var roll = _rnd.Next(0, _npcGeneratorData!.NpcMakeupOptions.Age.Length);
-        return _npcGeneratorData.NpcMakeupOptions.Age[roll];
-    }
-
-    private string GenerateTheirBiggestProblem()
-    {
-        var roll = _rnd.Next(0, _npcGeneratorData!.NpcMakeupOptions.TheirBiggestProblem.Length);
-        return _npcGeneratorData.NpcMakeupOptions.TheirBiggestProblem[roll];
-    }
-
-    private string GenerateTheirRoleInSociety()
-    {
-        var roll = _rnd.Next(0, _npcGeneratorData!.NpcMakeupOptions.TheirRoleInSociety.Length);
-        return _npcGeneratorData.NpcMakeupOptions.TheirRoleInSociety[roll];
-    }
-
-    private string GenerateTheirBackground()
-    {
-        var roll = _rnd.Next(0, _npcGeneratorData!.NpcMakeupOptions.TheirBackground.Length);
-        return _npcGeneratorData.NpcMakeupOptions.TheirBackground[roll];
-    }
-
-    private string GenerateTheirHook()
-    {
-        var roll = _rnd.Next(0, _npcGeneratorData!.NpcMakeupOptions.TheirHook.Length);
-        return _npcGeneratorData.NpcMakeupOptions.TheirHook[roll];
-    }
-
-    private string GenerateTheirPower()
-    {
-        var roll = _rnd.Next(0, _npcGeneratorData!.NpcMakeupOptions.TheirPower.Length);
-        return _npcGeneratorData.NpcMakeupOptions.TheirPower[roll];
-    }
-
-    private string GenerateTheirWant()
-    {
-        var roll = _rnd.Next(0, _npcGeneratorData!.NpcMakeupOptions.TheirWant.Length);
-        return _npcGeneratorData.NpcMakeupOptions.TheirWant[roll];
-    }
-
-    private string GenerateTheirMotivation()
-    {
-        var roll = _rnd.Next(0, _npcGeneratorData!.NpcMakeupOptions.TheirMotivation.Length);
-        return _npcGeneratorData.NpcMakeupOptions.TheirMotivation[roll];
-    }
-
-    private string GenerateDefaultDealOutcome()
-    {
-        var roll = _rnd.Next(0, _npcGeneratorData!.NpcMakeupOptions.DefaultDealOutcome.Length);
-        return _npcGeneratorData.NpcMakeupOptions.DefaultDealOutcome[roll];
-    }
-
-    private string GenerateInitialManner()
-    {
-        var roll = _rnd.Next(0, _npcGeneratorData!.NpcMakeupOptions.InitialManner.Length);
-        return _npcGeneratorData.NpcMakeupOptions.InitialManner[roll];
-    }
-
-    private string GenerateSurname(NameOption[] nameOption)
-    {
-        var roll = _rnd.Next(1, 101); // roll from 1 to 100
-        return FindNameOptionsEntry(nameOption, roll).Surname;
-    }
-
-    private string GenerateFirstName(NameOption[] nameOption, NameGender preferredNameNameGender)
-    {
-        var roll = _rnd.Next(1, 101); // roll from 1 to 100
-        var option = FindNameOptionsEntry(nameOption, roll);
-
-        return preferredNameNameGender switch
-        {
-            NameGender.Male => option.Male,
-            NameGender.Female => option.Female,
-            _ => throw new ArgumentOutOfRangeException()
-        };
-    }
-
-    private NameGender GetPreferredGender()
-    {
-        if (PreferredNameNameGender != NameGender.Unknown) return PreferredNameNameGender;
-        var flip = _rnd.Next(0, 100);
-        return flip % 2 == 0 ? NameGender.Male : NameGender.Female;
-    }
-
-    private NameOption FindNameOptionsEntry(NameOption[] nameOptions, int roll)
-    {
-        var left = 0;
-        var right = nameOptions.Length - 1;
-
-        while (left <= right)
-        {
-            var mid = left + (right - left) / 2;
-            var option = nameOptions[mid];
-            if (option.RangeStart <= roll && option.RangeEnd >= roll)
-            {
-                return option;
-            }
-
-            if (option.RangeEnd < roll)
-            {
-                left = mid + 1;
-            }
-            else
-            {
-                right = mid - 1;
-            }
-        }
-
-        throw new Exception("I don't know what happened :(");
-    }
-
-    /// <summary>
-    /// Based on the selected <c>preferredNameStyle</c>, return that lists style
-    /// </summary>
-    /// <returns></returns>
-    /// <exception cref="ArgumentNullException"></exception>
-    /// <exception cref="ArgumentOutOfRangeException"></exception>
-    private NameOption[] GetPreferredNameStyle()
-    {
-        if (_npcGeneratorData == null)
-        {
-            throw new ArgumentNullException(nameof(_npcGeneratorData));
-        }
-
-        var nameOptions = _npcGeneratorData.NameOptions;
-        return PreferredNameOrigin switch
-        {
-            PreferredNameOrigin.Arabic => nameOptions.Arabic,
-            PreferredNameOrigin.Chinese => nameOptions.Chinese,
-            PreferredNameOrigin.English => nameOptions.English,
-            PreferredNameOrigin.Greek => nameOptions.Greek,
-            PreferredNameOrigin.Indian => nameOptions.Indian,
-            PreferredNameOrigin.Japanese => nameOptions.Japanese,
-            PreferredNameOrigin.Latin => nameOptions.Latin,
-            PreferredNameOrigin.Nigerian => nameOptions.Nigerian,
-            PreferredNameOrigin.Russian => nameOptions.Russian,
-            PreferredNameOrigin.Spanish => nameOptions.Spanish,
-            _ => nameOptions.Arabic
-                .Concat(nameOptions.Chinese)
-                .Concat(nameOptions.English)
-                .Concat(nameOptions.Greek)
-                .Concat(nameOptions.Indian)
-                .Concat(nameOptions.Japanese)
-                .Concat(nameOptions.Latin)
-                .Concat(nameOptions.Nigerian)
-                .Concat(nameOptions.Russian)
-                .Concat(nameOptions.Spanish)
-                .ToArray()
-        };
     }
 }
