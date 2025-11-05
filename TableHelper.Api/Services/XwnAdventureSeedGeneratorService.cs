@@ -1,5 +1,6 @@
 using TableHelper.Infrastructure.Repositories;
 using TableHelper.Models;
+using TableHelper.Models.Generators;
 using TableHelper.Models.Npc;
 using TableHelper.Models.Requests;
 
@@ -7,20 +8,13 @@ namespace TableHelper.Api.Services;
 
 public class XwnAdventureSeedGeneratorService(
     IAdventureSeedGeneratorRepository adventureSeedGeneratorRepository,
-    Random rnd)
+    IRandomizer<string> randomizer)
 {
     public async Task<IReadOnlyList<AdventureSeed>> GenerateAdventureSeeds(AdventureSeedGenerateRequest request)
     {
         var generatorData = await adventureSeedGeneratorRepository.GetAdventureSeeds();
-
-        var seeds = new List<AdventureSeed>();
-        while (seeds.Count != request.NumberOfSeeds)
-        {
-            var index = rnd.Next(0, generatorData.Seeds.Length);
-            var seed = generatorData.Seeds[index];
-            seeds.Add(new AdventureSeed(seed));
-        }
-
-        return seeds;
+        var randomEntries = randomizer.GetRandomEntries(generatorData.Seeds.ToList(), request.NumberOfSeeds);
+        
+        return randomEntries.Select(e => new AdventureSeed(e)).ToList();
     }
 }

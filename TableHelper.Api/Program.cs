@@ -19,6 +19,7 @@ builder.Services.AddScoped<Random>();
 builder.Services.AddScoped<DieRoller>();
 builder.Services.AddScoped<INpcGeneratorRepository, JsonNameGeneratorRepository>();
 builder.Services.AddScoped<IAdventureSeedGeneratorRepository, JsonAdventureSeedGeneratorRepository>();
+builder.Services.AddScoped(typeof(IRandomizer<>), typeof(FisherYatesRandomRetrieval<>));
 
 var app = builder.Build();
 
