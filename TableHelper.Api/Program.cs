@@ -12,12 +12,13 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
 });
 builder.Services.AddOpenApi();
-builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<XwnNpcGeneratorService>();
+builder.Services.AddScoped<XwnAdventureSeedGeneratorService>();
 builder.Services.AddScoped<Random>();
 builder.Services.AddScoped<DieRoller>();
 builder.Services.AddScoped<INpcGeneratorRepository, JsonNameGeneratorRepository>();
+builder.Services.AddScoped<IAdventureSeedGeneratorRepository, JsonAdventureSeedGeneratorRepository>();
 
 var app = builder.Build();
 
@@ -25,8 +26,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseWebAssemblyDebugging();
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.MapOpenApi();
 }
 
 app.MapControllers();

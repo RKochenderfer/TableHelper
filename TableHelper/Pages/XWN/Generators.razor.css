@@ -2,3 +2,7 @@
     max-height: 50vh;
     overflow-y: auto;
 }
+
+.generator-accordion {
+    max-width: 80vw;
+}

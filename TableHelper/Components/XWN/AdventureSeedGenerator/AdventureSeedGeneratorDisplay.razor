@@ -1,0 +1,13 @@
+@using TableHelper.Models
+
+<ol class="list-group list-group-numbered">
+    @foreach (var seed in Seeds)
+    {
+        <li class="list-group-item">@seed.Seed</li>
+    }
+</ol>
+
+@code {
+    [Parameter]
+    public IEnumerable<AdventureSeed> Seeds { get; set; }
+}

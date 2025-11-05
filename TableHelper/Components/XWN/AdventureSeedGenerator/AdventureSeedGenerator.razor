@@ -1,0 +1,51 @@
+@using TableHelper.Models
+@using TableHelper.Models.Requests
+@using TableHelper.Models.Responses
+@inject HttpClient Http
+
+<h3>AdventureSeedGenerator</h3>
+<div class="container">
+    <div class="row">
+        <div class="col-8">
+            <h4>NPCs</h4>
+            <div class="mb-3 row">
+                <label for="numberOfSeeds" class="col-sm-6 col-form-label">Number of Seeds</label>
+                <div class="col-sm-6">
+                    <input @bind="_numberOfSeeds" type="number" step="1" class="form-control" id="numberOfSeeds">
+                </div>
+            </div>
+            <div class="col-auto">
+                <button @onclick="GenerateAdventureSeeds" class="btn btn-primary mb-3">Generate</button>
+            </div>
+        </div>
+        <div class="col-auto"></div>
+    </div>
+</div>
+<AdventureSeedGeneratorDisplay Seeds="@_adventureSeeds"></AdventureSeedGeneratorDisplay>
+
+@code {
+    private int _numberOfSeeds;
+    private List<AdventureSeed> _adventureSeeds = [];
+
+    private async Task GenerateAdventureSeeds()
+    {
+        _adventureSeeds = [];
+        if (_numberOfSeeds <= 0)
+        {
+            Console.WriteLine("Number has to be more than 0");
+        }
+        var adventureSeedRequest = AdventureSeedGenerateRequest.From(_numberOfSeeds);
+        var request = XwnGenerationRequest.From(adventureSeedRequest);
+
+        var response = await Http.PostAsJsonAsync(Constants.GenerateUrl, request);
+        var content = await response.Content.ReadFromJsonAsync<AdventureSeedGenerateResponse>();
+        if (content == null)
+        {
+            // show error that nothing was returned
+            Console.WriteLine("No content returned");
+        }
+
+        var seeds = content?.AdventureSeeds;
+        if (seeds != null) _adventureSeeds = seeds.ToList();
+    }
+}

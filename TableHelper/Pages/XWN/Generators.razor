@@ -1,4 +1,5 @@
 @page "/xwn/Generators"
+@using TableHelper.Components.XWN.AdventureSeedGenerator
 @using TableHelper.Components.XWN.NpcGenerator
 
 @inject HttpClient Http
@@ -6,16 +7,31 @@
 <h3>XWN Generators</h3>
     
 
-<div class="accordion" id="accordionExample">
+<div class="accordion generator-accordion" id="npcAccordion">
   <div class="accordion-item">
     <h2 class="accordion-header">
-      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#npcGeneratorCollapse" aria-expanded="true" aria-controls="npcGeneratorCollapse">
         NPC Generator
       </button>
     </h2>
-    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+    <div id="npcGeneratorCollapse" class="accordion-collapse collapse show" data-bs-parent="#npcAccordion">
       <div class="accordion-body generator-accordion-body">
         <NpcGenerator></NpcGenerator>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="accordion generator-accordion" id="adventureSeedAccordion">
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#adventureSeedGeneratorCollapse" aria-expanded="true" aria-controls="adventureSeedGeneratorCollapse">
+        Adventure seed Generator
+      </button>
+    </h2>
+    <div id="adventureSeedGeneratorCollapse" class="accordion-collapse collapse show" data-bs-parent="#adventureSeedAccordion">
+      <div class="accordion-body generator-accordion-body">
+        <AdventureSeedGenerator></AdventureSeedGenerator>
       </div>
     </div>
   </div>

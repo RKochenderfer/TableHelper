@@ -4,6 +4,7 @@ public class XwnGenerationRequest : IRequest
 {
     public XwnGenerationType Type { get; init; }
     public NpcGenerationRequest? NpcGenerationRequest { get; init; }
+    public AdventureSeedGenerateRequest? AdventureSeedGenerationRequest { get; init; }
 
     /// <summary>
     /// Create a new request to generate NPCs
@@ -16,6 +17,19 @@ public class XwnGenerationRequest : IRequest
 
         return new XwnGenerationRequest
             { Type = XwnGenerationType.Npc, NpcGenerationRequest = request };
+    }
+    
+    /// <summary>
+    /// Create a new request to generate adventure seeds
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
+    public static XwnGenerationRequest From(AdventureSeedGenerateRequest request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+
+        return new XwnGenerationRequest
+            { Type = XwnGenerationType.AdventureSeed, AdventureSeedGenerationRequest = request };
     }
 
     public bool Validate()

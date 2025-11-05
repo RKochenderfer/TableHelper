@@ -1,5 +1,9 @@
 @TableHelper.Api_HostAddress = https://localhost:7042/api
 
+### POST Generate NPC
+< {% 
+    request.variables.set("npcsToGenerate", 2)
+%}
 POST https://localhost:7042/api/XwnGenerators/
 Accept: application/json
 Content-Type: application/json
@@ -7,10 +11,35 @@ Content-Type: application/json
 {
   "type": "Npc",
   "npcGenerationRequest": {
-    "npcsToGenerate": 1,
+    "npcsToGenerate": {{npcsToGenerate}},
     "preferredNameGender": "Male",
     "preferredNameOrigin": "English"
   }
 }
 
-###
+> {% 
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+        const npcInfo = jsonPath(response.body, "$.npcInfo")
+        
+        client.assert(npcInfo.length, 2);
+    }) ;
+%}
+
+### POST Generate Adventure Seeds
+POST https://localhost:7042/api/XwnGenerators/
+Accept: application/json
+Content-Type: application/json
+
+{
+  "type": "AdventureSeed",
+  "adventureSeedGenerationRequest": {
+    "numberOfSeeds": 2
+  }
+}
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    }) ;
+%}
