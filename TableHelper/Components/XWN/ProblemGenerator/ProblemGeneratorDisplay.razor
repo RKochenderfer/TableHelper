@@ -1,0 +1,29 @@
+@using TableHelper.Models.Problem
+<div class="table-responsive-sm">
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Restraints</th>
+            <th scope="col">Twists</th>
+            <th scope="col">Type</th>
+            <th scope="col">Situation</th>
+            <th scope="col">Specific Focus</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var problem in Problems)
+        {
+            <tr>
+                <td>@problem.Restraint</td>
+                <td>@problem.Twist</td>
+                <td>@problem.Conflict.Type</td>
+                <td>@problem.Conflict.Situation</td>
+                <td>@problem.Conflict.SpecificFocus</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+@code {
+    [Parameter] public List<ProblemInfo> Problems { get; set; } = [];
+}

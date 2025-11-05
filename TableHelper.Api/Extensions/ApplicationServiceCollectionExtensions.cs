@@ -20,6 +20,7 @@ public static class ApplicationServiceCollectionExtensions
         services.AddScoped<XwnNpcGeneratorService>();
         services.AddScoped<XwnAdventureSeedGeneratorService>();
         services.AddScoped<XwnPatronGeneratorService>();
+        services.AddScoped<XwnProblemGeneratorService>();
         return services;
     }
 }

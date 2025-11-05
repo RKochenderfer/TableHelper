@@ -2,6 +2,7 @@
 @using TableHelper.Components.XWN.AdventureSeedGenerator
 @using TableHelper.Components.XWN.NpcGenerator
 @using TableHelper.Components.XWN.PatronGenerator
+@using TableHelper.Components.XWN.ProblemGenerator
 
 @inject HttpClient Http
 
@@ -38,11 +39,26 @@
   </div>
 </div>
 
+<div class="accordion generator-accordion" id="problemAccordion">
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#problemGeneratorCollapse" aria-expanded="true" aria-controls="problemGeneratorCollapse">
+        Problem Generator
+      </button>
+    </h2>
+    <div id="problemGeneratorCollapse" class="accordion-collapse collapse show" data-bs-parent="#problemAccordion">
+      <div class="accordion-body generator-accordion-body">
+        <ProblemGenerator></ProblemGenerator>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="accordion generator-accordion" id="patronAccordion">
   <div class="accordion-item">
     <h2 class="accordion-header">
       <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#patronGeneratorCollapse" aria-expanded="true" aria-controls="patronGeneratorCollapse">
-        Adventure seed Generator
+        Patron Generator
       </button>
     </h2>
     <div id="patronGeneratorCollapse" class="accordion-collapse collapse show" data-bs-parent="#patronAccordion">

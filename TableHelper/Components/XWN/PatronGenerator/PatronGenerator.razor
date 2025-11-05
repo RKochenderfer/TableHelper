@@ -9,7 +9,7 @@
         <div class="col-8">
             <h4>Patrons</h4>
             <div class="mb-3 row">
-                <label for="numberOfPatrons" class="col-sm-6 col-form-label">Number of NPCs</label>
+                <label for="numberOfPatrons" class="col-sm-6 col-form-label">Number of Patrons</label>
                 <div class="col-sm-6">
                     <input @bind="_numberOfPatrons" type="number" step="1" class="form-control" id="numberOfPatrons">
                 </div>
@@ -47,7 +47,6 @@
         catch (Exception ex)
         {
             Console.WriteLine(ex);
-            throw;
         }
     }
 }

@@ -1,0 +1,49 @@
+@using TableHelper.Models.Problem
+@using TableHelper.Models.Requests
+@using TableHelper.Models.Responses
+@inject HttpClient Http
+<h3>Problem Generator</h3>
+<div class="container">
+    <div class="row">
+        <h4>Problems</h4>
+        <div class="mb-3 row">
+            <label for="numberOfProblems" class="col-sm-6 col-form-label">Number of Problems</label>
+            <div class="col-sm-6">
+                <input @bind="_numberOfProblems" type="number" step="1" class="form-control" id="numberOfProblems">
+            </div>
+        </div>
+        <div class="col-auto">
+            <button @onclick="GenerateProblems" class="btn btn-primary mb-3">Generate</button>
+        </div>
+    </div>
+</div>
+<ProblemGeneratorDisplay Problems="@_problems"></ProblemGeneratorDisplay>
+
+@code {
+    private int _numberOfProblems = 1;
+    private List<ProblemInfo> _problems = [];
+
+    private async Task GenerateProblems()
+    {
+        _problems = [];
+        try
+        {
+            var problemGenerationRequest = ProblemGenerationRequest.From(_numberOfProblems);
+            var request = XwnGenerationRequest.From(problemGenerationRequest);
+
+            var response = await Http.PostAsJsonAsync(Constants.GenerateUrl, request);
+            var content = await response.Content.ReadFromJsonAsync<ProblemGenerationResponse>();
+            if (content == null)
+            {
+                Console.WriteLine("No content returned");
+            }
+
+            var problems = content?.Problems;
+            if (problems != null) _problems = problems.ToList();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+        }
+    }
+}

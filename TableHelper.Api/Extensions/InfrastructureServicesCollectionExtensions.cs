@@ -11,6 +11,7 @@ public static class InfrastructureServicesCollectionExtensions
         services.AddScoped<INpcGeneratorRepository, JsonNameGeneratorRepository>();
         services.AddScoped<IAdventureSeedGeneratorRepository, JsonAdventureSeedGeneratorRepository>();
         services.AddScoped<IPatronGeneratorRepository, JsonPatronGeneratorRepository>();
+        services.AddScoped<IProblemGeneratorRepository, JsonProblemGeneratorRepository>();
         return services;
     }
 }

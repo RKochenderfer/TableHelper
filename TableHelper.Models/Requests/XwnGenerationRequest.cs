@@ -6,13 +6,26 @@ public class XwnGenerationRequest : IRequest
     /// The type of generation that is to be performed
     /// </summary>
     public XwnGenerationType Type { get; init; }
+
     /// <summary>
     /// Request to generate NPCs. Only required when the type is <see cref="XwnGenerationType.Npc"/>
     /// </summary>
     public NpcGenerationRequest? NpcGenerationRequest { get; init; }
-    
+
+    /// <summary>
+    /// Request to generate adventure seeds. Only required when the type is <see cref="XwnGenerationType.AdventureSeed"/>
+    /// </summary>
     public AdventureSeedGenerateRequest? AdventureSeedGenerationRequest { get; init; }
+
+    /// <summary>
+    /// Request to generate patrons. Only required when the type is <see cref="XwnGenerationType.Patron"/>
+    /// </summary>
     public PatronGenerationRequest? PatronGenerationRequest { get; init; }
+
+    /// <summary>
+    /// Request to genearte problems. Only required when the type is <see cref="XwnGenerationType.Problem"/>
+    /// </summary>
+    public ProblemGenerationRequest? ProblemGenerationRequest { get; init; }
 
     /// <summary>
     /// Create a new request to generate NPCs
@@ -26,7 +39,7 @@ public class XwnGenerationRequest : IRequest
         return new XwnGenerationRequest
             { Type = XwnGenerationType.Npc, NpcGenerationRequest = request };
     }
-    
+
     /// <summary>
     /// Create a new request to generate adventure seeds
     /// </summary>
@@ -48,9 +61,22 @@ public class XwnGenerationRequest : IRequest
     public static XwnGenerationRequest From(PatronGenerationRequest request)
     {
         ArgumentNullException.ThrowIfNull(request);
-        
+
         return new XwnGenerationRequest
             { Type = XwnGenerationType.Patron, PatronGenerationRequest = request };
+    }
+
+    /// <summary>
+    /// Creates a new request to generate problems
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
+    public static XwnGenerationRequest From(ProblemGenerationRequest request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+
+        return new XwnGenerationRequest
+            { Type = XwnGenerationType.Problem, ProblemGenerationRequest = request };
     }
 
     public bool Validate()

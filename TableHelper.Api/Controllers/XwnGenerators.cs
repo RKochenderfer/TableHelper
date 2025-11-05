@@ -10,9 +10,10 @@ namespace TableHelper.Api.Controllers;
 [ApiController]
 public class XwnGenerators(
     ILogger<XwnGenerators> logger,
-    XwnNpcGeneratorService xwnNpcGeneratorService,
-    XwnAdventureSeedGeneratorService xwnAdventureSeedGeneratorService,
-    XwnPatronGeneratorService xwnPatronGeneratorService)
+    XwnNpcGeneratorService npcGeneratorService,
+    XwnAdventureSeedGeneratorService adventureSeedGeneratorService,
+    XwnPatronGeneratorService patronGeneratorService,
+    XwnProblemGeneratorService problemGeneratorService)
     : ControllerBase
 {
     /// <summary>
@@ -32,8 +33,8 @@ public class XwnGenerators(
                 XwnGenerationType.Npc => await GenerateNpcData(request),
                 XwnGenerationType.AdventureSeed => await GenerateAdventureSeedData(request),
                 XwnGenerationType.Patron => await GeneratePatronData(request),
+                XwnGenerationType.Problem => await GenerateProblemData(request),
                 XwnGenerationType.Place
-                    or XwnGenerationType.Problem
                     or XwnGenerationType.UrbanEncounter => GenerateResponse.Failure(
                         $"Generate type {request.Type}, is not implemented yet"),
                 _ => GenerateResponse.Failure($"Generate type {request.Type}, is not supported")
@@ -46,6 +47,18 @@ public class XwnGenerators(
         }
     }
 
+    private async Task<GenerateResponse> GenerateProblemData(XwnGenerationRequest request)
+    {
+        if (request.ProblemGenerationRequest == null)
+        {
+            return GenerateResponse.Failure("ProblemGenerationRequest cannot be null when generating an Problem");
+        }
+        logger.LogDebug("Generating Problem Request");
+        var problems = await problemGeneratorService.GenerateProblems(request.ProblemGenerationRequest);
+        logger.LogDebug("Completed generating problem data");
+        return ProblemGenerationResponse.Success(problems);
+    }
+
     private async Task<GenerateResponse> GeneratePatronData(XwnGenerationRequest request)
     {
         if (request.PatronGenerationRequest == null)
@@ -54,7 +67,7 @@ public class XwnGenerators(
         }
         
         logger.LogDebug("Generating Patron Request");
-        var patrons = await xwnPatronGeneratorService.GeneratePatrons(request.PatronGenerationRequest);
+        var patrons = await patronGeneratorService.GeneratePatrons(request.PatronGenerationRequest);
         logger.LogDebug("Completed generating patron data");
         return PatronGenerationResponse.Success(patrons);
     }
@@ -69,7 +82,7 @@ public class XwnGenerators(
 
         logger.LogDebug("Generating adventure Seed");
         var data =
-            await xwnAdventureSeedGeneratorService.GenerateAdventureSeeds(request.AdventureSeedGenerationRequest);
+            await adventureSeedGeneratorService.GenerateAdventureSeeds(request.AdventureSeedGenerationRequest);
         logger.LogDebug("Completed generating adventure seed");
         return AdventureSeedGenerateResponse.Success(data);
     }
@@ -81,7 +94,7 @@ public class XwnGenerators(
             return NpcGenerationResponse.Failure("NpcGenerationRequest cannot be null when generating an NPC");
         }
 
-        var generatedNpcs = await xwnNpcGeneratorService.GenerateNpcs(request.NpcGenerationRequest);
+        var generatedNpcs = await npcGeneratorService.GenerateNpcs(request.NpcGenerationRequest);
         return NpcGenerationResponse.Success(generatedNpcs);
     }
 }
