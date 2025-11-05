@@ -1,0 +1,53 @@
+@using TableHelper.Models
+@using TableHelper.Models.Requests
+@using TableHelper.Models.Responses
+@inject HttpClient Http
+
+<h3>Patron Generator</h3>
+<div class="container">
+    <div class="row">
+        <div class="col-8">
+            <h4>Patrons</h4>
+            <div class="mb-3 row">
+                <label for="numberOfPatrons" class="col-sm-6 col-form-label">Number of NPCs</label>
+                <div class="col-sm-6">
+                    <input @bind="_numberOfPatrons" type="number" step="1" class="form-control" id="numberOfPatrons">
+                </div>
+            </div>
+            <div class="col-auto">
+                <button @onclick="GeneratePatrons" class="btn btn-primary mb-3">Generate</button>
+            </div>
+        </div>
+        <div class="col-auto"></div>
+    </div>
+</div>
+<PatronGeneratorDisplay Patrons="@_patrons"></PatronGeneratorDisplay>
+@code {
+    private int _numberOfPatrons = 1;
+    private List<Patron> _patrons = [];
+
+    private async Task GeneratePatrons()
+    {
+        _patrons = [];
+        try
+        {
+            var patronGenerationRequest = PatronGenerationRequest.From(_numberOfPatrons);
+            var request = XwnGenerationRequest.From(patronGenerationRequest);
+
+            var response = await Http.PostAsJsonAsync(Constants.GenerateUrl, request);
+            var content = await response.Content.ReadFromJsonAsync<PatronGenerationResponse>();
+            if (content == null)
+            {
+                Console.WriteLine("No content returned");
+            }
+
+            var patrons = content?.Patrons;
+            if (patrons != null) _patrons = patrons.ToList();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+            throw;
+        }
+    }
+}

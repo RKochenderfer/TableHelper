@@ -53,7 +53,7 @@
 <NpcGeneratorDisplay Npcs="@_npcs"></NpcGeneratorDisplay>
 
 @code {
-    private int _numberOfNpcs;
+    private int _numberOfNpcs = 1;
     private string _preferredNameGender = "0";
     private string _preferredNameStyle = "2";
     private PreferredNameOrigin PreferredNameOrigin => (PreferredNameOrigin)int.Parse(_preferredNameStyle);
@@ -72,7 +72,7 @@
             var request = XwnGenerationRequest.From(npcGenerationRequest);
 
             var response = await Http.PostAsJsonAsync(Constants.GenerateUrl, request);
-            var content = await response.Content.ReadFromJsonAsync<NpcGenerateResponse>();
+            var content = await response.Content.ReadFromJsonAsync<NpcGenerationResponse>();
             if (content == null)
             {
                 // show error that nothing was returned

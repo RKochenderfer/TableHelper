@@ -3,6 +3,7 @@ using TableHelper.Api.Services;
 using TableHelper.Api.Services.Generators;
 using TableHelper.Api.Services.Randomizer;
 using TableHelper.Infrastructure.Repositories;
+using TableHelper.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,13 +16,9 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 });
 builder.Services.AddOpenApi();
 
-builder.Services.AddScoped<XwnNpcGeneratorService>();
-builder.Services.AddScoped<XwnAdventureSeedGeneratorService>();
-builder.Services.AddScoped<Random>();
-builder.Services.AddScoped<DieRoller>();
-builder.Services.AddScoped<INpcGeneratorRepository, JsonNameGeneratorRepository>();
-builder.Services.AddScoped<IAdventureSeedGeneratorRepository, JsonAdventureSeedGeneratorRepository>();
-builder.Services.AddScoped(typeof(IRandomizer<>), typeof(FisherYatesRandomRetrieval<>));
+builder.Services.AddApplicationServices();
+builder.Services.AddInfrastructureServices();
+
 
 var app = builder.Build();
 

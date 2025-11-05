@@ -2,6 +2,9 @@ using TableHelper.Models.Npc;
 
 namespace TableHelper.Models.Requests;
 
+/// <summary>
+/// Request to generate random NPCs
+/// </summary>
 public class NpcGenerationRequest : IRequest
 {
     public int NpcsToGenerate { get; init; }

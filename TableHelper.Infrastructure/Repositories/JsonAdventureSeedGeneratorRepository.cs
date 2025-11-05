@@ -1,41 +1,19 @@
 using System.Text.Json;
 using Microsoft.Extensions.Logging;
+using TableHelper.Infrastructure.Services;
 using TableHelper.Models.Generators;
 using TableHelper.Models.Generators.Npc;
 
 namespace TableHelper.Infrastructure.Repositories;
 
-public class JsonAdventureSeedGeneratorRepository(ILogger<JsonAdventureSeedGeneratorRepository> logger)
+public class JsonAdventureSeedGeneratorRepository(JsonFileDeserializer<AdventureSeedGeneratorData> deserializer)
     : IAdventureSeedGeneratorRepository
 {
     private const string AdventureSeedGeneratorDataPath = "data/adventureSeedGenerator.json";
 
     public async Task<AdventureSeedGeneratorData> GetAdventureSeeds()
     {
-        var jsonData = await ReadJsonFile();
+        var jsonData = await deserializer.ReadJsonFile(AdventureSeedGeneratorDataPath);
         return jsonData ?? throw new Exception("JSON data not found");
-    }
-    
-    private async Task<AdventureSeedGeneratorData?> ReadJsonFile()
-    {
-        var path = GetJsonFilePath();
-        try
-        {
-            var jsonString = await File.ReadAllTextAsync(path);
-            var adventureSeedGeneratorData = JsonSerializer.Deserialize<AdventureSeedGeneratorData>(jsonString,
-                new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-
-            return adventureSeedGeneratorData;
-        }
-        catch (Exception e)
-        {
-            logger.LogError(e, "Error reading json file");
-            throw;
-        }
-    }
-    
-    private string GetJsonFilePath()
-    {
-        return Path.Combine(Directory.GetCurrentDirectory(), AdventureSeedGeneratorDataPath);
     }
 }

@@ -1,4 +1,4 @@
-namespace TableHelper.Models.Generators.Patron;
+namespace TableHelper.Models.Generators;
 
 public class PatronGeneratorData
 {

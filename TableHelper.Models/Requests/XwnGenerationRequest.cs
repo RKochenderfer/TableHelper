@@ -2,9 +2,17 @@ namespace TableHelper.Models.Requests;
 
 public class XwnGenerationRequest : IRequest
 {
+    /// <summary>
+    /// The type of generation that is to be performed
+    /// </summary>
     public XwnGenerationType Type { get; init; }
+    /// <summary>
+    /// Request to generate NPCs. Only required when the type is <see cref="XwnGenerationType.Npc"/>
+    /// </summary>
     public NpcGenerationRequest? NpcGenerationRequest { get; init; }
+    
     public AdventureSeedGenerateRequest? AdventureSeedGenerationRequest { get; init; }
+    public PatronGenerationRequest? PatronGenerationRequest { get; init; }
 
     /// <summary>
     /// Create a new request to generate NPCs
@@ -32,6 +40,19 @@ public class XwnGenerationRequest : IRequest
             { Type = XwnGenerationType.AdventureSeed, AdventureSeedGenerationRequest = request };
     }
 
+    /// <summary>
+    /// Creates a new request to generate patrons
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
+    public static XwnGenerationRequest From(PatronGenerationRequest request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+        
+        return new XwnGenerationRequest
+            { Type = XwnGenerationType.Patron, PatronGenerationRequest = request };
+    }
+
     public bool Validate()
     {
         return Type switch
@@ -45,14 +66,4 @@ public class XwnGenerationRequest : IRequest
     {
         return request is not null && request.Validate();
     }
-}
-
-public enum XwnGenerationType
-{
-    AdventureSeed = 0,
-    Npc = 1,
-    Patron = 2,
-    Place = 3,
-    Problem = 4,
-    UrbanEncounter = 5,
 }

@@ -1,9 +1,10 @@
 using System.Text.Json;
+using TableHelper.Infrastructure.Services;
 using TableHelper.Models.Generators.Npc;
 
 namespace TableHelper.Infrastructure.Repositories;
 
-public class JsonNameGeneratorRepository : INpcGeneratorRepository
+public class JsonNameGeneratorRepository(JsonFileDeserializer<NpcGeneratorData> deserializer) : INpcGeneratorRepository
 {
     private const string NpcGeneratorDataPath = "data/npcGenerator.json";
 
@@ -14,36 +15,13 @@ public class JsonNameGeneratorRepository : INpcGeneratorRepository
 
     public async Task<NpcNameOptions> GetAllNameOptions()
     {
-        var jsonData = await ReadJsonFile();
+        var jsonData = await deserializer.ReadJsonFile(NpcGeneratorDataPath);
         return jsonData == null ? throw new Exception("Json data not found") : jsonData.NameOptions;
     }
 
     public async Task<NpcMakeupOptions> GetAllMakeupOptions()
     {
-        var jsonData = await ReadJsonFile();
+        var jsonData = await deserializer.ReadJsonFile(NpcGeneratorDataPath);
         return jsonData == null ? throw new Exception("Json data not found") : jsonData.NpcMakeupOptions;
-    }
-
-    private async Task<NpcGeneratorData?> ReadJsonFile()
-    {
-        var path = GetJsonFilePath();
-        try
-        {
-            var jsonString = await File.ReadAllTextAsync(path);
-            var npcGeneratorData = JsonSerializer.Deserialize<NpcGeneratorData>(jsonString,
-                new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-
-            return npcGeneratorData;
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            throw;
-        }
-    }
-
-    private string GetJsonFilePath()
-    {
-        return Path.Combine(Directory.GetCurrentDirectory(), NpcGeneratorDataPath);
     }
 }

@@ -20,6 +20,8 @@ Content-Type: application/json
 > {% 
     client.test("Request executed successfully", function() {
         client.assert(response.status === 200, "Response status is not 200");
+        const isSuccessful = jsonPath(response.body, "$.isSuccessful")
+        client.assert(isSuccessful, "true");
         const npcInfo = jsonPath(response.body, "$.npcInfo")
         
         client.assert(npcInfo.length, 2);
@@ -40,6 +42,29 @@ Content-Type: application/json
 
 > {%
     client.test("Request executed successfully", function() {
+        const isSuccessful = jsonPath(response.body, "$.isSuccessful")
+        client.assert(isSuccessful, "true");
+        client.assert(response.status === 200, "Response status is not 200");
+    }) ;
+%}
+
+
+### POST Generate Patrons
+POST https://localhost:7042/api/XwnGenerators/
+Accept: application/json
+Content-Type: application/json
+
+{
+  "type": "Patron",
+  "patronGenerationRequest": {
+    "patronsToGenerate": 2
+  }
+}
+
+> {%
+    client.test("Request executed successfully", function() {
+        const isSuccessful = jsonPath(response.body, "$.isSuccessful")
+        client.assert(isSuccessful, "true");
         client.assert(response.status === 200, "Response status is not 200");
     }) ;
 %}

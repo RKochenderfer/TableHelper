@@ -1,6 +1,6 @@
 namespace TableHelper.Api.Services.Randomizer;
 
-public class FisherYatesRandomRetrieval<T>(Random rng) : IRandomizer<T> where T : class
+internal class FisherYatesRandomRetrieval<T>(Random rng) : IRandomizer<T> where T : class
 {
     public IEnumerable<T> GetRandomEntries(List<T> entries, int numberOfEntriesToReturn)
     {

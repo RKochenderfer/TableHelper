@@ -1,0 +1,32 @@
+@using TableHelper.Models
+<div class="table-responsive-sm">
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Trustworthiness</th>
+            <th scope="col">Basic Challenges of the Job</th>
+            <th scope="col">Main Countervailing Forces</th>
+            <th scope="col">Patron Eagerness to Hire</th>
+            <th scope="col">Potential Non Cash Rewards</th>
+            <th scope="col">Complications of the Job</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var patron in Patrons)
+        {
+            <tr>
+                <td>@patron.Trustworthiness</td>
+                <td>@patron.BasicChallengesOfTheJob</td>
+                <td>@patron.MainCountervailingForces</td>
+                <td>@patron.PatronEagernessToHire</td>
+                <td>@patron.PotentialNonCashRewards</td>
+                <td>@patron.ComplicationsToTheJob</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+
+@code {
+    [Parameter] public List<Patron> Patrons { get; set; } = [];
+}
