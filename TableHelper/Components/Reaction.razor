@@ -1,0 +1,54 @@
+<h3>Reaction Table</h3>
+<div class="table-response-sm">
+    <table class="table table-stripped table-hover">
+        <thead>
+        <tr>
+            <th scope="col">2d6</th>
+            <th scope="col">Reaction Result</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var reaction in _reactions)
+        {
+            <tr>
+            @if (reaction.StartRange != reaction.EndRange)
+            {
+                <td>@reaction.StartRange-@reaction.EndRange</td>
+            }
+            else
+            {
+                <td>@reaction.StartRange</td>
+            }
+            <td>@reaction.Reaction</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+
+<h3>Roll Reaction</h3>
+<form class="row g-3">
+    <div class="col-auto">
+        <button type="button" class="btn btn-primary mb-3" @onclick="RollReaction">Roll Reaction</button>
+    </div>
+    <div class="col-xl">
+        <input value="@_reaction" type="text" class="form-control" placeholder="Reaction" disabled>
+    </div>
+</form>
+
+
+@code {
+    private readonly Random _rnd = new();
+    private string _reaction = "";
+    private record ReactionEntry(int StartRange, int EndRange, string Reaction);
+
+    private readonly List<ReactionEntry> _reactions =
+    [
+        new ReactionEntry(2, 2, "Hostile, reacting as negatively as plausible"),
+        new ReactionEntry(3, 5, "Negative, unfriendly and unhelpful"),
+        new ReactionEntry(6, 8, "Positive, potentially cooperative with the PCs"),
+        new ReactionEntry(12, 12, "Friendly, helpful as is plausible to be")
+    ];
+
+    private void RollReaction() => _reaction = _reactions[_rnd.Next(0, _reactions.Count)].Reaction;
+}
