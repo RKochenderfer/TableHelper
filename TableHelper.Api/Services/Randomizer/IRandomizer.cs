@@ -1,4 +1,4 @@
-namespace TableHelper.Api.Services;
+namespace TableHelper.Api.Services.Randomizer;
 
 public interface IRandomizer<T> where T : class
 {

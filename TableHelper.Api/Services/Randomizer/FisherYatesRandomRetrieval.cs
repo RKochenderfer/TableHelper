@@ -1,4 +1,4 @@
-namespace TableHelper.Api.Services;
+namespace TableHelper.Api.Services.Randomizer;
 
 public class FisherYatesRandomRetrieval<T>(Random rng) : IRandomizer<T> where T : class
 {

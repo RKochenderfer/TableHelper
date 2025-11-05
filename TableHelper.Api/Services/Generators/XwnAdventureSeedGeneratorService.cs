@@ -1,10 +1,9 @@
+using TableHelper.Api.Services.Randomizer;
 using TableHelper.Infrastructure.Repositories;
 using TableHelper.Models;
-using TableHelper.Models.Generators;
-using TableHelper.Models.Npc;
 using TableHelper.Models.Requests;
 
-namespace TableHelper.Api.Services;
+namespace TableHelper.Api.Services.Generators;
 
 public class XwnAdventureSeedGeneratorService(
     IAdventureSeedGeneratorRepository adventureSeedGeneratorRepository,

@@ -3,7 +3,7 @@ using TableHelper.Models.Generators.Npc;
 using TableHelper.Models.Npc;
 using TableHelper.Models.Requests;
 
-namespace TableHelper.Api.Services;
+namespace TableHelper.Api.Services.Generators;
 
 public class XwnNpcGeneratorService(DieRoller dieRoller, Random rnd, INpcGeneratorRepository npcGeneratorRepository)
 {
