@@ -1,9 +1,4 @@
 using System.Text.Json.Serialization;
-using TableHelper.Api.Services;
-using TableHelper.Api.Services.Generators;
-using TableHelper.Api.Services.Randomizer;
-using TableHelper.Infrastructure.Repositories;
-using TableHelper.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +9,7 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
     options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
 });
-builder.Services.AddOpenApi();
+// builder.Services.AddOpe();
 
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices();
@@ -26,7 +21,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseWebAssemblyDebugging();
-    app.MapOpenApi();
+    // app.MapOpenApi();
 }
 
 app.MapControllers();
