@@ -1,74 +1,28 @@
 @page "/xwn/Generators"
+@using TableHelper.Components.XWN
 @using TableHelper.Components.XWN.AdventureSeedGenerator
 @using TableHelper.Components.XWN.NpcGenerator
 @using TableHelper.Components.XWN.PatronGenerator
 @using TableHelper.Components.XWN.ProblemGenerator
 
-@inject HttpClient Http
-
 <h3>XWN Generators</h3>
-    
 
-<div class="accordion generator-accordion" id="npcAccordion">
-  <div class="accordion-item">
-    <h2 class="accordion-header">
-      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#npcGeneratorCollapse" aria-expanded="true" aria-controls="npcGeneratorCollapse">
-        NPC Generator
-      </button>
-    </h2>
-    <div id="npcGeneratorCollapse" class="accordion-collapse collapse show" data-bs-parent="#npcAccordion">
-      <div class="accordion-body generator-accordion-body">
-        <NpcGenerator></NpcGenerator>
-      </div>
-    </div>
-  </div>
-</div>
+<GeneratorAccordion Title="NPC Generator">
+  <NpcGenerator/>
+</GeneratorAccordion>
 
-<div class="accordion generator-accordion" id="adventureSeedAccordion">
-  <div class="accordion-item">
-    <h2 class="accordion-header">
-      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#adventureSeedGeneratorCollapse" aria-expanded="true" aria-controls="adventureSeedGeneratorCollapse">
-        Adventure seed Generator
-      </button>
-    </h2>
-    <div id="adventureSeedGeneratorCollapse" class="accordion-collapse collapse show" data-bs-parent="#adventureSeedAccordion">
-      <div class="accordion-body generator-accordion-body">
-        <AdventureSeedGenerator></AdventureSeedGenerator>
-      </div>
-    </div>
-  </div>
-</div>
+<GeneratorAccordion Title="Adventure Seed Generator">
+  <AdventureSeedGenerator/>
+</GeneratorAccordion>
 
-<div class="accordion generator-accordion" id="problemAccordion">
-  <div class="accordion-item">
-    <h2 class="accordion-header">
-      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#problemGeneratorCollapse" aria-expanded="true" aria-controls="problemGeneratorCollapse">
-        Problem Generator
-      </button>
-    </h2>
-    <div id="problemGeneratorCollapse" class="accordion-collapse collapse show" data-bs-parent="#problemAccordion">
-      <div class="accordion-body generator-accordion-body">
-        <ProblemGenerator></ProblemGenerator>
-      </div>
-    </div>
-  </div>
-</div>
+<GeneratorAccordion Title="Problem Generator">
+  <ProblemGenerator/>
+</GeneratorAccordion>
 
-<div class="accordion generator-accordion" id="patronAccordion">
-  <div class="accordion-item">
-    <h2 class="accordion-header">
-      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#patronGeneratorCollapse" aria-expanded="true" aria-controls="patronGeneratorCollapse">
-        Patron Generator
-      </button>
-    </h2>
-    <div id="patronGeneratorCollapse" class="accordion-collapse collapse show" data-bs-parent="#patronAccordion">
-      <div class="accordion-body generator-accordion-body">
-        <PatronGenerator></PatronGenerator>
-      </div>
-    </div>
-  </div>
-</div>
+<GeneratorAccordion Title="Patron Generator">
+  <PatronGenerator/>
+</GeneratorAccordion>
 
 @code {
-    
+
 }
