@@ -1,3 +1,4 @@
+using TableHelper.Api.Services.Randomizer;
 using TableHelper.Infrastructure.Repositories;
 using TableHelper.Models.Generators.Npc;
 using TableHelper.Models.Npc;
@@ -5,7 +6,11 @@ using TableHelper.Models.Requests;
 
 namespace TableHelper.Api.Services.Generators;
 
-public class XwnNpcGeneratorService(DieRoller dieRoller, Random rnd, INpcGeneratorRepository npcGeneratorRepository)
+public class XwnNpcGeneratorService(
+    DieRoller dieRoller,
+    INpcGeneratorRepository npcGeneratorRepository,
+    ISetRandomizer<NameOption> nameOptionRandomizer,
+    ISetRandomizer<string> stringRandomizer)
 {
     /// <summary>
     /// Generates a list of NPCs
@@ -33,18 +38,18 @@ public class XwnNpcGeneratorService(DieRoller dieRoller, Random rnd, INpcGenerat
         var preferredNameGender = GetPreferredNameGender(request);
         var firstName = GenerateFirstName(nameOptions, preferredNameGender);
         var surname = GenerateSurname(nameOptions);
-        var initialManner = GenerateMakeupOption(makeupOptions.InitialManner);
-        var defaultDealOutcome = GenerateMakeupOption(makeupOptions.DefaultDealOutcome);
-        var theirMotivation = GenerateMakeupOption(makeupOptions.TheirMotivation);
-        var theirWant = GenerateMakeupOption(makeupOptions.TheirWant);
-        var theirPower = GenerateMakeupOption(makeupOptions.TheirPower);
-        var theirHook = GenerateMakeupOption(makeupOptions.TheirHook);
-        var theirBackground = GenerateMakeupOption(makeupOptions.TheirBackground);
-        var theirRoleInSociety = GenerateMakeupOption(makeupOptions.TheirRoleInSociety);
-        var theirBiggestProblem = GenerateMakeupOption(makeupOptions.TheirBiggestProblem);
-        var ageDescription = GenerateMakeupOption(makeupOptions.Age);
-        var theirGreatestDesire = GenerateMakeupOption(makeupOptions.TheirGreatestDesire);
-        var mostObviousCharacterTrait = GenerateMakeupOption(makeupOptions.MostObviousCharacterTrait);
+        var initialManner = stringRandomizer.GetRandomElement(makeupOptions.InitialManner);
+        var defaultDealOutcome = stringRandomizer.GetRandomElement(makeupOptions.DefaultDealOutcome);
+        var theirMotivation = stringRandomizer.GetRandomElement(makeupOptions.TheirMotivation);
+        var theirWant = stringRandomizer.GetRandomElement(makeupOptions.TheirWant);
+        var theirPower = stringRandomizer.GetRandomElement(makeupOptions.TheirPower);
+        var theirHook = stringRandomizer.GetRandomElement(makeupOptions.TheirHook);
+        var theirBackground = stringRandomizer.GetRandomElement(makeupOptions.TheirBackground);
+        var theirRoleInSociety = stringRandomizer.GetRandomElement(makeupOptions.TheirRoleInSociety);
+        var theirBiggestProblem = stringRandomizer.GetRandomElement(makeupOptions.TheirBiggestProblem);
+        var ageDescription = stringRandomizer.GetRandomElement(makeupOptions.Age);
+        var theirGreatestDesire = stringRandomizer.GetRandomElement(makeupOptions.TheirGreatestDesire);
+        var mostObviousCharacterTrait = stringRandomizer.GetRandomElement(makeupOptions.MostObviousCharacterTrait);
 
         return new NpcInfo(
             FirstName: firstName,
@@ -64,16 +69,9 @@ public class XwnNpcGeneratorService(DieRoller dieRoller, Random rnd, INpcGenerat
             MostObviousCharacterTrait: mostObviousCharacterTrait);
     }
 
-    private string GenerateMakeupOption(string[] options)
+    private string GenerateFirstName(NameOption[] nameOptions, NameGender preferredNameNameGender)
     {
-        var roll = rnd.Next(0, options.Length);
-        return options[roll];
-    }
-
-    private string GenerateFirstName(NameOption[] nameOption, NameGender preferredNameNameGender)
-    {
-        var index = rnd.Next(0, nameOption.Length);
-        var option = nameOption[index];
+        var option = nameOptionRandomizer.GetRandomElement(nameOptions);
 
         return preferredNameNameGender switch
         {
@@ -85,8 +83,7 @@ public class XwnNpcGeneratorService(DieRoller dieRoller, Random rnd, INpcGenerat
 
     private string GenerateSurname(NameOption[] nameOption)
     {
-        var index = rnd.Next(0, nameOption.Length);
-        var option = nameOption[index];
+        var option = nameOptionRandomizer.GetRandomElement(nameOption);
 
         return option.Surname;
     }

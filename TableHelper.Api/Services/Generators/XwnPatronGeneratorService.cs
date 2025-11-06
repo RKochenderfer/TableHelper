@@ -1,3 +1,4 @@
+using TableHelper.Api.Services.Randomizer;
 using TableHelper.Infrastructure.Repositories;
 using TableHelper.Models;
 using TableHelper.Models.Generators;
@@ -7,7 +8,7 @@ namespace TableHelper.Api.Services.Generators;
 
 public class XwnPatronGeneratorService(
     IPatronGeneratorRepository repository,
-    Random rnd)
+    ISetRandomizer<string> randomizer)
 {
     public async Task<IReadOnlyList<Patron>> GeneratePatrons(PatronGenerationRequest request)
     {
@@ -26,12 +27,12 @@ public class XwnPatronGeneratorService(
 
     private Patron GeneratePatron(PatronGeneratorData data)
     {
-        var trustworthiness = GetRandomString(data.Trustworthiness);
-        var basicChallengesOfTheJob = GetRandomString(data.BasicChallengesOfTheJob);
-        var mainCountervailingForces = GetRandomString(data.MainCountervailingForces);
-        var patronEagernessToHire = GetRandomString(data.PatronEagernessToHire);
-        var potentialNonCashRewards = GetRandomString(data.PotentialNonCashRewards);
-        var complicationsToTheJob = GetRandomString(data.ComplicationsToTheJob);
+        var trustworthiness = randomizer.GetRandomElement(data.Trustworthiness);
+        var basicChallengesOfTheJob = randomizer.GetRandomElement(data.BasicChallengesOfTheJob);
+        var mainCountervailingForces = randomizer.GetRandomElement(data.MainCountervailingForces);
+        var patronEagernessToHire = randomizer.GetRandomElement(data.PatronEagernessToHire);
+        var potentialNonCashRewards = randomizer.GetRandomElement(data.PotentialNonCashRewards);
+        var complicationsToTheJob = randomizer.GetRandomElement(data.ComplicationsToTheJob);
 
         return new Patron(
             trustworthiness,
@@ -41,11 +42,5 @@ public class XwnPatronGeneratorService(
             potentialNonCashRewards,
             complicationsToTheJob
         );
-    }
-
-    private string GetRandomString(string[] data)
-    {
-        var index = rnd.Next(0, data.Length);
-        return data[index];
     }
 }
