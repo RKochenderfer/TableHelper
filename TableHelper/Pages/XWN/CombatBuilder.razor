@@ -1,11 +1,110 @@
 @page "/xwn/CombatBuilder"
 @using TableHelper.Components
 @using TableHelper.Components.XWN
-<h3>CombatBuilder</h3>
+<h3>Combat Builder</h3>
+<div class="container">
+    <div class="row">
+        <h4>Making Encounters</h4>
+        <p class="h5">Player Encounter Difficulty</p>
+
+        <div class="row mb-1">
+            <div class="col-md-6">
+                <label for="opponentHitDice" class="form-label">Opponent Total Hit Dice</label>
+                <input type="number" class="form-control" id="opponentHitDice" value="@_opponentHitDice" @onchange="OpponentHitDiceUpdate">
+
+                <label for="opponentNumAttacks" class="form-label">Total Number of Attacks Opponents Have</label>
+                <input type="number" class="form-control" id="opponentNumAttacks" value="@_opponentNumAttacks" @onchange="OpponentTotalAttacksUpdate">
+
+                <label for="totalOpponentPower" class="form-label">Total Opponent Power</label>
+                <input type="number" class="form-control" id="totalOpponentPower" value="@_totalOpponentPower" disabled/>
+            </div>
+            <div class="col-md-6">
+                <label for="numPlayers" class="form-label">Number of Players</label>
+                <input type="number" class="form-control" id="numPlayers" value="@_numPlayers" @onchange="NumberOfPlayersUpdate">
+
+                <label for="playersLevel" class="form-label">Current Player Level (assuming they're all the same)</label>
+                <input type="number" class="form-control" id="playersLevel" value="@_currentPlayerLevel" @onchange="CurrentPlayerLevelUpdate"/>
+
+                <label for="totalPlayerPower" class="form-label">Total Player Power</label>
+                <input type="number" class="form-control" id="totalPlayerPower" value="@_totalPlayerPower" disabled/>
+            </div>
+        </div>
+        <div class="row mb-1">
+            <p class="text-warning">@_difficulty</p>
+        </div>
+
+    </div>
+</div>
+
 <AccordionWrapper Title="Reaction">
     <Reaction/>
 </AccordionWrapper>
 
 @code {
+    private int _opponentHitDice;
+    private int _opponentNumAttacks;
+    private int _totalOpponentPower => _opponentHitDice * _opponentNumAttacks;
+    private int _numPlayers;
+    private int _currentPlayerLevel;
+    private int _totalPlayerPower => (_currentPlayerLevel * _numPlayers) * _numPlayers;
+    private string _difficulty = "";
+    private readonly string _easyNotification = "If the enemy total is equal to or smaller than the party total, they’re likely to win without anyone becoming mortally wounded. If the enemy total is less than half the party total, it will probably be a walkover for the PCs.";
+    private readonly string _mediumNotification = "If the enemy total is larger than the party total, the PCs might have an ally go down, but they have a decent chance of winning the fight due to their generally-superior abilities and powers.";
+    private readonly string _hardNotification = "If the enemy total is twice as large, the PCs are probably going to have at least one PC downed and run a good chance of a complete party wipe, assuming they engage their foes in the open with no complications.";
+    private readonly string _impossibleNotification = "If the enemy total is more than four times larger, it will probably be a rout. The PCs are going to get crushed unless they have excellent tactics, a superb position that only allows a few of the enemies to engage at once, or some magical resource that can nullify a large number of foes. Conversely, if the enemies have magical powers or special abilities of their own, it might be an even worse curb-stomping for then heroes.";
 
+    
+    private void OpponentHitDiceUpdate(ChangeEventArgs args)
+    {
+        if (args.Value == null) return;
+        _opponentHitDice = int.Parse(args.Value.ToString()!);
+        TotalChanged();
+    }
+    
+    private void OpponentTotalAttacksUpdate(ChangeEventArgs args)
+    {
+        if (args.Value == null) return;
+        _opponentNumAttacks = int.Parse(args.Value.ToString()!);
+        TotalChanged();
+    }
+
+    private void NumberOfPlayersUpdate(ChangeEventArgs args)
+    {
+        if (args.Value == null) return;
+        _numPlayers = int.Parse(args.Value.ToString()!);
+        TotalChanged();
+    }
+    
+    private void CurrentPlayerLevelUpdate(ChangeEventArgs args)
+    {
+        if (args.Value == null) return;
+        _currentPlayerLevel = int.Parse(args.Value.ToString()!);
+        TotalChanged();
+    }
+    
+    private void TotalChanged()
+    {
+        if (_totalPlayerPower == 0 || _totalOpponentPower == 0)
+        {
+            _difficulty = "";
+            return;
+        }
+
+        if (_totalOpponentPower == _totalPlayerPower || _totalOpponentPower < _totalPlayerPower)
+        {
+            _difficulty = _easyNotification;
+        }
+        else if (_totalOpponentPower > _totalPlayerPower && _totalOpponentPower < _totalPlayerPower * 2)
+        {
+            _difficulty = _mediumNotification;
+        }
+        else if (_totalOpponentPower >= _totalPlayerPower * 2 && _totalOpponentPower < _totalPlayerPower * 4)
+        {
+            _difficulty = _hardNotification;
+        }
+        else
+        {
+            _difficulty = _impossibleNotification;
+        }
+    }
 }
