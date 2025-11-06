@@ -6,7 +6,7 @@ namespace TableHelper.Infrastructure.Repositories;
 
 public class JsonNameGeneratorRepository(JsonFileDeserializer<NpcGeneratorData> deserializer) : INpcGeneratorRepository
 {
-    private const string NpcGeneratorDataPath = "data/npcGenerator.json";
+    private const string NpcGeneratorDataPath = "data/SWN/npcGenerator.json";
 
     public Task<NpcGeneratorData> GetAllGeneratorData()
     {

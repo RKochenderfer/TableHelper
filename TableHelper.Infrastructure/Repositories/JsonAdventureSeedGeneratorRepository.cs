@@ -9,7 +9,7 @@ namespace TableHelper.Infrastructure.Repositories;
 public class JsonAdventureSeedGeneratorRepository(JsonFileDeserializer<AdventureSeedGeneratorData> deserializer)
     : IAdventureSeedGeneratorRepository
 {
-    private const string AdventureSeedGeneratorDataPath = "data/adventureSeedGenerator.json";
+    private const string AdventureSeedGeneratorDataPath = "data/SWN/adventureSeedGenerator.json";
 
     public async Task<AdventureSeedGeneratorData> GetAdventureSeeds()
     {

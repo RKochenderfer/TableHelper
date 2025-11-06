@@ -5,7 +5,7 @@ namespace TableHelper.Infrastructure.Repositories;
 
 public class JsonProblemGeneratorRepository(JsonFileDeserializer<ProblemGeneratorData> deserializer) : IProblemGeneratorRepository
 {
-    private const string ProblemGeneratorDataPath = "data/problemGenerator.json";
+    private const string ProblemGeneratorDataPath = "data/SWN/problemGenerator.json";
     
     public async Task<ProblemGeneratorData> GetProblemGeneratorData()
     {

@@ -5,7 +5,7 @@ namespace TableHelper.Infrastructure.Repositories;
 
 public class JsonPatronGeneratorRepository(JsonFileDeserializer<PatronGeneratorData> deserializer) : IPatronGeneratorRepository
 {
-    private const string PatronGeneratorDataPath = "data/patronGenerator.json";
+    private const string PatronGeneratorDataPath = "data/SWN/patronGenerator.json";
     
     public async Task<PatronGeneratorData> GetAllPatronData()
     {
