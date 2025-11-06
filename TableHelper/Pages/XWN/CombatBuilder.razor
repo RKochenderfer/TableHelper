@@ -16,7 +16,7 @@
                 <input type="number" class="form-control" id="opponentNumAttacks" value="@_opponentNumAttacks" @onchange="OpponentTotalAttacksUpdate">
 
                 <label for="totalOpponentPower" class="form-label">Total Opponent Power</label>
-                <input type="number" class="form-control" id="totalOpponentPower" value="@_totalOpponentPower" disabled/>
+                <input type="number" class="form-control" id="totalOpponentPower" value="@TotalOpponentPower" disabled/>
             </div>
             <div class="col-md-6">
                 <label for="numPlayers" class="form-label">Number of Players</label>
@@ -26,7 +26,7 @@
                 <input type="number" class="form-control" id="playersLevel" value="@_currentPlayerLevel" @onchange="CurrentPlayerLevelUpdate"/>
 
                 <label for="totalPlayerPower" class="form-label">Total Player Power</label>
-                <input type="number" class="form-control" id="totalPlayerPower" value="@_totalPlayerPower" disabled/>
+                <input type="number" class="form-control" id="totalPlayerPower" value="@TotalPlayerPower" disabled/>
             </div>
         </div>
         <div class="row mb-1">
@@ -43,17 +43,17 @@
 @code {
     private int _opponentHitDice;
     private int _opponentNumAttacks;
-    private int _totalOpponentPower => _opponentHitDice * _opponentNumAttacks;
+    private int TotalOpponentPower => _opponentHitDice * _opponentNumAttacks;
     private int _numPlayers;
     private int _currentPlayerLevel;
-    private int _totalPlayerPower => (_currentPlayerLevel * _numPlayers) * _numPlayers;
+    private int TotalPlayerPower => (_currentPlayerLevel * _numPlayers) * _numPlayers;
     private string _difficulty = "";
-    private readonly string _easyNotification = "If the enemy total is equal to or smaller than the party total, they’re likely to win without anyone becoming mortally wounded. If the enemy total is less than half the party total, it will probably be a walkover for the PCs.";
-    private readonly string _mediumNotification = "If the enemy total is larger than the party total, the PCs might have an ally go down, but they have a decent chance of winning the fight due to their generally-superior abilities and powers.";
-    private readonly string _hardNotification = "If the enemy total is twice as large, the PCs are probably going to have at least one PC downed and run a good chance of a complete party wipe, assuming they engage their foes in the open with no complications.";
-    private readonly string _impossibleNotification = "If the enemy total is more than four times larger, it will probably be a rout. The PCs are going to get crushed unless they have excellent tactics, a superb position that only allows a few of the enemies to engage at once, or some magical resource that can nullify a large number of foes. Conversely, if the enemies have magical powers or special abilities of their own, it might be an even worse curb-stomping for then heroes.";
+    private const string EasyNotification = "If the enemy total is equal to or smaller than the party total, they’re likely to win without anyone becoming mortally wounded. If the enemy total is less than half the party total, it will probably be a walkover for the PCs.";
+    private const string MediumNotification = "If the enemy total is larger than the party total, the PCs might have an ally go down, but they have a decent chance of winning the fight due to their generally-superior abilities and powers.";
+    private const string HardNotification = "If the enemy total is twice as large, the PCs are probably going to have at least one PC downed and run a good chance of a complete party wipe, assuming they engage their foes in the open with no complications.";
+    private const string ImpossibleNotification = "If the enemy total is more than four times larger, it will probably be a rout. The PCs are going to get crushed unless they have excellent tactics, a superb position that only allows a few of the enemies to engage at once, or some magical resource that can nullify a large number of foes. Conversely, if the enemies have magical powers or special abilities of their own, it might be an even worse curb-stomping for then heroes.";
 
-    
+
     private void OpponentHitDiceUpdate(ChangeEventArgs args)
     {
         if (args.Value == null) return;
@@ -84,27 +84,27 @@
     
     private void TotalChanged()
     {
-        if (_totalPlayerPower == 0 || _totalOpponentPower == 0)
+        if (TotalPlayerPower == 0 || TotalOpponentPower == 0)
         {
             _difficulty = "";
             return;
         }
 
-        if (_totalOpponentPower == _totalPlayerPower || _totalOpponentPower < _totalPlayerPower)
+        if (TotalOpponentPower == TotalPlayerPower || TotalOpponentPower < TotalPlayerPower)
         {
-            _difficulty = _easyNotification;
+            _difficulty = EasyNotification;
         }
-        else if (_totalOpponentPower > _totalPlayerPower && _totalOpponentPower < _totalPlayerPower * 2)
+        else if (TotalOpponentPower > TotalPlayerPower && TotalOpponentPower < TotalPlayerPower * 2)
         {
-            _difficulty = _mediumNotification;
+            _difficulty = MediumNotification;
         }
-        else if (_totalOpponentPower >= _totalPlayerPower * 2 && _totalOpponentPower < _totalPlayerPower * 4)
+        else if (TotalOpponentPower >= TotalPlayerPower * 2 && TotalOpponentPower < TotalPlayerPower * 4)
         {
-            _difficulty = _hardNotification;
+            _difficulty = HardNotification;
         }
         else
         {
-            _difficulty = _impossibleNotification;
+            _difficulty = ImpossibleNotification;
         }
     }
 }
