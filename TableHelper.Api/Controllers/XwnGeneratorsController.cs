@@ -8,12 +8,13 @@ namespace TableHelper.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class XwnGenerators(
-    ILogger<XwnGenerators> logger,
+public class XwnGeneratorsController(
+    ILogger<XwnGeneratorsController> logger,
     XwnNpcGeneratorService npcGeneratorService,
     XwnAdventureSeedGeneratorService adventureSeedGeneratorService,
     XwnPatronGeneratorService patronGeneratorService,
-    XwnProblemGeneratorService problemGeneratorService)
+    XwnProblemGeneratorService problemGeneratorService,
+    XwnUrbanGeneratorService urbanGeneratorService)
     : ControllerBase
 {
     /// <summary>
@@ -34,8 +35,8 @@ public class XwnGenerators(
                 XwnGenerationType.AdventureSeed => await GenerateAdventureSeedData(request),
                 XwnGenerationType.Patron => await GeneratePatronData(request),
                 XwnGenerationType.Problem => await GenerateProblemData(request),
-                XwnGenerationType.Place
-                    or XwnGenerationType.UrbanEncounter => GenerateResponse.Failure(
+                XwnGenerationType.UrbanEncounter => await GenerateUrbanEncounterData(request),
+                XwnGenerationType.Place => GenerateResponse.Failure(
                         $"Generate type {request.Type}, is not implemented yet"),
                 _ => GenerateResponse.Failure($"Generate type {request.Type}, is not supported")
             };
@@ -45,6 +46,18 @@ public class XwnGenerators(
             logger.LogError(ex, "Failed to generate data");
             return GenerateResponse.Failure(ex.Message);
         }
+    }
+
+    private async Task<GenerateResponse> GenerateUrbanEncounterData(XwnGenerationRequest request)
+    {
+        if (request.UrbanEncounterGenerationRequest == null)
+        {
+            return GenerateResponse.Failure("UrbanEncounterRequest cannot be null when generating an Urban Encounter");
+        }
+        logger.LogDebug("Generating Problem Request");
+        var problems = await urbanGeneratorService.GenerateUrbanEncounters(request.UrbanEncounterGenerationRequest);
+        logger.LogDebug("Completed generating problem data");
+        return UrbanEncounterResponse.Success(problems);
     }
 
     private async Task<GenerateResponse> GenerateProblemData(XwnGenerationRequest request)
@@ -63,7 +76,7 @@ public class XwnGenerators(
     {
         if (request.PatronGenerationRequest == null)
         {
-            return GenerateResponse.Failure("Patron generation request data cannot be null when generating a Patron");
+            return PatronGenerationResponse.Failure("Patron generation request data cannot be null when generating a Patron");
         }
         
         logger.LogDebug("Generating Patron Request");

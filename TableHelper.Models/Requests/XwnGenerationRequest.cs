@@ -23,9 +23,14 @@ public class XwnGenerationRequest : IRequest
     public PatronGenerationRequest? PatronGenerationRequest { get; init; }
 
     /// <summary>
-    /// Request to genearte problems. Only required when the type is <see cref="XwnGenerationType.Problem"/>
+    /// Request to generate problems. Only required when the type is <see cref="XwnGenerationType.Problem"/>
     /// </summary>
     public ProblemGenerationRequest? ProblemGenerationRequest { get; init; }
+    
+    /// <summary>
+    /// Request to generate urban encounters. Only required when the type is <see cref="XwnGenerationType.UrbanEncounter"/>
+    /// </summary>
+    public UrbanEncounterRequest? UrbanEncounterGenerationRequest { get; init; }
 
     /// <summary>
     /// Create a new request to generate NPCs

@@ -7,12 +7,12 @@ namespace TableHelper.Api.Services.Generators;
 
 public class XwnAdventureSeedGeneratorService(
     IAdventureSeedGeneratorRepository adventureSeedGeneratorRepository,
-    IRandomizer<string> randomizer)
+    ISetRandomizer<string> setRandomizer)
 {
     public async Task<IReadOnlyList<AdventureSeed>> GenerateAdventureSeeds(AdventureSeedGenerateRequest request)
     {
         var generatorData = await adventureSeedGeneratorRepository.GetAdventureSeeds();
-        var randomEntries = randomizer.GetRandomEntries(generatorData.Seeds.ToList(), request.NumberOfSeeds);
+        var randomEntries = setRandomizer.GetRandomElementSet(generatorData.Seeds, request.NumberOfSeeds);
         
         return randomEntries.Select(e => new AdventureSeed(e)).ToList();
     }

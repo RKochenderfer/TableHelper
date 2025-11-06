@@ -77,7 +77,27 @@ Content-Type: application/json
 {
   "type": "Problem",
   "problemGenerationRequest": {
-    "NumberOfProblems": 2
+    "numberOfProblems": 2
+  }
+}
+
+> {%
+    client.test("Request executed successfully", function () {
+        const isSuccessful = jsonPath(response.body, "$.isSuccessful")
+        client.assert(isSuccessful, "true");
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
+
+### POST Generate Urban Encounters
+POST https://localhost:7042/api/XwnGenerators/
+Accept: application/json
+Content-Type: application/json
+
+{
+  "type": "UrbanEncounter",
+  "urbanEncounterGenerationRequest": {
+    "encountersToGenerate": 2
   }
 }
 

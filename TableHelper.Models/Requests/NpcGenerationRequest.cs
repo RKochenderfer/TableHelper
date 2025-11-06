@@ -26,6 +26,6 @@ public class NpcGenerationRequest : IRequest
 
     public bool Validate()
     {
-        return NpcsToGenerate != 0;
+        return NpcsToGenerate > 0;
     }
 }

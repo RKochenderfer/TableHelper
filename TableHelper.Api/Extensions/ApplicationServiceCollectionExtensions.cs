@@ -11,7 +11,7 @@ public static class ApplicationServiceCollectionExtensions
         services = services.AddGeneratorServices();
         services.AddScoped<Random>();
         services.AddScoped<DieRoller>();
-        services.AddScoped(typeof(IRandomizer<>), typeof(FisherYatesRandomRetrieval<>));
+        services.AddScoped(typeof(ISetRandomizer<>), typeof(FisherYatesRandomRetrieval<>));
         return services;
     }
     
@@ -21,6 +21,7 @@ public static class ApplicationServiceCollectionExtensions
         services.AddScoped<XwnAdventureSeedGeneratorService>();
         services.AddScoped<XwnPatronGeneratorService>();
         services.AddScoped<XwnProblemGeneratorService>();
+        services.AddScoped<XwnUrbanGeneratorService>();
         return services;
     }
 }
