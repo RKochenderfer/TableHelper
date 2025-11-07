@@ -30,7 +30,12 @@ public class XwnGenerationRequest : IRequest
     /// <summary>
     /// Request to generate urban encounters. Only required when the type is <see cref="XwnGenerationType.UrbanEncounter"/>
     /// </summary>
-    public UrbanEncounterRequest? UrbanEncounterGenerationRequest { get; init; }
+    public UrbanEncounterGenerationRequest? UrbanEncounterGenerationRequest { get; init; }
+    
+    /// <summary>
+    /// Request to generate urban encounters. Only required when the type is <see cref="XwnGenerationType.UrbanEncounter"/>
+    /// </summary>
+    public WildernessEncounterGeneratorRequest? WildernessEncounterGeneratorRequest { get; init; }
 
     /// <summary>
     /// Create a new request to generate NPCs

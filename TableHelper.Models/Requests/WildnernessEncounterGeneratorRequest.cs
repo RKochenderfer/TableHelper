@@ -1,14 +1,14 @@
 namespace TableHelper.Models.Requests;
 
-public class UrbanEncounterRequest : IRequest
+public class WildernessEncounterGeneratorRequest : IRequest
 {
     public int EncountersToGenerate { get; init; }
 
-    public static UrbanEncounterRequest From(int encountersToGenerate)
+    public static WildernessEncounterGeneratorRequest From(int encountersToGenerate)
     {
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(encountersToGenerate);
 
-        return new UrbanEncounterRequest
+        return new WildernessEncounterGeneratorRequest
         {
             EncountersToGenerate = encountersToGenerate
         };

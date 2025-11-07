@@ -13,6 +13,7 @@ public static class InfrastructureServicesCollectionExtensions
         services.AddScoped<IPatronGeneratorRepository, JsonPatronGeneratorRepository>();
         services.AddScoped<IProblemGeneratorRepository, JsonProblemGeneratorRepository>();
         services.AddScoped<IUrbanEncounterGeneratorRepository, JsonUrbanEncounterGeneratorRepository>();
+        services.AddScoped<IWildernessEncounterGeneratorRepository, JsonWildernessEncounterGeneratorRepository>();
         return services;
     }
 }

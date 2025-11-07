@@ -14,7 +14,8 @@ public class XwnGeneratorsController(
     XwnAdventureSeedGeneratorService adventureSeedGeneratorService,
     XwnPatronGeneratorService patronGeneratorService,
     XwnProblemGeneratorService problemGeneratorService,
-    XwnUrbanGeneratorService urbanGeneratorService)
+    XwnUrbanGeneratorService urbanGeneratorService,
+    XwnWildernessEncounterGeneratorService wildernessEncounterGeneratorService)
     : ControllerBase
 {
     /// <summary>
@@ -36,6 +37,7 @@ public class XwnGeneratorsController(
                 XwnGenerationType.Patron => await GeneratePatronData(request),
                 XwnGenerationType.Problem => await GenerateProblemData(request),
                 XwnGenerationType.UrbanEncounter => await GenerateUrbanEncounterData(request),
+                XwnGenerationType.WildernessEncounter => await GenerateWildernessEncounterData(request),
                 XwnGenerationType.Place => GenerateResponse.Failure(
                         $"Generate type {request.Type}, is not implemented yet"),
                 _ => GenerateResponse.Failure($"Generate type {request.Type}, is not supported")
@@ -48,16 +50,29 @@ public class XwnGeneratorsController(
         }
     }
 
+    private async Task<GenerateResponse> GenerateWildernessEncounterData(XwnGenerationRequest request)
+    {
+        if (request.WildernessEncounterGeneratorRequest == null)
+        {
+            return GenerateResponse.Failure("WildnessEncounterRequest cannot be null when generating an Wilderness Encounter");
+        }
+        
+        logger.LogDebug("Generating Problem Request");
+        var encounters = await wildernessEncounterGeneratorService.GenerateWildernessEncounters(request.WildernessEncounterGeneratorRequest);
+        logger.LogDebug("Completed generating problem data");
+        return WildernessEncounterGenerationResponse.Success(encounters);   
+    }
+
     private async Task<GenerateResponse> GenerateUrbanEncounterData(XwnGenerationRequest request)
     {
         if (request.UrbanEncounterGenerationRequest == null)
         {
-            return GenerateResponse.Failure("UrbanEncounterRequest cannot be null when generating an Urban Encounter");
+            return GenerateResponse.Failure("UrbanEncounterGenerationRequest cannot be null when generating an Urban Encounter");
         }
         logger.LogDebug("Generating Problem Request");
-        var problems = await urbanGeneratorService.GenerateUrbanEncounters(request.UrbanEncounterGenerationRequest);
+        var encounters = await urbanGeneratorService.GenerateUrbanEncounters(request.UrbanEncounterGenerationRequest);
         logger.LogDebug("Completed generating problem data");
-        return UrbanEncounterResponse.Success(problems);
+        return UrbanEncounterResponse.Success(encounters);
     }
 
     private async Task<GenerateResponse> GenerateProblemData(XwnGenerationRequest request)

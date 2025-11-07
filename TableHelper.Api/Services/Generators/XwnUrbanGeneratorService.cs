@@ -7,12 +7,12 @@ namespace TableHelper.Api.Services.Generators;
 
 public class XwnUrbanGeneratorService(IUrbanEncounterGeneratorRepository repository, ISetRandomizer<string> randomizer)
 {
-    public async Task<IReadOnlyList<UrbanEncounter>> GenerateUrbanEncounters(UrbanEncounterRequest request)
+    public async Task<IReadOnlyList<UrbanEncounter>> GenerateUrbanEncounters(UrbanEncounterGenerationRequest generationRequest)
     {
         var generatorData = await repository.GetUrbanEncounterData();
 
         var encounters = new List<UrbanEncounter>();
-        while (encounters.Count != request.EncountersToGenerate)
+        while (encounters.Count != generationRequest.EncountersToGenerate)
         {
             var generalVenueOfTheEvent = randomizer.GetRandomElement(generatorData.GeneralVenueOfTheEvent);
             var whyAreThePcsInvolved = randomizer.GetRandomElement(generatorData.WhyAreThePcsInvolved);

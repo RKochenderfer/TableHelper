@@ -9,29 +9,34 @@ public enum XwnGenerationType
     /// Generate adventure seeds
     /// </summary>
     AdventureSeed = 0,
-    
+
     /// <summary>
     /// Generate npcs
     /// </summary>
     Npc = 1,
-    
+
     /// <summary>
     /// Generate patrons
     /// </summary>
     Patron = 2,
-    
+
     /// <summary>
     /// Generates a place
     /// </summary>
     Place = 3,
-    
+
     /// <summary>
     /// Generates problems
     /// </summary>
     Problem = 4,
-    
+
     /// <summary>
-    /// Generates urban encountrers
+    /// Generates urban encounters
     /// </summary>
     UrbanEncounter = 5,
+
+    /// <summary>
+    /// Generates wilderness encounters
+    /// </summary>
+    WildernessEncounter = 6,
 }

@@ -22,6 +22,7 @@ public static class ApplicationServiceCollectionExtensions
         services.AddScoped<XwnPatronGeneratorService>();
         services.AddScoped<XwnProblemGeneratorService>();
         services.AddScoped<XwnUrbanGeneratorService>();
+        services.AddScoped<XwnWildernessEncounterGeneratorService>();
         return services;
     }
 }
