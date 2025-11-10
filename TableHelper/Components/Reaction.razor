@@ -1,31 +1,3 @@
-<h3>Reaction Table</h3>
-<div class="table-response-sm">
-    <table class="table table-stripped table-hover">
-        <thead>
-        <tr>
-            <th scope="col">2d6</th>
-            <th scope="col">Reaction Result</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach (var reaction in _reactions)
-        {
-            <tr>
-            @if (reaction.StartRange != reaction.EndRange)
-            {
-                <td>@reaction.StartRange-@reaction.EndRange</td>
-            }
-            else
-            {
-                <td>@reaction.StartRange</td>
-            }
-            <td>@reaction.Reaction</td>
-            </tr>
-        }
-        </tbody>
-    </table>
-</div>
-
 <h3>Roll Reaction</h3>
 <form class="row g-3">
     <div class="col-auto">
@@ -34,21 +6,109 @@
     <div class="col-xl">
         <input value="@_reaction" type="text" class="form-control" placeholder="Reaction" disabled>
     </div>
+    <div class="col-xl">
+        <input value="@_reason" type="text" class="form-control" placeholder="Reason" disabled>
+    </div>
 </form>
-
+<h3>Reaction Table</h3>
+<div class="container">
+    <div class="table-response-sm">
+        <table class="table table-stripped table-hover">
+            <thead>
+            <tr>
+                <th scope="col">2d6</th>
+                <th scope="col">Reaction Result</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var reaction in _reactions)
+            {
+                <tr>
+                    @if (reaction.StartRange != reaction.EndRange)
+                    {
+                        <td>@reaction.StartRange-@reaction.EndRange</td>
+                    }
+                    else
+                    {
+                        <td>@reaction.StartRange</td>
+                    }
+                    <td>@reaction.Reaction</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+        <table class="table table-stripped table-hover">
+            <thead>
+            <tr>
+                <th scope="col">Case</th>
+                <th scope="col">Reason</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var reaction in _negativeReactionReasons)
+            {
+                <tr>
+                    <td>Negative</td>
+                    <td>@reaction</td>
+                </tr>
+            }
+            @foreach (var reaction in _positiveReactionReasons)
+            {
+                <tr>
+                    <td>Positive</td>
+                    <td>@reaction</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
 
 @code {
     private readonly Random _rnd = new();
     private string _reaction = "";
-    private record ReactionEntry(int StartRange, int EndRange, string Reaction);
+    private string _reason = "";
 
-    private readonly List<ReactionEntry> _reactions =
+    private record ReactionEntry(int StartRange, int EndRange, string Reaction, bool isNegative);
+
+    private readonly string[] _positiveReactionReasons =
     [
-        new ReactionEntry(2, 2, "Hostile, reacting as negatively as plausible"),
-        new ReactionEntry(3, 5, "Negative, unfriendly and unhelpful"),
-        new ReactionEntry(6, 8, "Positive, potentially cooperative with the PCs"),
-        new ReactionEntry(12, 12, "Friendly, helpful as is plausible to be")
+        "They know a PC from somewhere else.",
+        "They need help from people like the PCs",
+        "They’re looking to earn a bribe.",
+        "They’re intimidated by the PCs",
+        "They’re weakened and can’t pick fights",
+        "They’re prejudiced in favor of a PC type",
+        "The PCs somehow solved a recent problem",
+        "They don’t want trouble right now."
     ];
 
-    private void RollReaction() => _reaction = _reactions[_rnd.Next(0, _reactions.Count)].Reaction;
+    private readonly string[] _negativeReactionReasons =
+    [
+        "A plan of theirs just went wrong.",
+        "They’re' prejudiced against a PC type.",
+        "They’re offended or insulted by something.",
+        "They’ve had a terrible day so far",
+        "The PCs have just made them more work",
+        "They’re afraid of being seen associating.",
+        "The PCs look like easy prey to them.",
+        "They just don’t want to deal with them."
+    ];
+
+    private readonly ReactionEntry[] _reactions =
+    [
+        new(2, 2, "Hostile, reacting as negatively as plausible", true),
+        new(3, 5, "Negative, unfriendly and unhelpful", true),
+        new(6, 8, "Positive, potentially cooperative with the PCs", false),
+        new(12, 12, "Friendly, helpful as is plausible to be", false)
+    ];
+
+    private void RollReaction()
+    {
+        var reaction = _reactions[_rnd.Next(0, _reactions.Length)];
+        _reason = reaction.isNegative ? _negativeReactionReasons[_rnd.Next(0, _negativeReactionReasons.Length)] : _positiveReactionReasons[_rnd.Next(0, _positiveReactionReasons.Length)];
+
+        _reaction = reaction.Reaction;
+    }
+
 }
