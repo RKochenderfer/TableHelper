@@ -1,3 +1,4 @@
+@using TableHelper.Components.XWN
 <h3>Roll Reaction</h3>
 <form class="row g-3">
     <div class="col-auto">
@@ -10,59 +11,60 @@
         <input value="@_reason" type="text" class="form-control" placeholder="Reason" disabled>
     </div>
 </form>
-<h3>Reaction Table</h3>
-<div class="container">
-    <div class="table-response-sm">
-        <table class="table table-stripped table-hover">
-            <thead>
-            <tr>
-                <th scope="col">2d6</th>
-                <th scope="col">Reaction Result</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach (var reaction in _reactions)
-            {
+<AccordionWrapper Title="Reaction Table" StartsCollapsed="@true">
+    <div class="container">
+        <div class="table-response-sm">
+            <table class="table table-stripped table-hover">
+                <thead>
                 <tr>
-                    @if (reaction.StartRange != reaction.EndRange)
-                    {
-                        <td>@reaction.StartRange-@reaction.EndRange</td>
-                    }
-                    else
-                    {
-                        <td>@reaction.StartRange</td>
-                    }
-                    <td>@reaction.Reaction</td>
+                    <th scope="col">2d6</th>
+                    <th scope="col">Reaction Result</th>
                 </tr>
-            }
-            </tbody>
-        </table>
-        <table class="table table-stripped table-hover">
-            <thead>
-            <tr>
-                <th scope="col">Case</th>
-                <th scope="col">Reason</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach (var reaction in _negativeReactionReasons)
-            {
+                </thead>
+                <tbody>
+                @foreach (var reaction in _reactions)
+                {
+                    <tr>
+                        @if (reaction.StartRange != reaction.EndRange)
+                        {
+                            <td>@reaction.StartRange-@reaction.EndRange</td>
+                        }
+                        else
+                        {
+                            <td>@reaction.StartRange</td>
+                        }
+                        <td>@reaction.Reaction</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+            <table class="table table-stripped table-hover">
+                <thead>
                 <tr>
-                    <td>Negative</td>
-                    <td>@reaction</td>
+                    <th scope="col">Case</th>
+                    <th scope="col">Reason</th>
                 </tr>
-            }
-            @foreach (var reaction in _positiveReactionReasons)
-            {
-                <tr>
-                    <td>Positive</td>
-                    <td>@reaction</td>
-                </tr>
-            }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                @foreach (var reaction in _negativeReactionReasons)
+                {
+                    <tr>
+                        <td>Negative</td>
+                        <td>@reaction</td>
+                    </tr>
+                }
+                @foreach (var reaction in _positiveReactionReasons)
+                {
+                    <tr>
+                        <td>Positive</td>
+                        <td>@reaction</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
+</AccordionWrapper>
 
 @code {
     private readonly Random _rnd = new();

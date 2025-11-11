@@ -1,11 +1,11 @@
 <div class="accordion generator-accordion" id="@AccordionId">
     <div class="accordion-item">
         <h2 class="accordion-header">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#@TitleCollapseId" aria-expanded="true" aria-controls="@TitleCollapseId">
+            <button class="accordion-button @CollapseClass" type="button" data-bs-toggle="collapse" data-bs-target="#@TitleCollapseId" aria-expanded="true" aria-controls="@TitleCollapseId">
                 @Title
             </button>
         </h2>
-        <div id="@TitleCollapseId" class="accordion-collapse collapse show" data-bs-parent="#@AccordionId">
+        <div id="@TitleCollapseId" class="accordion-collapse collapse @CollapseClass" data-bs-parent="#@AccordionId">
             <div class="accordion-body generator-accordion-body">
                 @ChildContent
             </div>
@@ -16,6 +16,9 @@
 @code {
     [Parameter] public string Title { get; set; } = "";
     [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public bool StartsCollapsed { get; set; }
+
+    private string CollapseClass => StartsCollapsed ? "collapsed" : "show";
     private string AccordionId => $"{Title.Replace(" ", "")}Accordion";
     private string TitleCollapseId => $"{Title.Replace(" ", "")}GeneratorCollapse";
 }
