@@ -1,7 +1,8 @@
 @using TableHelper.Models
 @using TableHelper.Models.Requests
 @using TableHelper.Models.Responses
-@inject HttpClient Http
+@using TableHelper.Services
+@inject TableHelperApiService ApiService
 
 <h3>Patron Generator</h3>
 <div class="container">
@@ -29,24 +30,15 @@
     private async Task GeneratePatrons()
     {
         _patrons = [];
-        try
+        var patrons = await ApiService.GetGeneratedPatrons(_numberOfPatrons);
+        if (patrons.Count > 0)
         {
-            var patronGenerationRequest = PatronGenerationRequest.From(_numberOfPatrons);
-            var request = XwnGenerationRequest.From(patronGenerationRequest);
-
-            var response = await Http.PostAsJsonAsync(Constants.GenerateUrl, request);
-            var content = await response.Content.ReadFromJsonAsync<PatronGenerationResponse>();
-            if (content == null)
-            {
-                Console.WriteLine("No content returned");
-            }
-
-            var patrons = content?.Patrons;
-            if (patrons != null) _patrons = patrons.ToList();
+            _patrons = patrons;
         }
-        catch (Exception ex)
+        else
         {
-            Console.WriteLine(ex);
+            // display this as an error
+            Console.WriteLine("No seeds returned");
         }
     }
 }

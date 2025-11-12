@@ -1,6 +1,7 @@
 @page "/xwn/SWN"
 @using TableHelper.Components
 @using TableHelper.Components.XWN.AdventureSeedGenerator
+@using TableHelper.Components.XWN.PatronGenerator
 @using TableHelper.Models
 @using TableHelper.Services
 @inject TableHelperApiService ApiService
@@ -8,14 +9,16 @@
 <h3>SWN</h3>
 <h4>Sandbox Game Generator</h4>
 <div class="container">
-    <ReRollableRow OnClickCallback="ReRollAdventureSeed">
+    <ReRollableRow OnClickCallback="ReRollAdventureSeed" Title="Adventure Seeds">
         <SpinnerWrapper IsLoading="@_isAdventureSeedsLoading">
             <AdventureSeedGeneratorDisplay Seeds="@_adventureSeeds"/>
         </SpinnerWrapper>
     </ReRollableRow>
-    <div class="row">
-        <p>The patron</p>
-    </div>
+    <ReRollableRow OnClickCallback="ReRollPatron" Title="Patron">
+        <SpinnerWrapper IsLoading="@_isPatronLoading">
+            <PatronGeneratorDisplay Patrons="@_patrons"/>
+        </SpinnerWrapper>
+    </ReRollableRow>
     <div class="row">
         <p>Some NPCs</p>
 
@@ -32,9 +35,12 @@
 
 @code {
     private List<AdventureSeed> _adventureSeeds = [];
+    private List<Patron> _patrons = [];
     private bool _isAdventureSeedsLoading = true;
+    private bool _isPatronLoading = true;
 
     private async Task ReRollAdventureSeed(MouseEventArgs e) => await RollAdventureSeed();
+    private async Task ReRollPatron(MouseEventArgs e) => await RollPatron();
 
     protected override async Task OnInitializedAsync()
     {
@@ -49,9 +55,17 @@
         _isAdventureSeedsLoading = false;
     }
 
+    private async Task RollPatron()
+    {
+        _isPatronLoading = true;
+        _patrons = await ApiService.GetGeneratedPatrons(1);
+        _isPatronLoading = false;
+    }
+
     private async Task InitData()
     {
         await RollAdventureSeed();
+        await RollPatron();
     }
 
 }
