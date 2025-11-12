@@ -1,7 +1,9 @@
 @using TableHelper.Models
 @using TableHelper.Models.Requests
 @using TableHelper.Models.Responses
+@using TableHelper.Services
 @inject HttpClient Http
+@inject TableHelperApiService ApiService
 
 <h3>AdventureSeedGenerator</h3>
 <div class="container">
@@ -34,18 +36,16 @@
         {
             Console.WriteLine("Number has to be more than 0");
         }
-        var adventureSeedRequest = AdventureSeedGenerateRequest.From(_numberOfSeeds);
-        var request = XwnGenerationRequest.From(adventureSeedRequest);
 
-        var response = await Http.PostAsJsonAsync(Constants.GenerateUrl, request);
-        var content = await response.Content.ReadFromJsonAsync<AdventureSeedGenerateResponse>();
-        if (content == null)
+        var seeds = await ApiService.GetGeneratedAdventureSeeds(_numberOfSeeds);
+        if (seeds.Count > 0)
         {
-            // show error that nothing was returned
-            Console.WriteLine("No content returned");
+            _adventureSeeds = seeds;
         }
-
-        var seeds = content?.AdventureSeeds;
-        if (seeds != null) _adventureSeeds = seeds.ToList();
+        else
+        {
+            // display this as an error
+            Console.WriteLine("No seeds returned");
+        }
     }
 }

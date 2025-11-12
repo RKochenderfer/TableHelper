@@ -25,6 +25,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Components\SWN\" />
       <Folder Include="wwwroot\data\xwn\" />
     </ItemGroup>
 

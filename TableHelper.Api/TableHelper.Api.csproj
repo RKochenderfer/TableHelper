@@ -26,8 +26,4 @@
       <ProjectReference Include="..\TableHelper\TableHelper.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <None Include="data\npcGenerator.json" />
-    </ItemGroup>
-
 </Project>
