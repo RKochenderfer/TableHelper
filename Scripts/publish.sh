@@ -16,7 +16,7 @@ version=""
 
 if [[ -n "$csproj" && -f "$csproj" ]]; then
   # extract <Version> content and trim whitespace/CR
-  version=$(sed -n 's:.*<Version>\(.*\)</Version>.*:\1:p' "$csproj" | tr -d ' \r\n' | head -n1 || true)
+  version=$(sed -n 's:.*<AssemblyVersion>\(.*\)</AssemblyVersion>.*:\1:p' "$csproj" | tr -d ' \r\n' | head -n1 || true)
 fi
 
 echo "Using image tag: $version"
