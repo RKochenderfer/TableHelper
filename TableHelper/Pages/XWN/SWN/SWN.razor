@@ -1,8 +1,10 @@
 @page "/xwn/SWN"
 @using TableHelper.Components
 @using TableHelper.Components.XWN.AdventureSeedGenerator
+@using TableHelper.Components.XWN.NpcGenerator
 @using TableHelper.Components.XWN.PatronGenerator
 @using TableHelper.Models
+@using TableHelper.Models.Npc
 @using TableHelper.Services
 @inject TableHelperApiService ApiService
 
@@ -18,6 +20,44 @@
         <SpinnerWrapper IsLoading="@_isPatronLoading">
             <PatronGeneratorDisplay Patrons="@_patrons"/>
         </SpinnerWrapper>
+    </ReRollableRow>
+    <ReRollableRow OnClickCallback="ReRollNpcs" Title="NPCs">
+        <div class="row">
+            <div class="col-md-4">
+                <label for="numberOfNpcs" class="col-sm-6 col-form-label">Number of NPCs</label>
+                <input @bind="_numberOfNpcs" type="number" step="1" class="form-control" id="numberOfNpcs">
+            </div>
+            <div class="col-md-4">
+                <label for="preferredNameStyle" class="col-sm-6 col-form-label">Preferred Name Style</label>
+                <select @bind="_preferredNameStyle" id="preferredNameStyle" class="form-select"
+                        aria-label="Preferred Name Style">
+                    <option value="0">Arabic</option>
+                    <option value="1">Chinese</option>
+                    <option value="2" selected>English</option>
+                    <option value="3">Greek</option>
+                    <option value="4">Indian</option>
+                    <option value="5">Japanese</option>
+                    <option value="6">Latin</option>
+                    <option value="7">Nigerian</option>
+                    <option value="8">Russian</option>
+                    <option value="9">Spanish</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="preferredNameGender" class="col-sm-6 col-form-label">Gender of Name</label>
+                <select @bind="_preferredNameGender" id="preferredNameGender" class="form-select"
+                        aria-label="Preferred Name Style">
+                    <option value="0" selected>No Preference</option>
+                    <option value="1">Male</option>
+                    <option value="2">Female</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <SpinnerWrapper IsLoading="@_isNpcLoading">
+                <NpcGeneratorDisplay Npcs="@_npcs"/>
+            </SpinnerWrapper>
+        </div>
     </ReRollableRow>
     <div class="row">
         <p>Some NPCs</p>
@@ -36,17 +76,34 @@
 @code {
     private List<AdventureSeed> _adventureSeeds = [];
     private List<Patron> _patrons = [];
+    private List<NpcInfo> _npcs = [];
+
     private bool _isAdventureSeedsLoading = true;
     private bool _isPatronLoading = true;
+    private bool _isNpcLoading = true;
 
     private async Task ReRollAdventureSeed(MouseEventArgs e) => await RollAdventureSeed();
     private async Task ReRollPatron(MouseEventArgs e) => await RollPatron();
+    private async Task ReRollNpcs(MouseEventArgs e) => await RollNpcs();
+
+    private string _preferredNameStyle = "2";
+    private string _preferredNameGender = "0";
+    private int _numberOfNpcs = 5;
+    private PreferredNameOrigin PreferredNameOrigin => (PreferredNameOrigin)int.Parse(_preferredNameStyle);
+    private NameGender PreferredNameNameGender => (NameGender)int.Parse(_preferredNameGender);
 
     protected override async Task OnInitializedAsync()
     {
         await InitData();
     }
-    
+
+
+    private async Task RollNpcs()
+    {
+        _isNpcLoading = true;
+        _npcs = await ApiService.GetGeneratedNpcs(_numberOfNpcs, PreferredNameNameGender, PreferredNameOrigin);
+        _isNpcLoading = false;
+    }
 
     private async Task RollAdventureSeed()
     {
@@ -66,6 +123,7 @@
     {
         await RollAdventureSeed();
         await RollPatron();
+        await RollNpcs();
     }
 
 }

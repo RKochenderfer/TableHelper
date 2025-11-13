@@ -1,7 +1,6 @@
 @using TableHelper.Models.Npc
-@using TableHelper.Models.Requests
-@using TableHelper.Models.Responses
-@inject HttpClient Http
+@using TableHelper.Services
+@inject TableHelperApiService ApiService
 
 <h3>NpcGenerator</h3>
 <div class="container">
@@ -63,30 +62,7 @@
     private async Task GenerateNpcs()
     {
         _npcs = [];
-        try
-        {
-            var npcGenerationRequest = NpcGenerationRequest.From(
-                npcsToGenerate: _numberOfNpcs,
-                preferredNameGender: PreferredNameNameGender,
-                preferredNameOrigin: PreferredNameOrigin);
-            var request = XwnGenerationRequest.From(npcGenerationRequest);
-
-            var response = await Http.PostAsJsonAsync(Constants.GenerateUrl, request);
-            var content = await response.Content.ReadFromJsonAsync<NpcGenerationResponse>();
-            if (content == null)
-            {
-                // show error that nothing was returned
-                Console.WriteLine("No content returned");
-            }
-
-            var npcs = content?.NpcInfo;
-
-            if (npcs != null) _npcs = npcs.ToList();
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-        }
+        _npcs = await ApiService.GetGeneratedNpcs(_numberOfNpcs, PreferredNameNameGender, PreferredNameOrigin);
     }
 
 }
