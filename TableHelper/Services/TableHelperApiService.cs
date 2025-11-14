@@ -61,6 +61,13 @@ public class TableHelperApiService(HttpClient httpClient)
         }
     }
 
+    /// <summary>
+    /// Calls the API to generate a list of NPCs
+    /// </summary>
+    /// <param name="numberOfNpcs"></param>
+    /// <param name="nameGender"></param>
+    /// <param name="nameOrigin"></param>
+    /// <returns></returns>
     public async Task<List<NpcInfo>> GetGeneratedNpcs(int numberOfNpcs, NameGender nameGender, PreferredNameOrigin nameOrigin)
     {
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(numberOfNpcs);

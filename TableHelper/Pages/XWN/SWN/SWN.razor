@@ -17,7 +17,35 @@
         </SpinnerWrapper>
     </ReRollableRow>
     <ReRollableRow OnClickCallback="ReRollPatron" Title="Patron">
+        <div class="row">
+            <div class="col-md-6">
+                <label for="preferredPatronNameStyle" class="col-sm-6 col-form-label">Preferred Name Style</label>
+                <select @bind="_preferredPatronNameStyle" id="preferredPatronNameStyle" class="form-select"
+                        aria-label="Preferred Name Style">
+                    <option value="0">Arabic</option>
+                    <option value="1">Chinese</option>
+                    <option value="2" selected>English</option>
+                    <option value="3">Greek</option>
+                    <option value="4">Indian</option>
+                    <option value="5">Japanese</option>
+                    <option value="6">Latin</option>
+                    <option value="7">Nigerian</option>
+                    <option value="8">Russian</option>
+                    <option value="9">Spanish</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="preferredPatronNameGender" class="col-sm-6 col-form-label">Gender of Name</label>
+                <select @bind="_preferredPatronNameGender" id="preferredPatronNameGender" class="form-select"
+                        aria-label="Preferred Name Style">
+                    <option value="0" selected>No Preference</option>
+                    <option value="1">Male</option>
+                    <option value="2">Female</option>
+                </select>
+            </div>
+        </div>
         <SpinnerWrapper IsLoading="@_isPatronLoading">
+            <NpcGeneratorDisplay Npcs="@_patronNpcInfo" />
             <PatronGeneratorDisplay Patrons="@_patrons"/>
         </SpinnerWrapper>
     </ReRollableRow>
@@ -60,10 +88,6 @@
         </div>
     </ReRollableRow>
     <div class="row">
-        <p>Some NPCs</p>
-
-    </div>
-    <div class="row">
         <p>The location</p>
 
     </div>
@@ -87,16 +111,21 @@
     private async Task ReRollNpcs(MouseEventArgs e) => await RollNpcs();
 
     private string _preferredNameStyle = "2";
-    private string _preferredNameGender = "0";
+    private string _preferredPatronNameStyle = "2";
+    private string _preferredNameGender = "2";
+    private string _preferredPatronNameGender = "2";
+    private List<NpcInfo> _patronNpcInfo = [];
+    
     private int _numberOfNpcs = 5;
     private PreferredNameOrigin PreferredNameOrigin => (PreferredNameOrigin)int.Parse(_preferredNameStyle);
+    private PreferredNameOrigin PatronPreferredNameOrigin => (PreferredNameOrigin)int.Parse(_preferredPatronNameStyle);
     private NameGender PreferredNameNameGender => (NameGender)int.Parse(_preferredNameGender);
+    private NameGender PatronPreferredNameGender => (NameGender)int.Parse(_preferredPatronNameGender);
 
     protected override async Task OnInitializedAsync()
     {
         await InitData();
     }
-
 
     private async Task RollNpcs()
     {
@@ -116,6 +145,7 @@
     {
         _isPatronLoading = true;
         _patrons = await ApiService.GetGeneratedPatrons(1);
+        _patronNpcInfo = await ApiService.GetGeneratedNpcs(1, PatronPreferredNameGender, PatronPreferredNameOrigin);
         _isPatronLoading = false;
     }
 
