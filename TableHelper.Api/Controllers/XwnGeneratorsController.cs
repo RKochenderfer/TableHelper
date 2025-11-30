@@ -72,7 +72,7 @@ public class XwnGeneratorsController(
         logger.LogDebug("Generating Problem Request");
         var encounters = await urbanGeneratorService.GenerateUrbanEncounters(request.UrbanEncounterGenerationRequest);
         logger.LogDebug("Completed generating problem data");
-        return UrbanEncounterResponse.Success(encounters);
+        return UrbanEncounterGenerationResponse.Success(encounters);
     }
 
     private async Task<GenerateResponse> GenerateProblemData(XwnGenerationRequest request)

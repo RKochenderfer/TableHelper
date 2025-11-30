@@ -1,0 +1,32 @@
+@using TableHelper.Models
+<div class="table-responsive-sm">
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Weather and Lighting</th>
+            <th scope="col">Basic Nature of the Encounter</th>
+            <th scope="col">Type of Friendly Creatures</th>
+            <th scope="col">Initial Encounter Range</th>
+            <th scope="col">Types of Hostile Creatures</th>
+            <th scope="col">Specific Nearby Feature of Relevance</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var encounter in WildernessEncounters)
+        {
+            <tr>
+                <td>@encounter.WeatherAndLighting</td>
+                <td>@encounter.BasicNatureOfTheEncounter</td>
+                <td>@encounter.TypeOfFriendlyCreatures</td>
+                <td>@encounter.InitialEncounterRange</td>
+                <td>@encounter.TypesOfHostileCreatures</td>
+                <td>@encounter.SpecificNearbyFeatureOfRelevance</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+
+@code {
+    [Parameter] public List<WildernessEncounter> WildernessEncounters { get; init; } = [];
+}

@@ -15,7 +15,6 @@ public class TableHelperApiService(HttpClient httpClient)
     /// <returns></returns>
     public async Task<List<AdventureSeed>> GetGeneratedAdventureSeeds(int numberOfSeeds)
     {
-        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(numberOfSeeds);
         try
         {
             var adventureSeedRequest = AdventureSeedGenerateRequest.From(numberOfSeeds);
@@ -42,7 +41,6 @@ public class TableHelperApiService(HttpClient httpClient)
     /// <returns></returns>
     public async Task<List<Patron>> GetGeneratedPatrons(int numberOfPatrons)
     {
-        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(numberOfPatrons);
         try
         {
             var adventureSeedRequest = PatronGenerationRequest.From(numberOfPatrons);
@@ -70,7 +68,6 @@ public class TableHelperApiService(HttpClient httpClient)
     /// <returns></returns>
     public async Task<List<NpcInfo>> GetGeneratedNpcs(int numberOfNpcs, NameGender nameGender, PreferredNameOrigin nameOrigin)
     {
-        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(numberOfNpcs);
         try
         {
             var npcGenerationRequest = NpcGenerationRequest.From(
@@ -85,6 +82,58 @@ public class TableHelperApiService(HttpClient httpClient)
             var npcs = content?.NpcInfo;
 
             return  npcs != null ? npcs.ToList() : [];
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return [];
+        }
+    }
+
+    /// <summary>
+    /// Calls the API to generate a list of urban encounters
+    /// </summary>
+    /// <param name="encountersToGenerate"></param>
+    /// <returns></returns>
+    public async Task<List<UrbanEncounter>> GetGeneratedUrbanEncounters(int encountersToGenerate)
+    {
+        try
+        {
+            var urbanGenerationRequest = UrbanEncounterGenerationRequest.From(encountersToGenerate);
+            var request = XwnGenerationRequest.From(urbanGenerationRequest);
+
+            var response = await httpClient.PostAsJsonAsync(Constants.GenerateUrl, request);
+            var content = await response.Content.ReadFromJsonAsync<UrbanEncounterGenerationResponse>();
+
+            var encounters = content?.UrbanEncounters;
+
+            return  encounters != null ? encounters.ToList() : [];
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return [];
+        }
+    }
+
+    /// <summary>
+    /// Calls the API to generate a list of wilderness encounters
+    /// </summary>
+    /// <param name="numberOfWildernessEncounters"></param>
+    /// <returns></returns>
+    public async Task<List<WildernessEncounter>> GetGeneratedWildernessEncounters(int numberOfWildernessEncounters)
+    {
+        try
+        {
+            var wildernessGenerationRequest = WildernessEncounterGeneratorRequest.From(numberOfWildernessEncounters);
+            var request = XwnGenerationRequest.From(wildernessGenerationRequest);
+
+            var response = await httpClient.PostAsJsonAsync(Constants.GenerateUrl, request);
+            var content = await response.Content.ReadFromJsonAsync<WildernessEncounterGenerationResponse>();
+
+            var encounters = content?.WildernessEncounters;
+
+            return  encounters != null ? encounters.ToList() : [];
         }
         catch (Exception e)
         {

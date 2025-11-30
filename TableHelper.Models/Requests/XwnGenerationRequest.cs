@@ -89,6 +89,32 @@ public class XwnGenerationRequest : IRequest
             { Type = XwnGenerationType.Problem, ProblemGenerationRequest = request };
     }
 
+    /// <summary>
+    /// Creates a new request to generate urban encounters
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
+    public static XwnGenerationRequest From(UrbanEncounterGenerationRequest request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+        
+        return new XwnGenerationRequest
+            { Type = XwnGenerationType.UrbanEncounter, UrbanEncounterGenerationRequest = request };
+    }
+    
+    /// <summary>
+    /// Creates a new request to generate urban encounters
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
+    public static XwnGenerationRequest From(WildernessEncounterGeneratorRequest request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+        
+        return new XwnGenerationRequest
+            { Type = XwnGenerationType.WildernessEncounter, WildernessEncounterGeneratorRequest = request };
+    }
+
     public bool Validate()
     {
         return Type switch

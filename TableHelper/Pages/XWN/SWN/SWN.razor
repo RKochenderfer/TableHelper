@@ -1,22 +1,24 @@
 @page "/xwn/SWN"
 @using TableHelper.Components
 @using TableHelper.Components.XWN.AdventureSeedGenerator
+@using TableHelper.Components.XWN.EncounterGenerator
 @using TableHelper.Components.XWN.NpcGenerator
 @using TableHelper.Components.XWN.PatronGenerator
 @using TableHelper.Models
 @using TableHelper.Models.Npc
+@using TableHelper.Models.Requests
 @using TableHelper.Services
 @inject TableHelperApiService ApiService
 
 <h3>SWN</h3>
 <h4>Sandbox Game Generator</h4>
 <div class="container">
-    <ReRollableRow OnClickCallback="ReRollAdventureSeed" Title="Adventure Seeds">
-        <SpinnerWrapper IsLoading="@_isAdventureSeedsLoading">
+    <ReRollableRow OnClickCallback="_reRollers[XwnGenerationType.AdventureSeed]" Title="Adventure Seeds">
+        <SpinnerWrapper IsLoading="@(!_adventureSeeds.Any())">
             <AdventureSeedGeneratorDisplay Seeds="@_adventureSeeds"/>
         </SpinnerWrapper>
     </ReRollableRow>
-    <ReRollableRow OnClickCallback="ReRollPatron" Title="Patron">
+    <ReRollableRow OnClickCallback="_reRollers[XwnGenerationType.Patron]" Title="Patron">
         <div class="row">
             <div class="col-md-6">
                 <label for="preferredPatronNameStyle" class="col-sm-6 col-form-label">Preferred Name Style</label>
@@ -44,12 +46,12 @@
                 </select>
             </div>
         </div>
-        <SpinnerWrapper IsLoading="@_isPatronLoading">
-            <NpcGeneratorDisplay Npcs="@_patronNpcInfo" />
+        <SpinnerWrapper IsLoading="@(!_patronNpcInfo.Any())">
+            <NpcGeneratorDisplay Npcs="@_patronNpcInfo"/>
             <PatronGeneratorDisplay Patrons="@_patrons"/>
         </SpinnerWrapper>
     </ReRollableRow>
-    <ReRollableRow OnClickCallback="ReRollNpcs" Title="NPCs">
+    <ReRollableRow OnClickCallback="_reRollers[XwnGenerationType.Npc]" Title="NPCs">
         <div class="row">
             <div class="col-md-4">
                 <label for="numberOfNpcs" class="col-sm-6 col-form-label">Number of NPCs</label>
@@ -82,7 +84,7 @@
             </div>
         </div>
         <div class="row">
-            <SpinnerWrapper IsLoading="@_isNpcLoading">
+            <SpinnerWrapper IsLoading="@(!_npcs.Any())">
                 <NpcGeneratorDisplay Npcs="@_npcs"/>
             </SpinnerWrapper>
         </div>
@@ -92,7 +94,16 @@
 
     </div>
     <div class="row">
-        <p>Some events</p>
+        <SpinnerWrapper IsLoading="@(!_urbanEncounters.Any())">
+            <ReRollableRow OnClickCallback="_reRollers[XwnGenerationType.UrbanEncounter]" Title="Urban Encounters">
+                <UrbanEncounterGeneratorDisplay UrbanEncounters="_urbanEncounters"/>
+            </ReRollableRow>
+        </SpinnerWrapper>
+        <SpinnerWrapper IsLoading="@(!_wildernessEncounters.Any())">
+            <ReRollableRow OnClickCallback="_reRollers[XwnGenerationType.WildernessEncounter]" Title="Wilderness Encounters">
+                <WildernessEncounterGeneratorDisplay WildernessEncounters="_wildernessEncounters"/>
+            </ReRollableRow>
+        </SpinnerWrapper>
 
     </div>
 </div>
@@ -101,21 +112,17 @@
     private List<AdventureSeed> _adventureSeeds = [];
     private List<Patron> _patrons = [];
     private List<NpcInfo> _npcs = [];
+    private List<UrbanEncounter> _urbanEncounters = [];
+    private List<WildernessEncounter> _wildernessEncounters = [];
 
-    private bool _isAdventureSeedsLoading = true;
-    private bool _isPatronLoading = true;
-    private bool _isNpcLoading = true;
-
-    private async Task ReRollAdventureSeed(MouseEventArgs e) => await RollAdventureSeed();
-    private async Task ReRollPatron(MouseEventArgs e) => await RollPatron();
-    private async Task ReRollNpcs(MouseEventArgs e) => await RollNpcs();
+    private Dictionary<XwnGenerationType, Func<Task>> _reRollers = new();
 
     private string _preferredNameStyle = "2";
     private string _preferredPatronNameStyle = "2";
     private string _preferredNameGender = "2";
     private string _preferredPatronNameGender = "2";
     private List<NpcInfo> _patronNpcInfo = [];
-    
+
     private int _numberOfNpcs = 5;
     private PreferredNameOrigin PreferredNameOrigin => (PreferredNameOrigin)int.Parse(_preferredNameStyle);
     private PreferredNameOrigin PatronPreferredNameOrigin => (PreferredNameOrigin)int.Parse(_preferredPatronNameStyle);
@@ -124,36 +131,55 @@
 
     protected override async Task OnInitializedAsync()
     {
+        _reRollers = new Dictionary<XwnGenerationType, Func<Task>>
+        {
+            { XwnGenerationType.AdventureSeed, async () => await RollAdventureSeed() },
+            { XwnGenerationType.Patron, async () => await RollPatron() },
+            { XwnGenerationType.Npc, async () => await RollNpcs() },
+            { XwnGenerationType.UrbanEncounter, async () => await RollUrbanEncounters() },
+            { XwnGenerationType.WildernessEncounter, async () => await RollWildernessEncounters() }
+        };
         await InitData();
     }
 
     private async Task RollNpcs()
     {
-        _isNpcLoading = true;
+        _npcs = [];
         _npcs = await ApiService.GetGeneratedNpcs(_numberOfNpcs, PreferredNameNameGender, PreferredNameOrigin);
-        _isNpcLoading = false;
     }
 
     private async Task RollAdventureSeed()
     {
-        _isAdventureSeedsLoading = true;
+        _adventureSeeds = [];
         _adventureSeeds = await ApiService.GetGeneratedAdventureSeeds(1);
-        _isAdventureSeedsLoading = false;
     }
 
     private async Task RollPatron()
     {
-        _isPatronLoading = true;
+        _patrons = [];
+        _patronNpcInfo = [];
         _patrons = await ApiService.GetGeneratedPatrons(1);
         _patronNpcInfo = await ApiService.GetGeneratedNpcs(1, PatronPreferredNameGender, PatronPreferredNameOrigin);
-        _isPatronLoading = false;
+    }
+
+    private async Task RollUrbanEncounters()
+    {
+        _urbanEncounters = [];
+        _urbanEncounters = await ApiService.GetGeneratedUrbanEncounters(2);
+    }
+
+    private async Task RollWildernessEncounters()
+    {
+        _wildernessEncounters = [];
+        _wildernessEncounters = await ApiService.GetGeneratedWildernessEncounters(2);
     }
 
     private async Task InitData()
     {
-        await RollAdventureSeed();
-        await RollPatron();
-        await RollNpcs();
+        foreach (var (_, func) in _reRollers)
+        {
+            await func();
+        }
     }
 
 }

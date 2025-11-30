@@ -4,10 +4,10 @@ public class WildernessEncounterGenerationResponse : GenerateResponse
 {
     public IEnumerable<WildernessEncounter> WildernessEncounters { get; set; }
 
-    public WildernessEncounterGenerationResponse(bool isSuccessful, string? errorMessage, IEnumerable<WildernessEncounter> urbanEncounters) : base(
+    public WildernessEncounterGenerationResponse(bool isSuccessful, string? errorMessage, IEnumerable<WildernessEncounter> wildernessEncounters) : base(
         isSuccessful, errorMessage)
     {
-        WildernessEncounters = urbanEncounters;
+        WildernessEncounters = wildernessEncounters;
     }
     
     public static WildernessEncounterGenerationResponse Success(IEnumerable<WildernessEncounter> urbanEncounters)
@@ -15,12 +15,12 @@ public class WildernessEncounterGenerationResponse : GenerateResponse
         ArgumentNullException.ThrowIfNull(urbanEncounters);
 
         return new WildernessEncounterGenerationResponse(isSuccessful: true, errorMessage: null,
-            urbanEncounters: urbanEncounters);
+            wildernessEncounters: urbanEncounters);
     }
 
     public static WildernessEncounterGenerationResponse Fail(string errorMessage)
     {
         return new WildernessEncounterGenerationResponse(isSuccessful: false, errorMessage: errorMessage,
-            urbanEncounters: new List<WildernessEncounter>());
+            wildernessEncounters: new List<WildernessEncounter>());
     }
 }
