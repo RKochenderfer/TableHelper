@@ -1,7 +1,7 @@
 using TableHelper.Infrastructure.Services;
 using TableHelper.Models.Generators;
 
-namespace TableHelper.Infrastructure.Repositories;
+namespace TableHelper.Infrastructure.Repositories.Generators;
 
 public class JsonUrbanEncounterGeneratorRepository(JsonFileDeserializer<UrbanEncountersGeneratorData> deserializer) : IUrbanEncounterGeneratorRepository
 {

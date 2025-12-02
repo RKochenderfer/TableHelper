@@ -1,8 +1,7 @@
-using System.Text.Json;
 using TableHelper.Infrastructure.Services;
 using TableHelper.Models.Generators.Npc;
 
-namespace TableHelper.Infrastructure.Repositories;
+namespace TableHelper.Infrastructure.Repositories.Generators;
 
 public class JsonNameGeneratorRepository(JsonFileDeserializer<NpcGeneratorData> deserializer) : INpcGeneratorRepository
 {

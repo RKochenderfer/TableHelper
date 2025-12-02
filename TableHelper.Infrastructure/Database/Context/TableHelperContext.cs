@@ -7,7 +7,7 @@ namespace TableHelper.Infrastructure.Database.Context;
 
 public class TableHelperContext : DbContext
 {
-    public DbSet<AdventureSeeds> AdventureSeeds { get; set; }
+    public DbSet<XwnNpc> XwnNpcs { get; set; }
 
     public string DbPath { get; }
 

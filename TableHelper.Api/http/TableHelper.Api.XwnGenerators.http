@@ -1,10 +1,8 @@
-@TableHelper.Api_HostAddress = https://localhost:7042/api
-
 ### POST Generate NPC
 < {%
     request.variables.set("npcsToGenerate", 2)
 %}
-POST https://localhost:7042/api/XwnGenerators/
+POST {{base_url}}/XwnGenerators/
 Accept: application/json
 Content-Type: application/json
 
@@ -29,7 +27,7 @@ Content-Type: application/json
 %}
 
 ### POST Generate Adventure Seeds
-POST https://localhost:7042/api/XwnGenerators/
+POST {{base_url}}/XwnGenerators/
 Accept: application/json
 Content-Type: application/json
 
@@ -50,7 +48,7 @@ Content-Type: application/json
 
 
 ### POST Generate Patrons
-POST https://localhost:7042/api/XwnGenerators/
+POST {{base_url}}/XwnGenerators/
 Accept: application/json
 Content-Type: application/json
 
@@ -70,7 +68,7 @@ Content-Type: application/json
 %}
 
 ### POST Generate Problems
-POST https://localhost:7042/api/XwnGenerators/
+POST {{base_url}}/XwnGenerators/
 Accept: application/json
 Content-Type: application/json
 
@@ -90,7 +88,7 @@ Content-Type: application/json
 %}
 
 ### POST Generate Urban Encounters
-POST https://localhost:7042/api/XwnGenerators/
+POST {{base_url}}/XwnGenerators/
 Accept: application/json
 Content-Type: application/json
 
@@ -110,7 +108,7 @@ Content-Type: application/json
 %}
 
 ### POST Generate Wilderness Encounters
-POST https://localhost:7042/api/XwnGenerators/
+POST {{base_url}}/XwnGenerators/
 Accept: application/json
 Content-Type: application/json
 

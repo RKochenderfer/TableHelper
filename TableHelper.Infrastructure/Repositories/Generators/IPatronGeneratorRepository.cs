@@ -1,6 +1,6 @@
 using TableHelper.Models.Generators;
 
-namespace TableHelper.Infrastructure.Repositories;
+namespace TableHelper.Infrastructure.Repositories.Generators;
 
 /// <summary>
 /// Repository for the data used to generate Patrons

@@ -1,7 +1,7 @@
 using TableHelper.Infrastructure.Services;
 using TableHelper.Models.Generators.Problem;
 
-namespace TableHelper.Infrastructure.Repositories;
+namespace TableHelper.Infrastructure.Repositories.Generators;
 
 public class JsonProblemGeneratorRepository(JsonFileDeserializer<ProblemGeneratorData> deserializer) : IProblemGeneratorRepository
 {

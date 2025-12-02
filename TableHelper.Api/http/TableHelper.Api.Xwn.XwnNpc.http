@@ -1,0 +1,23 @@
+POST {{base_url}}/xwn/XwnNpc
+Accept: application/json
+Content-Type: application/json
+
+{
+  "npc": {
+    "firstName": "First",
+    "surname": "Last",
+    "gender": "Male",
+    "initialManner": "Initial",
+    "defaultDealOutcome": "Deal",
+    "theirMotivation": "Motivation",
+    "theirWant": "Want",
+    "theirPower": "Power",
+    "theirHook": "Hook",
+    "theirBackground": "background",
+    "theirRoleInSociety": "role",
+    "theirBiggestProblem": "problem",
+    "ageDescription": "age",
+    "theirGreatestDesire": "desire",
+    "mostObviousCharacterTrait": "trait"
+  }
+}

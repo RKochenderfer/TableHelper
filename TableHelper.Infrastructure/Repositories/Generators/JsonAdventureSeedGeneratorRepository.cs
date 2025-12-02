@@ -1,10 +1,7 @@
-using System.Text.Json;
-using Microsoft.Extensions.Logging;
 using TableHelper.Infrastructure.Services;
 using TableHelper.Models.Generators;
-using TableHelper.Models.Generators.Npc;
 
-namespace TableHelper.Infrastructure.Repositories;
+namespace TableHelper.Infrastructure.Repositories.Generators;
 
 public class JsonAdventureSeedGeneratorRepository(JsonFileDeserializer<AdventureSeedGeneratorData> deserializer)
     : IAdventureSeedGeneratorRepository

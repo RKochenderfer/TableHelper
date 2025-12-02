@@ -1,5 +1,6 @@
 using TableHelper.Api.Services.Randomizer;
 using TableHelper.Infrastructure.Repositories;
+using TableHelper.Infrastructure.Repositories.Generators;
 using TableHelper.Models;
 using TableHelper.Models.Generators;
 using TableHelper.Models.Requests;

@@ -1,7 +1,6 @@
 using TableHelper.Models.Generators.Problem;
-using TableHelper.Models.Requests;
 
-namespace TableHelper.Infrastructure.Repositories;
+namespace TableHelper.Infrastructure.Repositories.Generators;
 
 /// <summary>
 /// Repository for the data used to generate problems

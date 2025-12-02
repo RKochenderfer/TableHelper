@@ -1,8 +1,6 @@
 using TableHelper.Models.Generators.Npc;
-using TableHelper.Models.Npc;
-using TableHelper.Models.Requests;
 
-namespace TableHelper.Infrastructure.Repositories;
+namespace TableHelper.Infrastructure.Repositories.Generators;
 
 /// <summary>
 /// Repository for the data used to generate NPCs
