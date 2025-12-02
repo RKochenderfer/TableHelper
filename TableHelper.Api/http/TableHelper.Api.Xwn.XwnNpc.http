@@ -26,3 +26,7 @@ Content-Type: application/json
 ### GET all NPCs 
 GET {{base_url}}/xwn/XwnNpc
 Content-Type: application/json
+
+### GET a specific NPC 
+GET {{base_url}}/xwn/XwnNpc/1
+Content-Type: application/json

@@ -31,4 +31,14 @@ public class XwnNpcsRepository(TableHelperContext context)
         var result = await context.XwnNpcs.ToListAsync();
         return result;
     }
+
+    /// <summary>
+    /// Gets the NPC with the provided id if found
+    /// </summary>
+    /// <param name="id">The id of the NPC you are looking for</param>
+    /// <returns><see cref="XwnNpc"/> if found, null otherwise</returns>
+    public async Task<XwnNpc?> GetAsync(int id)
+    {
+        return await context.XwnNpcs.FindAsync(id);
+    }
 }

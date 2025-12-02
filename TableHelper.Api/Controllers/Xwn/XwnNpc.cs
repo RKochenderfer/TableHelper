@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging.Configuration;
 using TableHelper.Infrastructure.Services.Savers;
 using TableHelper.Models.Npc;
 using TableHelper.Models.Requests;
@@ -22,25 +21,53 @@ public class XwnNpc(ILogger<XwnNpc> logger, XwnNpcService xwnNpcService) : Contr
         logger.LogDebug("Saving NPC");
         var saveResult = await SaveNpcAsync(request.Npc);
         logger.LogDebug("Completed Saving NPC");
-        
+
         return saveResult;
     }
 
     /// <summary>
-    /// Gets all of the saved NPCs
+    /// Gets all saved NPCs
     /// </summary>
     /// <returns></returns>
     [HttpGet]
     public async Task<GetAllNpcResponse> GetAll()
     {
         logger.LogDebug("Retrieving All NPCs");
-        var npcs = await GetAllNpcs();
+        var npcs = await GetAllNpcsAsync();
         logger.LogDebug("Completed retrieving All NPCs");
-        
+
         return npcs;
     }
 
-    private async Task<GetAllNpcResponse> GetAllNpcs()
+    /// <summary>
+    /// Retrieves the NPC information for a specific NPC
+    /// </summary>
+    /// <param name="id">The id of the NPC who's information is requested</param>
+    /// <returns></returns>
+    [HttpGet("{id:int}")]
+    public async Task<GetNpcResponse> Get(int id)
+    {
+        logger.LogDebug("Retrieving NPC");
+        var npc = await GetAsync(id);
+        logger.LogDebug("Completed retrieving NPC");
+        return npc;
+    }
+
+    private async Task<GetNpcResponse> GetAsync(int id)
+    {
+        try
+        {
+            var result = await xwnNpcService.GetAsync(id);
+            return result == null ? GetNpcResponse.NotFound(id) : GetNpcResponse.Success(id, result.Npc);
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Error fetching NPC");
+            return GetNpcResponse.Failure(ex.Message);
+        }
+    }
+
+    private async Task<GetAllNpcResponse> GetAllNpcsAsync()
     {
         try
         {

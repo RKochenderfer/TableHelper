@@ -34,4 +34,21 @@ public class XwnNpcService(XwnNpcsRepository repo)
         
         return savedNpcs;
     }
+
+    /// <summary>
+    /// Gets a specific NPC's information
+    /// </summary>
+    /// <param name="id">The id of the NPC you are looking for</param>
+    /// <returns>The <see cref="SavedNpc" /> if an NPC with the provided <c>id</c> was found, false otherwise</returns>
+    public async Task<SavedNpc?> GetAsync(int id)
+    {
+        var npc = await repo.GetAsync(id);
+        if (npc == null)
+        {
+            return null;
+        }
+        var savedNpc = npc.ToNpcInfo();
+
+        return SavedNpc.From(id, savedNpc);
+    }
 }

@@ -17,6 +17,12 @@ public class SavedNpc(int id, NpcInfo npc)
     /// </summary>
     public NpcInfo Npc { get; init; } = npc;
 
+    /// <summary>
+    /// Creates a new SavedNpc from the provided values
+    /// </summary>
+    /// <param name="id">The id of the NPC</param>
+    /// <param name="npc">The NPC information</param>
+    /// <returns></returns>
     public static SavedNpc From(int id, NpcInfo npc)
     {
         return new SavedNpc(id, npc);
