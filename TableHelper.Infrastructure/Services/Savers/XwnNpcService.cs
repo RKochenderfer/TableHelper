@@ -21,4 +21,17 @@ public class XwnNpcService(XwnNpcsRepository repo)
         var xwnNpc = npc.ToDbModel();
         return await repo.AddAsync(xwnNpc);
     }
+
+    /// <summary>
+    /// Retrieves all saved XWN Npcs
+    /// </summary>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    public async Task<List<SavedNpc>> GetAllAsync()
+    {
+        var npcs = await repo.GetAllAsync();
+        var savedNpcs = npcs.Select(x => SavedNpc.From(x.Id, x.ToNpcInfo())).ToList();
+        
+        return savedNpcs;
+    }
 }
