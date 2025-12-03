@@ -9,7 +9,7 @@ services:
     ports:
       - '8080:8080'
     volumes:
-      - table_helper:./data
+      - table_helper:./database
 
 volumes:
   table_helper:

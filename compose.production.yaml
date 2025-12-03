@@ -9,8 +9,6 @@ services:
     ports:
       - '8080:8080'
     restart: always
-    environment:
-      - SQLITE_DB_PATH=SQLITE_DB_PATH
     volumes:
-      - SQLITE_DB_PATH:./data
+      - SQLITE_DB_PATH:/app/database
 
