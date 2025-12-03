@@ -9,5 +9,7 @@ services:
     ports:
       - '8080:8080'
     volumes:
-      - /mnt/user/ApplicationStore/TableHelper/data:./data
+      - table_helper:./data
 
+volumes:
+  table_helper:
