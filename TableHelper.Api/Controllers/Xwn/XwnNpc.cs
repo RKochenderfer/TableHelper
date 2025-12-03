@@ -42,7 +42,7 @@ public class XwnNpc(ILogger<XwnNpc> logger, XwnNpcService xwnNpcService) : Contr
     /// <summary>
     /// Retrieves the NPC information for a specific NPC
     /// </summary>
-    /// <param name="id">The id of the NPC who's information is requested</param>
+    /// <param name="id">The id of the NPC whose information is requested</param>
     /// <returns></returns>
     [HttpGet("{id:int}")]
     public async Task<GetNpcResponse> Get(int id)

@@ -13,9 +13,9 @@ public class TableHelperContext : DbContext
 
     public TableHelperContext(IConfiguration configuration)
     {
-        DbPath = configuration["Config:ConnectionString:SqliteDatabase"]!;
+        DbPath = configuration["Config:ConnectionStrings:SqliteDatabase"]!;
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)
-        => options.UseSqlite($"Data Source=tablehelper.db");
+        => options.UseSqlite(DbPath);
 }

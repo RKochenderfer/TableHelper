@@ -9,7 +9,6 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
     options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
 });
-// builder.Services.AddOpe();
 
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices();
