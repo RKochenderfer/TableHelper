@@ -53,6 +53,34 @@ public class XwnNpc(ILogger<XwnNpc> logger, XwnNpcService xwnNpcService) : Contr
         return npc;
     }
 
+    /// <summary>
+    /// Deletes a saved NPC's details
+    /// </summary>
+    /// <param name="id">The id of the NPC being deleted</param>
+    /// <returns></returns>
+    [HttpDelete("{id:int}")]
+    public async Task<DeleteNpcResponse> Delete(int id)
+    {
+        logger.LogDebug("Deleting NPC");
+        var result = await DeleteNpc(id);
+        logger.LogDebug("Retrieving NPC");
+        return result;
+    }
+
+    private async Task<DeleteNpcResponse> DeleteNpc(int id)
+    {
+        try
+        {
+            var isDeleted = await xwnNpcService.Delete(id);
+            return isDeleted ? DeleteNpcResponse.Success(id) : DeleteNpcResponse.NotFound(id);
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Error fetching NPC");
+            return DeleteNpcResponse.Failed(id, ex.Message);
+        }
+    }
+
     private async Task<GetNpcResponse> GetAsync(int id)
     {
         try
@@ -72,6 +100,10 @@ public class XwnNpc(ILogger<XwnNpc> logger, XwnNpcService xwnNpcService) : Contr
         try
         {
             var result = await xwnNpcService.GetAllAsync();
+            if (result.Count == 0)
+            {
+                return  GetAllNpcResponse.NotFound();
+            }
             return GetAllNpcResponse.Success(result);
         }
         catch (Exception ex)

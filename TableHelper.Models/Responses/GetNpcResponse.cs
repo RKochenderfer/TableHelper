@@ -8,6 +8,11 @@ namespace TableHelper.Models.Responses;
 public class GetNpcResponse(int? id, NpcInfo? npc, bool ok, string? errorMessage)
 {
     /// <summary>
+    /// Indicates if the request was successful or not
+    /// </summary>
+    public bool Ok { get; init; } = ok;
+    
+    /// <summary>
     /// The NPC Id
     /// </summary>
     public int? Id { get; init; } = id;
@@ -16,6 +21,11 @@ public class GetNpcResponse(int? id, NpcInfo? npc, bool ok, string? errorMessage
     /// The NPC information
     /// </summary>
     public NpcInfo? Npc { get; init; } = npc;
+    
+    /// <summary>
+    /// Error that occurred while processing the request. Only set if Ok is false.
+    /// </summary>
+    public string? ErrorMessage { get; init; } = errorMessage;
 
     /// <summary>
     /// Creates a successful get NPC response

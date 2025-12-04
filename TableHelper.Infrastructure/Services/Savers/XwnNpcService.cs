@@ -2,6 +2,7 @@
 using TableHelper.Infrastructure.Database.Models;
 using TableHelper.Infrastructure.Repositories;
 using TableHelper.Models.Npc;
+using TableHelper.Models.Responses;
 
 namespace TableHelper.Infrastructure.Services.Savers;
 
@@ -50,5 +51,16 @@ public class XwnNpcService(XwnNpcsRepository repo)
         var savedNpc = npc.ToNpcInfo();
 
         return SavedNpc.From(id, savedNpc);
+    }
+
+    /// <summary>
+    /// Deletes an NPC with a provided id
+    /// </summary>
+    /// <param name="id">the id of the NPC being deleted</param>
+    /// <returns>true if the entry was deleted, false otherwise</returns>
+    public async Task<bool> Delete(int id)
+    {
+        var deletedCount = await repo.Delete(id);
+        return deletedCount == 1;
     }
 }

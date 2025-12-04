@@ -33,10 +33,24 @@ public class GetAllNpcResponse(bool ok, List<SavedNpc>? npcs, string? errorMessa
         return new GetAllNpcResponse(true, npcs, null);
     }
 
+    /// <summary>
+    /// Creates a failure response
+    /// </summary>
+    /// <param name="errorMessage">The error that occurred while processing the request</param>
+    /// <returns></returns>
     public static GetAllNpcResponse Failure(string? errorMessage)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(errorMessage);
         
         return new GetAllNpcResponse(false, null, errorMessage);
+    }
+
+    /// <summary>
+    /// Indicates that no NPCs were found
+    /// </summary>
+    /// <returns></returns>
+    public static GetAllNpcResponse NotFound()
+    {
+        return new GetAllNpcResponse(false, null, "No NPCs found");
     }
 }

@@ -30,3 +30,7 @@ Content-Type: application/json
 ### GET a specific NPC 
 GET {{base_url}}/xwn/XwnNpc/1
 Content-Type: application/json
+
+### DELETE a specific NPC 
+DELETE {{base_url}}/xwn/XwnNpc/2
+Content-Type: application/json

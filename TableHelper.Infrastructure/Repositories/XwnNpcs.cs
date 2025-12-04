@@ -41,4 +41,15 @@ public class XwnNpcsRepository(TableHelperContext context)
     {
         return await context.XwnNpcs.FindAsync(id);
     }
+
+    /// <summary>
+    /// Deletes the NPC with the provided id
+    /// </summary>
+    /// <param name="id">The id of the NPC you are deleting</param>
+    /// <returns></returns>
+    public async Task<int> Delete(int id)
+    {
+        var result = await context.XwnNpcs.Where(n => n.Id == id).ExecuteDeleteAsync();
+        return result;
+    }
 }
