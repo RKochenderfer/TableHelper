@@ -2,14 +2,15 @@ namespace TableHelper.Models.Npc;
 
 public enum PreferredNameOrigin
 {
-    Arabic = 0,
-    Chinese = 1,
-    English = 2,
-    Greek = 3,
-    Indian = 4,
-    Japanese = 5,
-    Latin = 6,
-    Nigerian = 7,
-    Russian = 8,
-    Spanish = 9
+    Unknown = 0,
+    Arabic = 1,
+    Chinese = 2,
+    English = 3,
+    Greek = 4,
+    Indian = 5,
+    Japanese = 6,
+    Latin = 7,
+    Nigerian = 8,
+    Russian = 9,
+    Spanish = 10
 }
