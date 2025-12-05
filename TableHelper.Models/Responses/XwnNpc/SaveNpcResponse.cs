@@ -1,6 +1,6 @@
 using TableHelper.Models.Npc;
 
-namespace TableHelper.Models.Responses;
+namespace TableHelper.Models.Responses.XwnNpc;
 
 /// <summary>
 /// Response for saving an NPC

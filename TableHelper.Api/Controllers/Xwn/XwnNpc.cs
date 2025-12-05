@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
+using TableHelper.Infrastructure.Repositories;
 using TableHelper.Infrastructure.Services.Savers;
 using TableHelper.Models.Npc;
-using TableHelper.Models.Requests;
+using TableHelper.Models.Requests.XwnNpc;
 using TableHelper.Models.Responses;
+using TableHelper.Models.Responses.XwnNpc;
 
 namespace TableHelper.Api.Controllers.Xwn;
 
@@ -62,16 +64,50 @@ public class XwnNpc(ILogger<XwnNpc> logger, XwnNpcService xwnNpcService) : Contr
     public async Task<DeleteNpcResponse> Delete(int id)
     {
         logger.LogDebug("Deleting NPC");
-        var result = await DeleteNpc(id);
+        var result = await DeleteNpcAsync(id);
         logger.LogDebug("Retrieving NPC");
         return result;
     }
 
-    private async Task<DeleteNpcResponse> DeleteNpc(int id)
+    /// <summary>
+    /// Updates the details of a saved NPC
+    /// </summary>
+    /// <param name="id">The id of the NPC being updated</param>
+    /// <param name="request"></param>
+    /// <returns></returns>
+    [HttpPut("{id:int}")]
+    public async Task<UpdateNpcResponse> Put(int id, [FromBody] UpdateNpcRequest request)
+    {
+        logger.LogDebug("Updating NPC");
+        var result = await UpdateNpcAsync(id, request);
+        logger.LogDebug("Completed updating NPC");
+        return result;
+    }
+
+    private async Task<UpdateNpcResponse> UpdateNpcAsync(int id, UpdateNpcRequest request)
     {
         try
         {
-            var isDeleted = await xwnNpcService.Delete(id);
+            var result = await xwnNpcService.UpdateNpcAsync(id, request);
+            if (result == null)
+            {
+                return UpdateNpcResponse.NotFound(id);
+            }
+            var npcInfo = result.ToNpcInfo();
+            return UpdateNpcResponse.Success(id, npcInfo);
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Error fetching NPC");
+            return UpdateNpcResponse.Failure(id, ex.Message);
+        }
+    }
+
+    private async Task<DeleteNpcResponse> DeleteNpcAsync(int id)
+    {
+        try
+        {
+            var isDeleted = await xwnNpcService.DeleteAsync(id);
             return isDeleted ? DeleteNpcResponse.Success(id) : DeleteNpcResponse.NotFound(id);
         }
         catch (Exception ex)

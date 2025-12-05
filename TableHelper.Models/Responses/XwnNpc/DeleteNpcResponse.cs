@@ -1,4 +1,4 @@
-namespace TableHelper.Models.Responses;
+namespace TableHelper.Models.Responses.XwnNpc;
 
 /// <summary>
 /// Response from the API for a delete NPC request

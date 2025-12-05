@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using TableHelper.Infrastructure.Database.Context;
 using TableHelper.Infrastructure.Database.Models;
+using TableHelper.Models.Npc;
 
 namespace TableHelper.Infrastructure.Repositories;
 
@@ -47,9 +48,39 @@ public class XwnNpcsRepository(TableHelperContext context)
     /// </summary>
     /// <param name="id">The id of the NPC you are deleting</param>
     /// <returns></returns>
-    public async Task<int> Delete(int id)
+    public async Task<int> DeleteAsync(int id)
     {
         var result = await context.XwnNpcs.Where(n => n.Id == id).ExecuteDeleteAsync();
         return result;
+    }
+
+    /// <summary>
+    /// Updates an NPC's database entry
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="updatedNpc"></param>
+    /// <returns></returns>
+    public async Task<XwnNpc?> UpdateNpcAsync(int id, XwnNpc updatedNpc)
+    {
+        var result = await context.XwnNpcs
+            .Where(n => n.Id == id)
+            .ExecuteUpdateAsync(setters => setters
+                .SetProperty(x => x.FirstName, updatedNpc.FirstName)
+                .SetProperty(x => x.Surname, updatedNpc.Surname)
+                .SetProperty(x => x.Gender, updatedNpc.Gender)
+                .SetProperty(x => x.InitialManner, updatedNpc.InitialManner)
+                .SetProperty(x => x.DefaultDealOutcome, updatedNpc.DefaultDealOutcome)
+                .SetProperty(x => x.TheirMotivation, updatedNpc.TheirMotivation)
+                .SetProperty(x => x.TheirWant, updatedNpc.TheirWant)
+                .SetProperty(x => x.TheirPower, updatedNpc.TheirPower)
+                .SetProperty(x => x.TheirBackground, updatedNpc.TheirBackground)
+                .SetProperty(x => x.TheirRoleInSociety, updatedNpc.TheirRoleInSociety)
+                .SetProperty(x => x.TheirBiggestProblem, updatedNpc.TheirBiggestProblem)
+                .SetProperty(x => x.AgeDescription, updatedNpc.AgeDescription)
+                .SetProperty(x => x.TheirGreatestDesire, updatedNpc.TheirGreatestDesire)
+                .SetProperty(x => x.MostObviousCharacterTrait, updatedNpc.MostObviousCharacterTrait)
+            );
+
+        return result == 0 ? null : updatedNpc;
     }
 }

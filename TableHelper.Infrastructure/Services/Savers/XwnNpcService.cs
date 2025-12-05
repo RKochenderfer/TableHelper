@@ -2,6 +2,7 @@
 using TableHelper.Infrastructure.Database.Models;
 using TableHelper.Infrastructure.Repositories;
 using TableHelper.Models.Npc;
+using TableHelper.Models.Requests.XwnNpc;
 using TableHelper.Models.Responses;
 
 namespace TableHelper.Infrastructure.Services.Savers;
@@ -58,9 +59,22 @@ public class XwnNpcService(XwnNpcsRepository repo)
     /// </summary>
     /// <param name="id">the id of the NPC being deleted</param>
     /// <returns>true if the entry was deleted, false otherwise</returns>
-    public async Task<bool> Delete(int id)
+    public async Task<bool> DeleteAsync(int id)
     {
-        var deletedCount = await repo.Delete(id);
+        var deletedCount = await repo.DeleteAsync(id);
         return deletedCount == 1;
+    }
+
+    /// <summary>
+    /// Updates an NPC's information
+    /// </summary>
+    /// <param name="id">The id of the NPC you are updating</param>
+    /// <param name="request">The new NPC information</param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    public async Task<XwnNpc?> UpdateNpcAsync(int id, UpdateNpcRequest request)
+    {
+        var dbNpc = request.Npc.ToDbModel(id);
+        return await repo.UpdateNpcAsync(id, dbNpc);
     }
 }

@@ -28,9 +28,34 @@ GET {{base_url}}/xwn/XwnNpc
 Content-Type: application/json
 
 ### GET a specific NPC 
-GET {{base_url}}/xwn/XwnNpc/1
+GET {{base_url}}/xwn/XwnNpc/3
 Content-Type: application/json
 
 ### DELETE a specific NPC 
 DELETE {{base_url}}/xwn/XwnNpc/2
 Content-Type: application/json
+
+### PUT Update XWN NPCs
+PUT {{base_url}}/xwn/XwnNpc/3
+Accept: application/json
+Content-Type: application/json
+
+{
+  "npc": {
+    "firstName": "NewFirst",
+    "surname": "NewLast",
+    "gender": "NewMale",
+    "initialManner": "NewInitial",
+    "defaultDealOutcome": "NewDeal",
+    "theirMotivation": "NewMotivation",
+    "theirWant": "NewWant",
+    "theirPower": "NewPower",
+    "theirHook": "NewHook",
+    "theirBackground": "Newbackground",
+    "theirRoleInSociety": "Newrole",
+    "theirBiggestProblem": "Newproblem",
+    "ageDescription": "Newage",
+    "theirGreatestDesire": "Newdesire",
+    "mostObviousCharacterTrait": "Newtrait"
+  }
+}
