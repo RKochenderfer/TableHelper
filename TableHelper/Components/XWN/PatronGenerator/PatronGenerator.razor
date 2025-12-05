@@ -2,7 +2,7 @@
 @using TableHelper.Models.Requests
 @using TableHelper.Models.Responses
 @using TableHelper.Services
-@inject TableHelperApiService ApiService
+@inject GeneratorApiService GeneratorApiService
 
 <h3>Patron Generator</h3>
 <div class="container">
@@ -30,7 +30,7 @@
     private async Task GeneratePatrons()
     {
         _patrons = [];
-        var patrons = await ApiService.GetGeneratedPatrons(_numberOfPatrons);
+        var patrons = await GeneratorApiService.GetGeneratedPatrons(_numberOfPatrons);
         if (patrons.Count > 0)
         {
             _patrons = patrons;

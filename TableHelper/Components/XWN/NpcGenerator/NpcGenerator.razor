@@ -1,6 +1,6 @@
 @using TableHelper.Models.Npc
 @using TableHelper.Services
-@inject TableHelperApiService ApiService
+@inject GeneratorApiService GeneratorApiService
 
 <h3>NpcGenerator</h3>
 <div class="container">
@@ -63,7 +63,7 @@
     private async Task GenerateNpcs()
     {
         _npcs = [];
-        _npcs = await ApiService.GetGeneratedNpcs(_numberOfNpcs, PreferredNameNameGender, PreferredNameOrigin);
+        _npcs = await GeneratorApiService.GetGeneratedNpcs(_numberOfNpcs, PreferredNameNameGender, PreferredNameOrigin);
     }
 
 }

@@ -6,7 +6,7 @@ using TableHelper.Models.Responses;
 
 namespace TableHelper.Services;
 
-public class TableHelperApiService(HttpClient httpClient)
+public class GeneratorApiService(HttpClient httpClient)
 {
     /// <summary>
     /// Calls the API to generate a list of adventure seeds
@@ -20,7 +20,7 @@ public class TableHelperApiService(HttpClient httpClient)
             var adventureSeedRequest = AdventureSeedGenerateRequest.From(numberOfSeeds);
             var request = XwnGenerationRequest.From(adventureSeedRequest);
 
-            var response = await httpClient.PostAsJsonAsync(Constants.GenerateUrl, request);
+            var response = await httpClient.PostAsJsonAsync(Constants.Urls.GenerateUrl, request);
             var content = await response.Content.ReadFromJsonAsync<AdventureSeedGenerateResponse>();
 
             var seeds = content?.AdventureSeeds;
@@ -46,7 +46,7 @@ public class TableHelperApiService(HttpClient httpClient)
             var adventureSeedRequest = PatronGenerationRequest.From(numberOfPatrons);
             var request = XwnGenerationRequest.From(adventureSeedRequest);
 
-            var response = await httpClient.PostAsJsonAsync(Constants.GenerateUrl, request);
+            var response = await httpClient.PostAsJsonAsync(Constants.Urls.GenerateUrl, request);
             var content = await response.Content.ReadFromJsonAsync<PatronGenerationResponse>();
 
             var patrons = content?.Patrons;
@@ -76,7 +76,7 @@ public class TableHelperApiService(HttpClient httpClient)
                 preferredNameOrigin: nameOrigin);
             var request = XwnGenerationRequest.From(npcGenerationRequest);
 
-            var response = await httpClient.PostAsJsonAsync(Constants.GenerateUrl, request);
+            var response = await httpClient.PostAsJsonAsync(Constants.Urls.GenerateUrl, request);
             var content = await response.Content.ReadFromJsonAsync<NpcGenerationResponse>();
 
             var npcs = content?.NpcInfo;
@@ -102,7 +102,7 @@ public class TableHelperApiService(HttpClient httpClient)
             var urbanGenerationRequest = UrbanEncounterGenerationRequest.From(encountersToGenerate);
             var request = XwnGenerationRequest.From(urbanGenerationRequest);
 
-            var response = await httpClient.PostAsJsonAsync(Constants.GenerateUrl, request);
+            var response = await httpClient.PostAsJsonAsync(Constants.Urls.GenerateUrl, request);
             var content = await response.Content.ReadFromJsonAsync<UrbanEncounterGenerationResponse>();
 
             var encounters = content?.UrbanEncounters;
@@ -128,7 +128,7 @@ public class TableHelperApiService(HttpClient httpClient)
             var wildernessGenerationRequest = WildernessEncounterGeneratorRequest.From(numberOfWildernessEncounters);
             var request = XwnGenerationRequest.From(wildernessGenerationRequest);
 
-            var response = await httpClient.PostAsJsonAsync(Constants.GenerateUrl, request);
+            var response = await httpClient.PostAsJsonAsync(Constants.Urls.GenerateUrl, request);
             var content = await response.Content.ReadFromJsonAsync<WildernessEncounterGenerationResponse>();
 
             var encounters = content?.WildernessEncounters;

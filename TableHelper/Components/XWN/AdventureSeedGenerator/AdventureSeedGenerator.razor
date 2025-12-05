@@ -3,7 +3,7 @@
 @using TableHelper.Models.Responses
 @using TableHelper.Services
 @inject HttpClient Http
-@inject TableHelperApiService ApiService
+@inject GeneratorApiService GeneratorApiService
 
 <h3>AdventureSeedGenerator</h3>
 <div class="container">
@@ -37,7 +37,7 @@
             Console.WriteLine("Number has to be more than 0");
         }
 
-        var seeds = await ApiService.GetGeneratedAdventureSeeds(_numberOfSeeds);
+        var seeds = await GeneratorApiService.GetGeneratedAdventureSeeds(_numberOfSeeds);
         if (seeds.Count > 0)
         {
             _adventureSeeds = seeds;

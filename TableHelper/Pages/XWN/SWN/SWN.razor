@@ -8,7 +8,7 @@
 @using TableHelper.Models.Npc
 @using TableHelper.Models.Requests
 @using TableHelper.Services
-@inject TableHelperApiService ApiService
+@inject GeneratorApiService GeneratorApiService
 
 <h3>SWN</h3>
 <h4>Sandbox Game Generator</h4>
@@ -138,33 +138,33 @@
     private async Task RollNpcs()
     {
         _npcs = [];
-        _npcs = await ApiService.GetGeneratedNpcs(_numberOfNpcs, PreferredNameNameGender, PreferredNameOrigin);
+        _npcs = await GeneratorApiService.GetGeneratedNpcs(_numberOfNpcs, PreferredNameNameGender, PreferredNameOrigin);
     }
 
     private async Task RollAdventureSeed()
     {
         _adventureSeeds = [];
-        _adventureSeeds = await ApiService.GetGeneratedAdventureSeeds(1);
+        _adventureSeeds = await GeneratorApiService.GetGeneratedAdventureSeeds(1);
     }
 
     private async Task RollPatron()
     {
         _patrons = [];
         _patronNpcInfo = [];
-        _patrons = await ApiService.GetGeneratedPatrons(1);
-        _patronNpcInfo = await ApiService.GetGeneratedNpcs(1, PatronPreferredNameGender, PatronPreferredNameOrigin);
+        _patrons = await GeneratorApiService.GetGeneratedPatrons(1);
+        _patronNpcInfo = await GeneratorApiService.GetGeneratedNpcs(1, PatronPreferredNameGender, PatronPreferredNameOrigin);
     }
 
     private async Task RollUrbanEncounters()
     {
         _urbanEncounters = [];
-        _urbanEncounters = await ApiService.GetGeneratedUrbanEncounters(2);
+        _urbanEncounters = await GeneratorApiService.GetGeneratedUrbanEncounters(2);
     }
 
     private async Task RollWildernessEncounters()
     {
         _wildernessEncounters = [];
-        _wildernessEncounters = await ApiService.GetGeneratedWildernessEncounters(2);
+        _wildernessEncounters = await GeneratorApiService.GetGeneratedWildernessEncounters(2);
     }
 
     private async Task InitData()

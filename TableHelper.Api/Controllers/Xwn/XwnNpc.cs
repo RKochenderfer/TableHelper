@@ -154,7 +154,8 @@ public class XwnNpc(ILogger<XwnNpc> logger, XwnNpcService xwnNpcService) : Contr
         try
         {
             var result = await xwnNpcService.SaveAsync(npcInfo);
-            return SaveNpcResponse.Success(npcInfo, result.Id);
+            var savedNpc = SavedNpc.From(result.Id, result.ToNpcInfo());
+            return SaveNpcResponse.Success(savedNpc);
         }
         catch (Exception ex)
         {

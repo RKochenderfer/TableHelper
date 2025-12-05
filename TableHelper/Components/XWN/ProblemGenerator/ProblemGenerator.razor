@@ -31,7 +31,7 @@
             var problemGenerationRequest = ProblemGenerationRequest.From(_numberOfProblems);
             var request = XwnGenerationRequest.From(problemGenerationRequest);
 
-            var response = await Http.PostAsJsonAsync(Constants.GenerateUrl, request);
+            var response = await Http.PostAsJsonAsync(Constants.Urls.GenerateUrl, request);
             var content = await response.Content.ReadFromJsonAsync<ProblemGenerationResponse>();
             if (content == null)
             {
