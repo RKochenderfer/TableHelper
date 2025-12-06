@@ -20,9 +20,15 @@ var runMigrationsOnStartEnv = Environment.GetEnvironmentVariable("RUN_MIGRATIONS
 
 if (runMigrationsOnStartEnv == "TRUE")
 {
+    Console.WriteLine("Running Migrations On Start");
     using var scope = app.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<TableHelperContext>();
     await db.Database.MigrateAsync();
+}
+else
+{
+    Console.WriteLine(
+        "RUN_MIGRATIONS_ON_START is not TRUE. You may run into errors due to mismatched database schema. Please manually run the scripts.sql");
 }
 
 // Configure the HTTP request pipeline.
