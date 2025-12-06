@@ -9,6 +9,8 @@ services:
     ports:
       - '8080:8080'
     restart: always
+    environment:
+      RUN_MIGRATIONS_ON_START: TRUE
     volumes:
       - SQLITE_DB_PATH:/app/database
 

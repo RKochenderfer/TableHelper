@@ -8,8 +8,10 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - '8080:8080'
+    environment:
+      RUN_MIGRATIONS_ON_START: TRUE
     volumes:
-      - table_helper:./database
+      - table_helper:/app/database
 
 volumes:
   table_helper:

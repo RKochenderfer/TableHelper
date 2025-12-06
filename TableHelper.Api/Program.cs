@@ -1,4 +1,6 @@
 using System.Text.Json.Serialization;
+using Microsoft.EntityFrameworkCore;
+using TableHelper.Infrastructure.Database.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,8 +15,15 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices();
 
-
 var app = builder.Build();
+var runMigrationsOnStartEnv = Environment.GetEnvironmentVariable("RUN_MIGRATIONS_ON_START") ?? "FALSE";
+
+if (runMigrationsOnStartEnv == "TRUE")
+{
+    using var scope = app.Services.CreateScope();
+    var db = scope.ServiceProvider.GetRequiredService<TableHelperContext>();
+    await db.Database.MigrateAsync();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
