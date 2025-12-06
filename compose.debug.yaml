@@ -9,7 +9,7 @@ services:
     ports:
       - '8080:8080'
     environment:
-      RUN_MIGRATIONS_ON_START: TRUE
+      - RUN_MIGRATIONS_ON_START=TRUE
     volumes:
       - table_helper:/app/database
 
