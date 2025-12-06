@@ -48,4 +48,34 @@ public class XwnNpcApiService(HttpClient httpClient)
             throw;
         }
     }
+
+    /// <summary>
+    /// Gets all of the saved NPCs from the server
+    /// </summary>
+    /// <returns></returns>
+    /// <exception cref="Exception"></exception>
+    public async Task<List<SavedNpc>> GetAllSavedNpcs()
+    {
+        try
+        {
+            var response = await httpClient.GetAsync(Constants.Urls.XwnNpcUrl);
+            var content = await response.Content.ReadFromJsonAsync<GetAllNpcResponse>();
+            if (content == null)
+            {
+                throw new Exception("There was an error trying to read the contents of the response");
+            }
+
+            if (!content.Ok)
+            {
+                return [];
+            }
+
+            return content.Npcs ?? [];
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+            throw;
+        }
+    }
 }

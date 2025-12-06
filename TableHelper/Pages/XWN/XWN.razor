@@ -1,4 +1,11 @@
 @page "/XWN"
+@using TableHelper.Components
+@using TableHelper.Components.XWN
+@using TableHelper.Components.XWN.SavedNpcs
+@using TableHelper.Models.Npc
+@using TableHelper.Services
+@inject XwnNpcApiService XwnNpcApiService
+
 <PageTitle>XWN</PageTitle>
 
 <div class="container-fluid">
@@ -24,8 +31,22 @@
             </li>
         </ul>
     </div>
+    <AccordionWrapper Title="Saved NPCs">
+        <SpinnerWrapper IsLoading="_isLoading">
+            <NpcDisplay Npcs="_savedNpcs"></NpcDisplay>
+        </SpinnerWrapper>
+    </AccordionWrapper>
+    
 </div>
 
 @code {
+    private bool _isLoading = true;
+    private List<SavedNpc> _savedNpcs = [];
+
+    protected override async Task OnInitializedAsync()
+    {
+        _savedNpcs = await XwnNpcApiService.GetAllSavedNpcs();
+        _isLoading = false;
+    }
 
 }

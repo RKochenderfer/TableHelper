@@ -7,6 +7,12 @@ public static class Constants
         public const string GenerateUrl = "/api/XwnGenerators";
         public const string XwnNpcUrl = "/api/xwn/XwnNpc";
     }
+
+    public static class Toaster
+    {
+        public const string ShowSuccessToastFunction = "showSuccessToast";
+        public const string ShowFailedToastFunction = "showFailedToast";
+    }
     
     public static class NpcGeneratorDisplay
     {

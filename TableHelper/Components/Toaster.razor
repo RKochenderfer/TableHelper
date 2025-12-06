@@ -1,0 +1,60 @@
+@inject IJSRuntime JS
+
+<div class="toast-container position-static">
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="successToast" class="toast align-items-center text-bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    @_successToastMessage
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="failedToast" class="toast align-items-center text-bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    @_failedToastMessage
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private string _successToastMessage = "";
+    private string _failedToastMessage = "";
+    private IJSObjectReference? _module;
+    
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _module = await JS.InvokeAsync<IJSObjectReference>("import",
+                "./Components/Toaster.razor.js");
+        }
+    }
+
+    public async Task ShowSuccessToast(string message)
+    {
+        _successToastMessage = message;
+        await InvokeAsync(StateHasChanged);
+        if (_module is not null)
+        {
+            await _module.InvokeVoidAsync(Constants.Toaster.ShowSuccessToastFunction);
+        }
+    }
+
+    public async Task ShowFailedToast(string message)
+    {
+        _failedToastMessage = message;
+        await InvokeAsync(StateHasChanged);
+        if (_module is not null)
+        {
+            await _module.InvokeVoidAsync(Constants.Toaster.ShowFailedToastFunction);
+        }
+    }
+}
