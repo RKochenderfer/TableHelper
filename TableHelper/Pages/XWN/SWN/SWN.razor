@@ -1,5 +1,6 @@
 @page "/xwn/SWN"
 @using TableHelper.Components
+@using TableHelper.Components.XWN
 @using TableHelper.Components.XWN.AdventureSeedGenerator
 @using TableHelper.Components.XWN.EncounterGenerator
 @using TableHelper.Components.XWN.NpcGenerator
@@ -9,6 +10,8 @@
 @using TableHelper.Models.Requests
 @using TableHelper.Services
 @inject GeneratorApiService GeneratorApiService
+@inject XwnNpcApiService XwnNpcApiService
+@inject ToastService ToastService
 
 <h3>SWN</h3>
 <h4>Sandbox Game Generator</h4>
@@ -47,7 +50,25 @@
             </div>
         </div>
         <SpinnerWrapper IsLoading="@(!_patronNpcInfo.Any())">
-            <NpcGeneratorDisplay Npcs="@_patronNpcInfo"/>
+            @if (!_patronNpcInfo.Any())
+            {
+                <p>Nothing to display...</p>
+            }
+            else
+            {
+                @for (var i = 0; i < _patronNpcInfo.Count; i++)
+                {
+                    var index = i;
+                    var npcInfo = _npcs[i];
+                    <div class="col-6 mb-2">
+                        <NpcInfoCard Id="@index" NpcInfo="npcInfo" CardClicked="HandleCardClicked"
+                                     SaveClicked="async () => await SaveNpcPatron(index)"
+                                     DeleteClicked="async () => await DeleteNpcPatron(index)"
+                                     ShowSave="!_savedPatrons.ContainsKey(index)"
+                                     ShowDelete="_savedPatrons.ContainsKey(index)"></NpcInfoCard>
+                    </div>
+                }
+            }
             <PatronGeneratorDisplay Patrons="@_patrons"/>
         </SpinnerWrapper>
     </ReRollableRow>
@@ -83,9 +104,27 @@
                 </select>
             </div>
         </div>
-        <div class="row">
+        <div class="row row-cols-2">
             <SpinnerWrapper IsLoading="@(!_npcs.Any())">
-                <NpcGeneratorDisplay Npcs="@_npcs"/>
+                @if (!_npcs.Any())
+                {
+                    <p>Nothing to display...</p>
+                }
+                else
+                {
+                    @for (var i = 0; i < _npcs.Count; i++)
+                    {
+                        var index = i;
+                        var npcInfo = _npcs[i];
+                        <div class="col-6 mb-2">
+                            <NpcInfoCard Id="@index" NpcInfo="npcInfo" CardClicked="HandleCardClicked"
+                                         SaveClicked="async () => await SaveNpc(index)"
+                                         DeleteClicked="async () => await DeleteNpc(index)"
+                                         ShowSave="!_savedNpcs.ContainsKey(index)"
+                                         ShowDelete="_savedNpcs.ContainsKey(index)"></NpcInfoCard>
+                        </div>
+                    }
+                }
             </SpinnerWrapper>
         </div>
     </ReRollableRow>
@@ -105,15 +144,21 @@
     private List<AdventureSeed> _adventureSeeds = [];
     private List<Patron> _patrons = [];
     private List<NpcInfo> _npcs = [];
+    private Dictionary<int, SavedNpc> _savedNpcs = [];
+    private Dictionary<int, SavedNpc> _savedPatrons = [];
     private List<UrbanEncounter> _urbanEncounters = [];
     private List<WildernessEncounter> _wildernessEncounters = [];
 
     private Dictionary<XwnGenerationType, Func<Task>> _reRollers = new();
 
-    private string _preferredNameStyle = "2";
-    private string _preferredPatronNameStyle = "2";
+    private string _preferredNameStyle = "0";
+    private string _preferredPatronNameStyle = "0";
     private string _preferredNameGender = "2";
     private string _preferredPatronNameGender = "2";
+    private const string SuccessfullyDeletedNpcToastMessage = "Successfully deleted npc";
+    private const string FailedToDeleteNpcToastMessage = "Failed to delete npc";
+    private const string SuccessfullySavedNpcToastMessage = "Successfully saved npc";
+    private const string FailedToSavedNpcToastMessage = "Failed to save npc";
     private List<NpcInfo> _patronNpcInfo = [];
 
     private int _numberOfNpcs = 5;
@@ -151,6 +196,7 @@
     {
         _patrons = [];
         _patronNpcInfo = [];
+        _savedPatrons = [];
         _patrons = await GeneratorApiService.GetGeneratedPatrons(1);
         _patronNpcInfo = await GeneratorApiService.GetGeneratedNpcs(1, PatronPreferredNameGender, PatronPreferredNameOrigin);
     }
@@ -174,5 +220,71 @@
             await func();
         }
     }
+    private async Task HandleCardClicked()
+    {
+    }
 
+    private async Task DeleteNpc(int npcToDeleteIndex)
+    {
+        var npc = _savedNpcs[npcToDeleteIndex];
+        var isDeleted = await XwnNpcApiService.DeleteXwnNpc(npc.Id);
+        if (isDeleted)
+        {
+            _savedNpcs.Remove(npcToDeleteIndex);
+            await ToastService.ShowToast(ShowToastRequest.Success(SuccessfullyDeletedNpcToastMessage));
+        }
+        else
+        {
+            await ToastService.ShowToast(ShowToastRequest.Failure(FailedToDeleteNpcToastMessage));
+        }
+
+        _savedNpcs.Remove(npcToDeleteIndex);
+    }
+
+    private async Task SaveNpc(int npcToSavesIndex)
+    {
+        var npc = _npcs[npcToSavesIndex];
+        var savedNpc = await XwnNpcApiService.SaveXwnNpc(npc);
+        if (savedNpc == null)
+        {
+            await ToastService.ShowToast(ShowToastRequest.Failure(FailedToSavedNpcToastMessage));
+        }
+        else
+        {
+            _savedNpcs.Add(npcToSavesIndex, savedNpc);
+            await ToastService.ShowToast(ShowToastRequest.Success(SuccessfullySavedNpcToastMessage));
+        }
+    }
+    
+    private async Task DeleteNpcPatron(int npcToDeleteIndex)
+    {
+        var npc = _savedPatrons[npcToDeleteIndex];
+        var isDeleted = await XwnNpcApiService.DeleteXwnNpc(npc.Id);
+        if (isDeleted)
+        {
+            _savedNpcs.Remove(npcToDeleteIndex);
+            await ToastService.ShowToast(ShowToastRequest.Success(SuccessfullyDeletedNpcToastMessage));
+        }
+        else
+        {
+            await ToastService.ShowToast(ShowToastRequest.Failure(FailedToDeleteNpcToastMessage));
+        }
+
+        _savedPatrons.Remove(npcToDeleteIndex);
+    }
+
+    private async Task SaveNpcPatron(int npcToSavesIndex)
+    {
+        var npc = _patronNpcInfo[npcToSavesIndex];
+        var savedNpc = await XwnNpcApiService.SaveXwnNpc(npc);
+        if (savedNpc == null)
+        {
+            await ToastService.ShowToast(ShowToastRequest.Failure(FailedToSavedNpcToastMessage));
+        }
+        else
+        {
+            _savedPatrons.Add(npcToSavesIndex, savedNpc);
+            await ToastService.ShowToast(ShowToastRequest.Success(SuccessfullySavedNpcToastMessage));
+        }
+    }
 }

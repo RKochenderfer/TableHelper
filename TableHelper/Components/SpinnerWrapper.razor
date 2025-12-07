@@ -1,16 +1,13 @@
-@using System.Xml.Schema
-<div>
-    @if (IsLoading)
-    {
-        <div class="spinner-border text-primary" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
-    }
-    else
-    {
-        @ChildContent
-    }
-</div>
+@if (IsLoading)
+{
+    <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+}
+else
+{
+    @ChildContent
+}
 
 @code {
     [Parameter] public bool IsLoading { get; set; }
