@@ -2,6 +2,7 @@
 @using TableHelper.Components
 @using TableHelper.Components.XWN
 @using TableHelper.Components.XWN.SavedNpcs
+@using TableHelper.Models
 @using TableHelper.Models.Npc
 @using TableHelper.Services
 @inject XwnNpcApiService XwnNpcApiService
@@ -48,5 +49,4 @@
         _savedNpcs = await XwnNpcApiService.GetAllSavedNpcs();
         _isLoading = false;
     }
-
 }

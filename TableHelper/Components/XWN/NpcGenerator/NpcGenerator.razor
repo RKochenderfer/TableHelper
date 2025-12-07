@@ -1,8 +1,10 @@
+@using TableHelper.Models
 @using TableHelper.Models.Npc
 @using TableHelper.Services
 @inject GeneratorApiService GeneratorApiService
+@inject XwnNpcApiService XwnNpcApiService
+@inject ToastService ToastService
 
-<h3>NpcGenerator</h3>
 <div class="container">
     <div class="row">
         <div class="col-8">
@@ -49,8 +51,28 @@
         </div>
         <div class="col-auto"></div>
     </div>
+    <div class="row row-cols-2">
+        @if (!_npcs.Any())
+        {
+            <p>Nothing to display...</p>
+        }
+        else
+        {
+            @for (var i = 0; i < _npcs.Count; i++)
+            {
+                var index = i;
+                var npcInfo = _npcs[i];
+                <div class="col-6 mb-2">
+                    <NpcInfoCard Id="@index" NpcInfo="npcInfo" CardClicked="HandleCardClicked"
+                                 SaveClicked="async () => await SaveNpc(index)"
+                                 DeleteClicked="async () => await DeleteNpc(index)"
+                                 ShowSave="!_savedNpcs.ContainsKey(index)"
+                                 ShowDelete="_savedNpcs.ContainsKey(index)"></NpcInfoCard>
+                </div>
+            }
+        }
+    </div>
 </div>
-<NpcGeneratorDisplay Npcs="@_npcs"></NpcGeneratorDisplay>
 
 @code {
     private int _numberOfNpcs = 1;
@@ -59,11 +81,52 @@
     private PreferredNameOrigin PreferredNameOrigin => (PreferredNameOrigin)int.Parse(_preferredNameStyle);
     private NameGender PreferredNameNameGender => (NameGender)int.Parse(_preferredNameGender);
     private List<NpcInfo> _npcs = [];
+    private Dictionary<int, SavedNpc> _savedNpcs = [];
+    private const string SuccessfullyDeletedNpcToastMessage = "Successfully deleted npc";
+    private const string FailedToDeleteNpcToastMessage = "Failed to delete npc";
+    private const string SuccessfullySavedNpcToastMessage = "Successfully saved npc";
+    private const string FailedToSavedNpcToastMessage = "Failed to save npc";
 
     private async Task GenerateNpcs()
     {
         _npcs = [];
+        _savedNpcs = [];
         _npcs = await GeneratorApiService.GetGeneratedNpcs(_numberOfNpcs, PreferredNameNameGender, PreferredNameOrigin);
     }
 
+    private async Task HandleCardClicked()
+    {
+    }
+
+    private async Task DeleteNpc(int npcToDeleteIndex)
+    {
+        var npc = _savedNpcs[npcToDeleteIndex];
+        var isDeleted = await XwnNpcApiService.DeleteXwnNpc(npc.Id);
+        if (isDeleted)
+        {
+            _savedNpcs.Remove(npcToDeleteIndex);
+            await ToastService.ShowToast(ShowToastRequest.Success(SuccessfullyDeletedNpcToastMessage));
+        }
+        else
+        {
+            await ToastService.ShowToast(ShowToastRequest.Failure(FailedToDeleteNpcToastMessage));
+        }
+
+        _savedNpcs.Remove(npcToDeleteIndex);
+    }
+
+    private async Task SaveNpc(int npcToSavesIndex)
+    {
+        var npc = _npcs[npcToSavesIndex];
+        var savedNpc = await XwnNpcApiService.SaveXwnNpc(npc);
+        if (savedNpc == null)
+        {
+            await ToastService.ShowToast(ShowToastRequest.Failure(FailedToSavedNpcToastMessage));
+        }
+        else
+        {
+            _savedNpcs.Add(npcToSavesIndex, savedNpc);
+            await ToastService.ShowToast(ShowToastRequest.Success(SuccessfullySavedNpcToastMessage));
+        }
+    }
 }

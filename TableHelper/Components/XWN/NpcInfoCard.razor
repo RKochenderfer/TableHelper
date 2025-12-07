@@ -1,0 +1,128 @@
+@using TableHelper.Models
+@using TableHelper.Models.Npc
+@using TableHelper.Services
+@inject ToastService ToastService
+@inject IJSRuntime Js
+
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <span class="me-1">
+            @if (ShowDelete)
+            {
+                <i class="bi bi-lock-fill"></i>
+            }
+            else
+            {
+                <i class="bi bi-unlock"></i>
+            }
+        </span>
+        <span>@FullName() - @NpcInfo.Gender</span>
+        @if (ShowDelete)
+        {
+            <button class="btn btn-danger btn-sm ms-auto" @onclick="DeleteClicked">Delete</button>
+        }
+        @if (ShowSave)
+        {
+            <button class="btn btn-primary btn-sm ms-auto" @onclick="SaveClicked">Save</button>
+        }
+        <button class="btn" @onclick="Copy"><i class="bi bi-copy"></i></button>
+    </div>
+    <div class="card-body npcInfoCard" id="npcCardBody-@Id">
+        <div class="row row-cols-2">
+            <div class="col">
+                <span class="fw-bold text-decoration-underline">Initial Manner</span><br/>
+                <p>@NpcInfo.InitialManner</p>
+            </div>
+            <div class="col">
+                <span class="fw-bold text-decoration-underline">Default Deal Outcome</span><br/>
+                <p>@(NpcInfo.DefaultDealOutcome ?? "N/A")</p>
+            </div>
+            <div class="col">
+                <span class="fw-bold text-decoration-underline">Their Motivation</span><br/>
+                <p>@NpcInfo.TheirMotivation</p>
+            </div>
+            <div class="col">
+                <span class="fw-bold text-decoration-underline">Their Power</span><br/>
+                <p>@NpcInfo.TheirPower</p>
+            </div>
+            <div class="col">
+                <span class="fw-bold text-decoration-underline">Their Hook</span><br/>
+                <p>@NpcInfo.TheirHook</p>
+            </div>
+            <div class="col">
+                <span class="fw-bold text-decoration-underline">Their Background</span><br/>
+                <p>@NpcInfo.TheirBackground</p>
+            </div>
+            <div class="col">
+                <span class="fw-bold text-decoration-underline">Their Role in Society</span><br/>
+                <p>@NpcInfo.TheirRoleInSociety</p>
+            </div>
+            <div class="col">
+                <span class="fw-bold text-decoration-underline">Their Biggest Problem</span><br/>
+                <p>@NpcInfo.TheirBiggestProblem</p>
+            </div>
+            <div class="col">
+                <span class="fw-bold text-decoration-underline">Age Description</span><br/>
+                <p>@NpcInfo.AgeDescription</p>
+            </div>
+            <div class="col">
+                <span class="fw-bold text-decoration-underline">Their Greatest Desire</span><br/>
+                <p>@NpcInfo.TheirGreatestDesire</p>
+            </div>
+            <div class="col">
+                <span class="fw-bold text-decoration-underline">Most Obvious Character Trait</span>
+                <p>@NpcInfo.MostObviousCharacterTrait</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public NpcInfo NpcInfo { get; init; }
+    [Parameter] public EventCallback CardClicked { get; init; }
+    [Parameter] public EventCallback DeleteClicked { get; init; }
+    [Parameter] public EventCallback SaveClicked { get; init; }
+    [Parameter] public bool ShowSave { get; init; }
+    [Parameter] public bool ShowDelete { get; init; }
+    [Parameter] public int Id { get; init; }
+    private IJSObjectReference? _module;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _module = await Js.InvokeAsync<IJSObjectReference>("import", "./Components/XWN/NpcInfoCard.razor.js");
+        }
+    }
+
+    private string FullName()
+    {
+        if (NpcInfo.Surname != null)
+        {
+            return $"{NpcInfo.FirstName} {NpcInfo.Surname}";
+        }
+
+        return NpcInfo.FirstName;
+    }
+
+    private async Task Copy()
+    {
+        // TODO: Add in way for user to copy the npc data without copying the headers in.
+        if (_module is null)
+        {
+            await ToastService.ShowToast(ShowToastRequest.Failure("Cannot copy because the script could not be loaded."));
+            return;
+        }
+        var success = await _module.InvokeAsync<bool>("copyCardBodyAsTable", $"npcCardBody-{Id}");
+
+        if (success)
+        {
+            await ToastService.ShowToast(ShowToastRequest.Success("Copied to clipboard successfully."));
+        }
+        else
+        {
+            await ToastService.ShowToast(ShowToastRequest.Failure("Failed to copy NPC."));
+        }
+    }
+
+}

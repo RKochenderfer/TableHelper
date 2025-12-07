@@ -1,4 +1,4 @@
-@inject IJSRuntime JS
+@inject IJSRuntime Js
 
 <div class="toast-container position-static">
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
@@ -33,7 +33,7 @@
     {
         if (firstRender)
         {
-            _module = await JS.InvokeAsync<IJSObjectReference>("import",
+            _module = await Js.InvokeAsync<IJSObjectReference>("import",
                 "./Components/Toaster.razor.js");
         }
     }

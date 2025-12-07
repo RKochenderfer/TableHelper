@@ -1,4 +1,8 @@
-﻿@inherits LayoutComponentBase
+﻿@using TableHelper.Components
+@using TableHelper.Models
+@using TableHelper.Services
+@inherits LayoutComponentBase
+
 <div class="page">
     <div class="sidebar">
         <NavMenu/>
@@ -10,3 +14,29 @@
         </article>
     </main>
 </div>
+
+<Toaster @ref="_toaster"></Toaster>
+
+@code {
+    private Toaster? _toaster;
+    [Inject] private ToastService ToastService { get; set; } = null!;
+
+    protected override void OnInitialized()
+    {
+        ToastService.RegisterLayout(this);
+    }
+
+    public async Task ShowToast(ShowToastRequest request)
+    {
+        if (_toaster is null) return;
+        
+        if (request.IsSuccessful)
+        {
+            await _toaster.ShowSuccessToast(request.Message);
+        }
+        else
+        {
+            await _toaster.ShowFailedToast(request.Message);
+        }
+    }
+}

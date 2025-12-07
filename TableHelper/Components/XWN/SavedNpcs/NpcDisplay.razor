@@ -1,74 +1,39 @@
+@using System.ComponentModel
+@using TableHelper.Models
 @using TableHelper.Models.Npc
 @using TableHelper.Services
 @inject XwnNpcApiService XwnNpcApiService
+@inject ToastService ToastService
 
-@if (Npcs.Any())
-{
-    <div class="table-responsive-sm">
-        <table class="table table-striped table-hover">
-            <thead>
-            <tr>
-                <th scope="col">Saved</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Presenting Gender</th>
-                <th scope="col">Initial Manner</th>
-                <th scope="col">Default Deal Outcome</th>
-                <th scope="col">Motivation</th>
-                <th scope="col">Want</th>
-                <th scope="col">Power</th>
-                <th scope="col">Hook</th>
-                <th scope="col">Background</th>
-                <th scope="col">Role in Society</th>
-                <th scope="col">Biggest Problem</th>
-                <th scope="col">Age</th>
-                <th scope="col">Greatest Desire</th>
-                <th scope="col">Most Obvious Character Trait</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach (var savedNpc in Npcs)
-            {
-                var npc = savedNpc.Npc;
-                <tr id="@savedNpc.Id">
-                    <td @onclick="@(async e => await HandleRowClickedAsync(savedNpc.Id))"><i
-                            class="bi bi-save-fill"></i></td>
-                    <td>@npc.FirstName</td>
-                    <td>@npc.Surname</td>
-                    <td>@npc.Gender</td>
-                    <td>@npc.InitialManner</td>
-                    <td>@npc.DefaultDealOutcome</td>
-                    <td>@npc.TheirMotivation</td>
-                    <td>@npc.TheirWant</td>
-                    <td>@npc.TheirPower</td>
-                    <td>@npc.TheirHook</td>
-                    <td>@npc.TheirBackground</td>
-                    <td>@npc.TheirRoleInSociety</td>
-                    <td>@npc.TheirBiggestProblem</td>
-                    <td>@npc.AgeDescription</td>
-                    <td>@npc.TheirGreatestDesire</td>
-                    <td>@npc.MostObviousCharacterTrait</td>
-                </tr>
-            }
-            </tbody>
-        </table>
-    </div>
-}
-else
-{
-    <p>No NPCS to show</p>
-}
-
-
-<Toaster @ref="_toaster"></Toaster>
+<div class="row row-cols-2">
+    @if (!Npcs.Any())
+    {
+        <p>No NPCs to show</p>
+    }
+    else
+    {
+        @foreach (var savedNpc in Npcs)
+        {
+            var npc = savedNpc.Npc;
+            var id = savedNpc.Id;
+            <div class="col-6 mb-2">
+                <NpcInfoCard 
+                    Id="@id"
+                    NpcInfo="npc" 
+                    DeleteClicked="@(async () => await HandleDeleteClickedAsync(id))"
+                    ShowSave="@false"
+                    ShowDelete="@true"></NpcInfoCard>
+            </div>
+        }
+    }
+</div>
 
 @code {
     [Parameter] public List<SavedNpc> Npcs { get; set; } = [];
-    private Toaster? _toaster;
-    private const string SuccessToastMessage = "Successfully deleted npc";
-    private const string FailedToastMessage = "Failed to delete npc";
+    private const string SuccessToastMessage = "Successfully deleted NPC.";
+    private const string FailedToastMessage = "Failed to delete NPC.";
 
-    private async Task HandleRowClickedAsync(int npcId)
+    private async Task HandleDeleteClickedAsync(int npcId)
     {
         var npcToDelete = Npcs.FirstOrDefault(n => n.Id == npcId);
         if (npcToDelete is not null)
@@ -83,17 +48,11 @@ else
         if (isDeleted)
         {
             Npcs.Remove(npcToDeleteIndex);
-            if (_toaster is not null)
-            {
-                await _toaster.ShowSuccessToast(SuccessToastMessage);
-            }
+            await ToastService.ShowToast(ShowToastRequest.Success(SuccessToastMessage));
         }
         else
         {
-            if (_toaster is not null)
-            {
-                await _toaster.ShowFailedToast(FailedToastMessage);
-            }
+            await ToastService.ShowToast(ShowToastRequest.Failure(FailedToastMessage));
         }
     }
 }
