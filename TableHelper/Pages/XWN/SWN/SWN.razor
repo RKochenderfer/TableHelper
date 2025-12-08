@@ -10,8 +10,7 @@
 @using TableHelper.Models.Requests
 @using TableHelper.Services
 @inject GeneratorApiService GeneratorApiService
-@inject XwnNpcApiService XwnNpcApiService
-@inject ToastService ToastService
+@inject IJSRuntime Js
 
 <h3>SWN</h3>
 <h4>Sandbox Game Generator</h4>
@@ -55,7 +54,7 @@
                 NumberOfNpcs="1"
                 PreferredNameGender="PatronPreferredNameGender"
                 PreferredNameOrigin="PatronPreferredNameOrigin"
-                NumberOfCols="1"
+                UseDynamicColumns="false"
                 LoadedNpcsCallback="PatronNpcLoaded"></RandomNpcInfoDisplay>
             <PatronGeneratorDisplay Patrons="@_patrons"/>
         </SpinnerWrapper>
@@ -99,7 +98,9 @@
                     NumberOfNpcs="_numberOfNpcs"
                     PreferredNameGender="PreferredNameNameGender"
                     PreferredNameOrigin="PreferredNameOrigin"
-                    NumberOfCols="2"
+                    UseDynamicColumns="true"
+                    ThreeColumnMinWidth="@ThreeColumnWidth"
+                    TwoColumnMinWidth="@TwoColumnWidth"
                     LoadedNpcsCallback="NpcsLoaded"></RandomNpcInfoDisplay>
             </SpinnerWrapper>
         </div>
@@ -119,21 +120,19 @@
 @code {
     private List<AdventureSeed> _adventureSeeds = [];
     private List<Patron> _patrons = [];
-    private List<NpcInfo> _npcs = [];
     private List<UrbanEncounter> _urbanEncounters = [];
     private List<WildernessEncounter> _wildernessEncounters = [];
-
     private Dictionary<XwnGenerationType, Func<Task>> _reRollers = new();
+    private RandomNpcInfoDisplay? _randomPatronNpcInfoDisplay;
+    private RandomNpcInfoDisplay? _randomNpcInfoDisplay;
 
     private string _preferredNameStyle = "0";
     private string _preferredPatronNameStyle = "0";
     private string _preferredNameGender = "2";
     private string _preferredPatronNameGender = "2";
-    private List<NpcInfo> _patronNpcInfo = [];
-    private RandomNpcInfoDisplay? _randomNpcInfoDisplay;
-    private RandomNpcInfoDisplay? _randomPatronNpcInfoDisplay;
-
     private int _numberOfNpcs = 5;
+    private const int ThreeColumnWidth = 1500;
+    private const int TwoColumnWidth = 1300;
     private PreferredNameOrigin PreferredNameOrigin => (PreferredNameOrigin)int.Parse(_preferredNameStyle);
     private PreferredNameOrigin PatronPreferredNameOrigin => (PreferredNameOrigin)int.Parse(_preferredPatronNameStyle);
     private NameGender PreferredNameNameGender => (NameGender)int.Parse(_preferredNameGender);

@@ -4,8 +4,9 @@
 @inject GeneratorApiService GeneratorApiService
 @inject XwnNpcApiService XwnNpcApiService
 @inject ToastService ToastService
+@inject IJSRuntime JS
 
-<div class="row row-cols-@NumberOfCols">
+<div class="row row-cols-@_numberOfNpcCols">
     @if (!_npcs.Any())
     {
         <p>Nothing to display...</p>
@@ -31,15 +32,31 @@
     [Parameter] public int NumberOfNpcs { get; set; }
     [Parameter] public PreferredNameOrigin PreferredNameOrigin { get; set; }
     [Parameter] public NameGender PreferredNameGender { get; set; }
-    [Parameter] public int NumberOfCols { get; set; } = 2;
     [Parameter] public EventCallback LoadedNpcsCallback { get; init; }
-    private int ColWidth => 12 / NumberOfCols;
+    [Parameter] public bool UseDynamicColumns { get; set; }
+    [Parameter] public int ThreeColumnMinWidth { get; set; } = 1500;
+    [Parameter] public int TwoColumnMinWidth { get; set; } = 1300;
+    
+    private DotNetObjectReference<RandomNpcInfoDisplay>? _ref;
+    private IJSObjectReference? _module;
+    private int _numberOfNpcCols = 2;
+    private int ColWidth => 12 / _numberOfNpcCols;
     private List<NpcInfo> _npcs = [];
     private Dictionary<int, SavedNpc> _savedNpcs = [];
     private const string SuccessfullyDeletedNpcToastMessage = "Successfully deleted npc";
     private const string FailedToDeleteNpcToastMessage = "Failed to delete npc";
     private const string SuccessfullySavedNpcToastMessage = "Successfully saved npc";
     private const string FailedToSavedNpcToastMessage = "Failed to save npc";
+    
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _ref = DotNetObjectReference.Create(this);
+            _module = await JS.InvokeAsync<IJSObjectReference>("import", "./TableHelper.lib.module.js");
+            await _module.InvokeVoidAsync("globalRegisterResizeHandler", _ref);
+        }
+    }
 
     public async Task GenerateNpcs()
     {
@@ -86,4 +103,32 @@
         }
     }
 
+    [JSInvokable]
+    public void UpdateCols(int width)
+    {
+        if (!UseDynamicColumns)
+        {
+            _numberOfNpcCols = 1;
+            return;
+        }
+        switch (width)
+        {
+            case > 1500:
+                _numberOfNpcCols = 3;
+                break;
+            case < 1500 and > 1300:
+                _numberOfNpcCols = 2;
+                break;
+            default:
+                _numberOfNpcCols = 1;
+                break;
+        }
+
+        InvokeAsync(StateHasChanged);
+    }
+    
+    public void Dispose()
+    {
+        _ref?.Dispose();
+    }
 }

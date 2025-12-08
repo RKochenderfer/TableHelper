@@ -1,11 +1,11 @@
-@using System.ComponentModel
 @using TableHelper.Models
 @using TableHelper.Models.Npc
 @using TableHelper.Services
 @inject XwnNpcApiService XwnNpcApiService
 @inject ToastService ToastService
+@inject IJSRuntime Js
 
-<div class="row row-cols-2">
+<div class="row row-cols-@_numberOfNpcCols">
     @if (!Npcs.Any())
     {
         <p>No NPCs to show</p>
@@ -16,7 +16,7 @@
         {
             var npc = savedNpc.Npc;
             var id = savedNpc.Id;
-            <div class="col-6 mb-2">
+            <div class="col-@ColWidth mb-2">
                 <NpcInfoCard 
                     Id="@id"
                     NpcInfo="npc" 
@@ -30,8 +30,47 @@
 
 @code {
     [Parameter] public List<SavedNpc> Npcs { get; set; } = [];
+    private DotNetObjectReference<NpcDisplay>? _ref;
+    private IJSObjectReference? _module;
     private const string SuccessToastMessage = "Successfully deleted NPC.";
     private const string FailedToastMessage = "Failed to delete NPC.";
+    private int _numberOfNpcCols = 2;
+    private int ColWidth => 12 / _numberOfNpcCols;
+    
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+
+            _ref = DotNetObjectReference.Create(this);
+            _module = await Js.InvokeAsync<IJSObjectReference>("import", "./TableHelper.lib.module.js");
+            await _module.InvokeVoidAsync("globalRegisterResizeHandler", _ref);
+        }
+    }
+    
+    [JSInvokable]
+    public void UpdateCols(int width)
+    {
+        switch (width)
+        {
+            case > 1500:
+                _numberOfNpcCols = 3;
+                break;
+            case < 1500 and > 1300:
+                _numberOfNpcCols = 2;
+                break;
+            default:
+                _numberOfNpcCols = 1;
+                break;
+        }
+
+        InvokeAsync(StateHasChanged);
+    }
+    
+    public void Dispose()
+    {
+        _ref?.Dispose();
+    }
 
     private async Task HandleDeleteClickedAsync(int npcId)
     {

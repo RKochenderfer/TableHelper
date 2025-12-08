@@ -50,13 +50,17 @@
         NumberOfNpcs="_numberOfNpcs"
         PreferredNameGender="PreferredNameNameGender"
         PreferredNameOrigin="PreferredNameOrigin"
-        NumberOfCols="2"></RandomNpcInfoDisplay>
+        UseDynamicColumns="true"
+        ThreeColumnMinWidth="ThreeColumnWidth"
+        TwoColumnMinWidth="TwoColumnWidth"></RandomNpcInfoDisplay>
 </div>
 
 @code {
     private int _numberOfNpcs = 1;
     private string _preferredNameGender = "0";
     private string _preferredNameStyle = "0";
+    private const int ThreeColumnWidth = 1500;
+    private const int TwoColumnWidth = 1300;
     private PreferredNameOrigin PreferredNameOrigin => (PreferredNameOrigin)int.Parse(_preferredNameStyle);
     private NameGender PreferredNameNameGender => (NameGender)int.Parse(_preferredNameGender);
     private RandomNpcInfoDisplay? _randomNpcInfoDisplay;
