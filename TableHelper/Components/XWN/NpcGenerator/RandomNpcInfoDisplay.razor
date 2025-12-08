@@ -4,29 +4,14 @@
 @inject GeneratorApiService GeneratorApiService
 @inject XwnNpcApiService XwnNpcApiService
 @inject ToastService ToastService
-@inject IJSRuntime JS
 
-<div class="row row-cols-@_numberOfNpcCols">
-    @if (!_npcs.Any())
-    {
-        <p>Nothing to display...</p>
-    }
-    else
-    {
-        @for (var i = 0; i < _npcs.Count; i++)
-        {
-            var index = i;
-            var npcInfo = _npcs[i];
-            <div class="col-@ColWidth mb-2">
-                <NpcInfoCard Id="@index" NpcInfo="npcInfo" CardClicked="HandleCardClicked"
-                             SaveClicked="async () => await SaveNpc(index)"
-                             DeleteClicked="async () => await DeleteNpc(index)"
-                             ShowSave="!_savedNpcs.ContainsKey(index)"
-                             ShowDelete="_savedNpcs.ContainsKey(index)"></NpcInfoCard>
-            </div>
-        }
-    }
-</div>
+<NpcColumnDisplay
+    DisplayRequests="_displayNpcRequests"
+    SaveNpc="SaveNpc"
+    DeleteNpc="DeleteNpc"
+    IsSaved="IsSaved"
+    UseDynamicColumns="UseDynamicColumns"
+/>
 
 @code {
     [Parameter] public int NumberOfNpcs { get; set; }
@@ -36,39 +21,33 @@
     [Parameter] public bool UseDynamicColumns { get; set; }
     [Parameter] public int ThreeColumnMinWidth { get; set; } = 1500;
     [Parameter] public int TwoColumnMinWidth { get; set; } = 1300;
-    
-    private DotNetObjectReference<RandomNpcInfoDisplay>? _ref;
-    private IJSObjectReference? _module;
-    private int _numberOfNpcCols = 2;
-    private int ColWidth => 12 / _numberOfNpcCols;
     private List<NpcInfo> _npcs = [];
     private Dictionary<int, SavedNpc> _savedNpcs = [];
+    private List<DisplayNpcRequest> _displayNpcRequests = [];
     private const string SuccessfullyDeletedNpcToastMessage = "Successfully deleted npc";
     private const string FailedToDeleteNpcToastMessage = "Failed to delete npc";
     private const string SuccessfullySavedNpcToastMessage = "Successfully saved npc";
     private const string FailedToSavedNpcToastMessage = "Failed to save npc";
-    
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            _ref = DotNetObjectReference.Create(this);
-            _module = await JS.InvokeAsync<IJSObjectReference>("import", "./TableHelper.lib.module.js");
-            await _module.InvokeVoidAsync("globalRegisterResizeHandler", _ref);
-        }
-    }
 
     public async Task GenerateNpcs()
     {
         _npcs = [];
         _savedNpcs = [];
+        _displayNpcRequests = [];
         _npcs = await GeneratorApiService.GetGeneratedNpcs(NumberOfNpcs, PreferredNameGender, PreferredNameOrigin);
+        for (var i = 0; i < _npcs.Count; i++)
+        {
+            var request = new DisplayNpcRequest { Id = i, NpcInfo = _npcs[i] };
+            _displayNpcRequests.Add(request);
+        }
+
         await InvokeAsync(StateHasChanged);
         await LoadedNpcsCallback.InvokeAsync();
     }
 
-    private async Task HandleCardClicked()
+    private bool IsSaved(int id)
     {
+        return _savedNpcs.ContainsKey(id);
     }
 
     private async Task DeleteNpc(int npcToDeleteIndex)
@@ -103,32 +82,4 @@
         }
     }
 
-    [JSInvokable]
-    public void UpdateCols(int width)
-    {
-        if (!UseDynamicColumns)
-        {
-            _numberOfNpcCols = 1;
-            return;
-        }
-        switch (width)
-        {
-            case > 1500:
-                _numberOfNpcCols = 3;
-                break;
-            case < 1500 and > 1300:
-                _numberOfNpcCols = 2;
-                break;
-            default:
-                _numberOfNpcCols = 1;
-                break;
-        }
-
-        InvokeAsync(StateHasChanged);
-    }
-    
-    public void Dispose()
-    {
-        _ref?.Dispose();
-    }
 }
