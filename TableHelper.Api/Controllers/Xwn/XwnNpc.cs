@@ -34,9 +34,9 @@ public class XwnNpc(ILogger<XwnNpc> logger, XwnNpcService xwnNpcService) : Contr
     [HttpGet]
     public async Task<GetAllNpcResponse> GetAll()
     {
-        logger.LogDebug("Retrieving All NPCs");
+        logger.LogInformation("Retrieving All NPCs");
         var npcs = await GetAllNpcsAsync();
-        logger.LogDebug("Completed retrieving All NPCs");
+        logger.LogInformation("Completed retrieving All NPCs");
 
         return npcs;
     }

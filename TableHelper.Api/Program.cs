@@ -38,10 +38,11 @@ if (app.Environment.IsDevelopment())
     // app.MapOpenApi();
 }
 
-app.MapControllers();
-app.UseStaticFiles();
-app.UseBlazorFrameworkFiles();
-app.MapFallbackToFile("index.html");
 app.UseHttpsRedirection();
+app.UseBlazorFrameworkFiles();
+app.UseStaticFiles();
+app.UseRouting();
+app.MapControllers();
+app.MapFallbackToFile("index.html");
 
 app.Run();

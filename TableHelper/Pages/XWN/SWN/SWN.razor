@@ -141,7 +141,7 @@
     private bool _isNpcsLoaded;
     private bool _isPatronNpcsLoaded;
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
         _reRollers = new Dictionary<XwnGenerationType, Func<Task>>
         {

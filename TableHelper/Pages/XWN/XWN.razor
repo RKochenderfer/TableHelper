@@ -6,6 +6,7 @@
 @using TableHelper.Models.Npc
 @using TableHelper.Services
 @inject XwnNpcApiService XwnNpcApiService
+@inject ToastService ToasterService
 
 <PageTitle>XWN</PageTitle>
 
@@ -43,10 +44,19 @@
 @code {
     private bool _isLoading = true;
     private List<SavedNpc> _savedNpcs = [];
+    private const string FailedToGetNpcs = "Failed to load all saved NPCs.";
 
     protected override async Task OnInitializedAsync()
     {
-        _savedNpcs = await XwnNpcApiService.GetAllSavedNpcs();
-        _isLoading = false;
+        try
+        {
+            _savedNpcs = await XwnNpcApiService.GetAllSavedNpcs();
+            _isLoading = false;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            await ToasterService.ShowToast(ShowToastRequest.Failure(FailedToGetNpcs));
+        }
     }
 }
