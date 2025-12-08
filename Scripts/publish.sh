@@ -21,4 +21,12 @@ fi
 
 echo "Using image tag: $version"
 docker build -t "ghcr.io/rkochenderfer/tablehelper:${version}" . --load
+
+echo "Building image as latest"
+docker build -t "ghcr.io/rkochenderfer/tablehelper:latest" . --load
+
+echo "Pushing tablehelper:${version}"
 docker push ghcr.io/rkochenderfer/tablehelper:${version}
+
+echo "Pushing tablehelper:latest"
+docker push ghcr.io/rkochenderfer/tablehelper:latest
