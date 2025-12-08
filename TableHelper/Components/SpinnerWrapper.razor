@@ -1,13 +1,19 @@
 @if (IsLoading)
 {
-    <div class="spinner-border text-primary" role="status">
-        <span class="visually-hidden">Loading...</span>
+    <div class="d-flex align-items-center">
+        <div class="spinner-border text-primary me-2" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <span>Loading...</span>
     </div>
 }
-else
-{
+@* This is visually displayed using the style instead of conditional rendering because with conditional rendering,
+the class of the child content cannot be used until it is rendered, thus, if a method needs to be called on it, it 
+will always be null. Doing it this way allows the component to be rendered and still give the same popping and and out
+appeareance as if it was conditionally rendrered while allowing it to still be used. *@
+<div style="@(IsLoading ? "display:none;" : "display:block;")">
     @ChildContent
-}
+</div>
 
 @code {
     [Parameter] public bool IsLoading { get; set; }
